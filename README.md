@@ -1,30 +1,34 @@
 # vacuumline.nvim
 Airline in the vacuum of space
 
-Vacuumline is a prebuilt configuration for Galaxyline based on the look and functionality of Airline. It can be further
+Vacuumline is a prebuilt configuration for galaxyline based on the look and functionality of Airline. It can be further
 configured to style icons, colors, and segments.
 
 ## Install
-Vacuumline requires galaxyline and its dependencies:
+The goal of vacuumline is just to expose a galaxyline configuration and thus requires galaxyline and its dependencies:
 
 ### vim-plug
 ```vim
+Plug 'konapun/vacuumline.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
-" If you want to display icons, then use one of these plugins:
+" One of the following is required for showing icons
 Plug 'kyazdani42/nvim-web-devicons' " lua
 Plug 'ryanoasis/vim-devicons' " vimscript
+
+" Somewhere after plug#end()
+
+lua require('vacuumline').setup()
 ```
 
 ### packer
 ```lua
 use {
-  'glepnir/galaxyline.nvim',
-    branch = 'main',
-    -- your statusline
-    config = function() require'my_statusline' end,
-    -- some optional icons
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  'konapun/vacuumline.nvim',
+  config = function() require('vacuumline').setup{} end,
+  requires = {
+    'glepnir/galaxyline.nvim', branch = 'main' -- FIXME does this work?
+    'kyazdani42/nvim-web-devicons'
+  }
 }
 ```
 
@@ -83,8 +87,8 @@ scroll = {
   enabled = true,
   foreground = '',
   background = '',
-  separator = '',
-  visual = ''
+  accent = '',
+  separator = ''
 }
 ```
 #### Lines
@@ -105,17 +109,10 @@ diagnostics = {
   enabled = true,
   separator = '',
   errors = {
-    enabled = true,
     foreground = '',
     background = ''
   },
   warnings = {
-    enabled = true,
-    foreground = '',
-    background = ''
-  },
-  info = {
-    enabled = true,
     foreground = '',
     background = ''
   }
