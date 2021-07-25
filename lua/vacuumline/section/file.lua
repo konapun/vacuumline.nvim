@@ -1,4 +1,4 @@
-local condition = require('condition')
+local condition = require('vacuumline.condition')
 
 local function generate(opts)
   local config = opts.file
@@ -7,7 +7,7 @@ local function generate(opts)
     FileIcon = {
       provider = 'FileIcon',
       condition = condition.buffer_not_empty,
-      highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,palette.bright_green},
+      highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, config.foreground}, -- FIXME: different color
     },
     FileName = {
       provider = {'FileName', 'FileSize'},

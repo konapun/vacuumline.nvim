@@ -1,4 +1,4 @@
-local condition = require('condition')
+local condition = require('vacuumline.condition')
 local vim = vim
 
 local checkwidth = function()
