@@ -16,13 +16,13 @@ M.left = {
   vcs
 }
 
--- from right to left
+-- from left to right
 M.right = {
-  scroll,
-  lines,
-  diagnostics,
+  lsp,
   search,
-  lsp
+  diagnostics,
+  lines,
+  scroll
 }
 
 return M
