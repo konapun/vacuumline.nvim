@@ -35,20 +35,28 @@ local function merge(t1, t2)
   return merged
 end
 
-local separator_left = ''
-local separator_right = ''
+-- Configure and format vacuumline options based on user input
+function M.format(opts, segments)
+  local separator_config = merge({
+    segment = {
+      left = '',
+      right = ''
+    },
+    section = {
+      left = '',
+      right = ''
+    }
+  }, opts.separator)
 
---[[
-Configure and format vacuumline options based on user input
---]]
-function M.format(opts, sections)
-  local standard_config = {
-    enabled = true
-  }
+  local color_config = merge({
+    foreground = {even = '#282828', odd = '#282828'},
+    background = {even = '#b16286', odd = '#98971a'}
+  }, opts.color)
 
-  -- TODO: each section should have a .next pointer
-  return {
-    mode = merge(standard_config, {
+  -- TODO: each segment should have a .next pointer
+  local segment_defaults = {
+    mode = merge({
+      enabled = true,
       background = palette.purple,
       foreground = palette.background,
       separator = separator_left,
@@ -75,37 +83,40 @@ function M.format(opts, sections)
         ['r?'] = {text = 'r?', background = palette.purple},
         ['!']  = {text = '!', background = palette.purple}
       }
-    }),
-    file = merge(standard_config, {
-      background = palette.green,
-      foreground = palette.background,
-      separator = separator_left
-    }),
-    vcs = merge(standard_config, {
-      background = palette.purple,
-      foreground = palette.background,
-      separator = separator_left
-    }),
-    scroll = merge(standard_config, {
+    }, opts.segment.mode),
+    file = merge({}, opts.segment.file),
+    vcs = merge({}, opts.segment.vcs),
+    scroll = merge({
       background = palette.blue,
       foreground = palette.background,
       accent = palette.yellow,
-      separator = separator_right
-    }),
-    lines = merge(standard_config, {
-      separator = separator_right
-    }),
-    diagnostics = merge(standard_config, {
-      separator = separator_right,
-      errors = {},
-      warnings = {}
-    }),
-    search = merge(standard_config, {
-      separator = separator_right,
-    }),
-    lsp = merge(standard_config, {
-      separator = separator_right,
-    })
+    }, opts.segment.scroll),
+    lines = merge({}, opts.segment.lines),
+    diagnostics = merge({
+      errors = {}, -- TODO
+      warnings = {} -- TODO
+    }, opts.segment.diagnostics),
+    search = merge({}, opts.segment.search),
+    lsp = merge({}, opts.segment.lsp)
+  }
+
+  local segment_config = {}
+  --[[
+  TODO: construct segment config:
+  - take default config for each segment
+  - add in computed defaults:
+  -- enabled
+  -- background color (depending on even/odd)
+  -- foreground color (depending on even/odd)
+  -- separators (based on whether it's left/right)
+  -- next pointer (left to right for left side, right to left for right side)
+  - merge with user config, allowing user config to overwrite any parts
+  --]]
+
+  return {
+    separator = separator_config,
+    color = color_config,
+    segment = segment_config
   }
 end
 
