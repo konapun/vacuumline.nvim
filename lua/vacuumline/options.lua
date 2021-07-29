@@ -37,6 +37,7 @@ end
 
 -- Configure and format vacuumline options based on user input
 function M.format(opts, segments)
+  -- Set up defaults for each config section
   local separator_config = merge({
     segment = {
       left = '',
@@ -53,7 +54,6 @@ function M.format(opts, segments)
     background = {even = '#b16286', odd = '#98971a'}
   }, opts.color)
 
-  -- TODO: each segment should have a .next pointer
   local segment_defaults = {
     mode = merge({
       enabled = true,
@@ -100,6 +100,7 @@ function M.format(opts, segments)
     lsp = merge({}, opts.segment.lsp)
   }
 
+  -- Add in dynamic config defaults
   local segment_config = {}
   --[[
   TODO: construct segment config:
