@@ -9,21 +9,17 @@ local lsp = require('vacuumline.segment.lsp')
 
 local M = {}
 
--- TODO: use "base" segment to make it easier to loop through segments with multiple sections
--- from left to right
 M.left = {
   {key = 'mode', generator = mode},
   {key = 'file', generator = file},
   {key = 'vcs', generator = vcs}
 }
 
--- FIXME: do right to left for .next pointer
--- from left to right
 M.right = {
   {key = 'lsp', generator = lsp},
   {key = 'search', generator = search},
-  {key = 'diagnostics', generator = diagnostics},
   {key = 'lines', generator = lines},
+  {key = 'diagnostics', generator = diagnostics},
   {key = 'scroll', generator = scroll}
 }
 

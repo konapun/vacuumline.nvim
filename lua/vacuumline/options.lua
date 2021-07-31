@@ -35,26 +35,26 @@ local default_options = {
     mode = {
       enabled = true,
       map = { -- TODO
-        n = {text = ' ', background = '#b16286'}, -- NORMAL
-        i = {text = ' ', background = '#98971a'}, -- INSERT
-        c = {text = ' ', background = '#458588'}, -- COMMAND
-        v = {text = ' ', background = '#d79921'}, -- VISUAL
-        V = {text = ' ', background = '#fabd2f'}, -- VISUAL LINE
-        t = {text = ' ', background = '#d3869b'}, -- TERMINAL
-        s = {text = 's', background = '#fb4934'},
-        S = {text = 'S', background = '#b8bb26'},
-        R = {text = 'R', background = '#b16286'},
-        r = {text = 'r', background = '#b16286'},
-        ce = {text = 'ce', background = '#b16286'},
-        cv = {text = 'cv', background = '#b16286'},
-        ic = {text = 'ic', background = '#8ec07c'},
-        no = {text = 'no', background = '#fabd2f'},
-        rm = {text = 'rm', background = '#b16286'},
-        Rv = {text = 'Rv', background = '#b16286'},
-        ['!'] = {text = '!', background = '#b16286'},
-        [''] = {text = '^S', background = '#83a598'},
-        ['^V'] = {text = ' ', background = '#680d6a'}, -- VISUAL BLOCK
-        ['r?'] = {text = 'r?', background = '#b16286'},
+        n = {label = ' ', background = '#b16286'}, -- NORMAL
+        i = {label = ' ', background = '#98971a'}, -- INSERT
+        c = {label = ' ', background = '#458588'}, -- COMMAND
+        v = {label = ' ', background = '#d79921'}, -- VISUAL
+        V = {label = ' ', background = '#fabd2f'}, -- VISUAL LINE
+        t = {label = ' ', background = '#d3869b'}, -- TERMINAL
+        s = {label = 's', background = '#fb4934'},
+        S = {label = 'S', background = '#b8bb26'},
+        R = {label = 'R', background = '#b16286'},
+        r = {label = 'r', background = '#b16286'},
+        ce = {label = 'ce', background = '#b16286'},
+        cv = {label = 'cv', background = '#b16286'},
+        ic = {label = 'ic', background = '#8ec07c'},
+        no = {label = 'no', background = '#fabd2f'},
+        rm = {label = 'rm', background = '#b16286'},
+        Rv = {label = 'Rv', background = '#b16286'},
+        ['!'] = {label = '!', background = '#b16286'},
+        [''] = {label = '^S', background = '#83a598'},
+        ['^V'] = {label = ' ', background = '#680d6a'}, -- VISUAL BLOCK
+        ['r?'] = {label = 'r?', background = '#b16286'},
       }
     },
     file = {
@@ -65,22 +65,21 @@ local default_options = {
     },
     scroll = {
       enabled = true,
-      foreground = '',
-      background = '',
-      accent = '',
+      accent = '#d79921',
     },
     lines = {
       enabled = true,
     },
     diagnostics = {
       enabled = true,
+      background = '#fb4934',
       errors = {
-        foreground = '',
-        background = ''
+        foreground = '#282828',
+        background = '#fb4934'
       },
       warnings = {
-        foreground = '',
-        background = ''
+        foreground = '#282828',
+        background = '#fabd2f'
       }
     },
     search = {
@@ -88,6 +87,8 @@ local default_options = {
     },
     lsp = {
       enabled = true,
+      foreground = '#98971a',
+      background = '#282828'
     }
   }
 }
@@ -112,37 +113,40 @@ function M.format(opts, segments)
     lsp = merge(default_options.segment.lsp, {})
   }
 
-  -- print(inspect(static_segment_config))
-
   -- Add in dynamic config defaults
-  --[[
-  TODO: construct segment config:
-  - take default config for each segment
-  - add in computed defaults:
-  -- background color (depending on even/odd)
-  -- foreground color (depending on even/odd)
-  -- separators (based on whether it's left/right)
-  -- next pointer (left to right for left side, right to left for right side)
-  - merge with user config, allowing user config to overwrite any parts
-  --]]
-
   local segment_config = {}
-  local segment_index = 1
+
+  local left_segment_index = 1
   for _, segment in ipairs(segments.left) do
     local key = segment.key
     local config = static_segment_config[key]
-    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
-    local next = segments.left[segment_index + 1]
+    local even_odd = left_segment_index % 2 == 0 and 'even' or 'odd'
+    local next = segments.left[left_segment_index + 1]
 
-    segment_index = segment_index + 1
+    left_segment_index = left_segment_index + 1
     segment_config[key] = merge({
       background = color_config.background[even_odd],
       foreground = color_config.foreground[even_odd],
-      separator = separator_config.segment.left, -- FIXME
+      separator = separator_config.segment.left,
       next = next and next.key
     }, config)
   end
-  -- TODO: right side
+
+  local right_segment_index = 1
+  for _, segment in ipairs(segments.right) do
+    local key = segment.key
+    local config = static_segment_config[key]
+    local even_odd = right_segment_index % 2 == 0 and 'even' or 'odd'
+    local next = segments.right[right_segment_index - 1]
+
+    right_segment_index = right_segment_index + 1
+    segment_config[key] = merge({
+      background = color_config.background[even_odd],
+      foreground = color_config.foreground[even_odd],
+      separator = separator_config.segment.right,
+      next = next and next.key
+    }, config)
+  end
 
   return segment_config
 end

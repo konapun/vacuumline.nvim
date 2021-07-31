@@ -22,7 +22,7 @@ function M.build(gl, opts)
 
   local gls = gl.section
   build_side(gls, 'left', segments.left, built_opts)
-  -- build_side(gls, 'right', segments.right, built_opts)
+  build_side(gls, 'right', segments.right, built_opts)
 end
 
 return M
