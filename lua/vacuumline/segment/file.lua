@@ -1,24 +1,30 @@
 local condition = require('vacuumline.condition')
+local fileinfo = require('galaxyline.provider_fileinfo')
 
 local function generate(opts)
   local config = opts.file
+  local next = opts[config.next]
 
   local File = {
-    FileIcon = {
-      provider = 'FileIcon',
-      condition = condition.buffer_not_empty,
-      highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color, config.foreground}, -- FIXME: different color
+    {
+      FileIcon = {
+        provider = 'FileIcon',
+        condition = condition.buffer_not_empty,
+        highlight = {fileinfo.get_file_icon_color, config.background},
+      }
     },
-    FileName = {
-      provider = {'FileName', 'FileSize'},
-      condition = condition.buffer_not_empty,
-      highlight = {config.foreground, config.background},
-      separator = config.separator,
-      separator_highlight = {config.background, config.foreground} -- TODO: foreground should be background of next segment (config.next.background)
+    {
+      FileName = {
+        provider = {'FileName', 'FileSize'},
+        condition = condition.buffer_not_empty,
+        highlight = {config.foreground, config.background},
+        separator = config.separator,
+        separator_highlight = {config.background, next.background}
+      }
     }
   }
 
-  return  File
+  return File
 end
 
 return generate
