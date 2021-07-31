@@ -3,6 +3,10 @@ local vcs = require('galaxyline.provider_vcs')
 local vim = vim
 
 local checkwidth = function()
+  if not condition.buffer_not_empty() then
+    return false
+  end
+
   local squeeze_width  = vim.fn.winwidth(0) / 2
   if squeeze_width > 40 then
     return true
@@ -55,6 +59,7 @@ local function generate(opts)
     {
       VcsEnd = {
         provider = function() return config.separator end,
+        condition = condition.buffer_not_empty,
         separator = config.separator,
         separator_highlight = {config.background, config.vacuumline_background},
         highlight = {config.background, config.background}

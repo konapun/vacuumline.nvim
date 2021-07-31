@@ -1,3 +1,4 @@
+local condition = require('vacuumline.condition')
 local vim = vim
 
 local function generate(opts)
@@ -24,7 +25,12 @@ local function generate(opts)
         end,
         highlight = {config.foreground, config.background, 'bold'},
         separator = config.separator,
-        separator_highlight = {config.background, next.background}
+        separator_highlight = {config.background, function() -- TODO: add ability to see if next segment is active
+          if condition.buffer_not_empty() then
+            return next.background
+          end
+          return config.foreground -- TODO: should be vacuumline background
+        end}
       }
     }
   }

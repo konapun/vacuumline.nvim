@@ -1,45 +1,5 @@
 local M = {}
 
--- Perform a one dimensional merge over two tables
-local function merge(t1, t2)
-  local merged = {}
-  for k,v in pairs(t1) do
-    merged[k] = v
-  end
-
-  if t2 then
-    for k,v in pairs(t2) do
-      merged[k] = v
-    end
-  end
-
-  return merged
-end
-
-local function add_dynamic_config(segments, side, static_segment_config, color_config, separator_config)
-  local segment_config = {}
-  local segment_index = 1
-  local incrementor = side == 'left' and 1 or -1
-
-  for _, segment in ipairs(segments) do
-    local key = segment.key
-    local config = static_segment_config[key]
-    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
-    local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
-    local next = segments[segment_index + incrementor]
-
-    segment_index = segment_index + 1
-    segment_config[key] = merge({
-      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
-      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
-      separator = separator_config.segment[side],
-      next = next and next.key
-    }, config)
-
-    return segment_config
-  end
-end
-
 local default_options = {
   separator = {
     segment = {
@@ -117,6 +77,46 @@ local default_options = {
   }
 }
 
+-- Perform a one dimensional merge over two tables
+local function merge(t1, t2)
+  local merged = {}
+  for k,v in pairs(t1) do
+    merged[k] = v
+  end
+
+  if t2 then
+    for k,v in pairs(t2) do
+      merged[k] = v
+    end
+  end
+
+  return merged
+end
+
+local function add_dynamic_config(segments, side, static_segment_config, color_config, separator_config)
+  local segment_config = {}
+  local segment_index = 1
+  local incrementor = side == 'left' and 1 or -1
+
+  for _, segment in ipairs(segments) do
+    local key = segment.key
+    local config = static_segment_config[key]
+    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
+    local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
+    local next = segments[segment_index + incrementor]
+
+    segment_index = segment_index + 1
+    segment_config[key] = merge({
+      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
+      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
+      separator = separator_config.segment[side],
+      next = next and next.key
+    }, config)
+
+    return segment_config
+  end
+end
+
 -- Configure and format vacuumline options based on user input
 function M.format(opts, segments)
   opts = opts or {separator = {}, color = {}, segment = {}}
@@ -174,6 +174,10 @@ function M.format(opts, segments)
     }, config)
   end
 
+  --[[ return merge(
+    add_dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config),
+    add_dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
+  ) ]]
   return segment_config
 end
 
