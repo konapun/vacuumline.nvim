@@ -4,6 +4,7 @@ local vcs = require('vacuumline.segment.vcs')
 local scroll = require('vacuumline.segment.scroll')
 local lines = require('vacuumline.segment.lines')
 local diagnostics = require('vacuumline.segment.diagnostics')
+local blank = require('vacuumline.segment.blank')
 local search = require('vacuumline.segment.search')
 local lsp = require('vacuumline.segment.lsp')
 
@@ -19,6 +20,7 @@ M.right = {
   {key = 'lsp', generator = lsp},
   {key = 'search', generator = search},
   {key = 'lines', generator = lines},
+  {key = 'blank', generator = blank},
   {key = 'diagnostics', generator = diagnostics},
   {key = 'scroll', generator = scroll}
 }

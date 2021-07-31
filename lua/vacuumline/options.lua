@@ -16,6 +16,30 @@ local function merge(t1, t2)
   return merged
 end
 
+local function add_dynamic_config(segments, side, static_segment_config, color_config, separator_config)
+  local segment_config = {}
+  local segment_index = 1
+  local incrementor = side == 'left' and 1 or -1
+
+  for _, segment in ipairs(segments) do
+    local key = segment.key
+    local config = static_segment_config[key]
+    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
+    local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
+    local next = segments[segment_index + incrementor]
+
+    segment_index = segment_index + 1
+    segment_config[key] = merge({
+      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
+      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
+      separator = separator_config.segment[side],
+      next = next and next.key
+    }, config)
+
+    return segment_config
+  end
+end
+
 local default_options = {
   separator = {
     segment = {
@@ -121,12 +145,13 @@ function M.format(opts, segments)
     local key = segment.key
     local config = static_segment_config[key]
     local even_odd = left_segment_index % 2 == 0 and 'even' or 'odd'
+    local not_even_odd = left_segment_index % 2 == 0 and 'odd' or 'even'
     local next = segments.left[left_segment_index + 1]
 
     left_segment_index = left_segment_index + 1
     segment_config[key] = merge({
-      background = color_config.background[even_odd],
-      foreground = color_config.foreground[even_odd],
+      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
+      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment.left,
       next = next and next.key
     }, config)
@@ -137,12 +162,13 @@ function M.format(opts, segments)
     local key = segment.key
     local config = static_segment_config[key]
     local even_odd = right_segment_index % 2 == 0 and 'even' or 'odd'
+    local not_even_odd = right_segment_index % 2 == 0 and 'odd' or 'even'
     local next = segments.right[right_segment_index - 1]
 
     right_segment_index = right_segment_index + 1
     segment_config[key] = merge({
-      background = color_config.background[even_odd],
-      foreground = color_config.foreground[even_odd],
+      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
+      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment.right,
       next = next and next.key
     }, config)
