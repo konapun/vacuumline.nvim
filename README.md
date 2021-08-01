@@ -75,20 +75,16 @@ Here is the full default configuration. Individual pieces are described in more 
   separator = {
     segment = {
       left = '',
-      right = '',
-      short_left = '',
-      short_right = ''
+      right = ''
     },
     section = {
       left = '',
-      right = '',
-      short_left = '',
-      short_right = ''
+      right = ''
     }
   },
   color = {
-    foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
-    background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
+    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
+    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
   },
   segment = {
     mode = {
@@ -105,7 +101,6 @@ Here is the full default configuration. Individual pieces are described in more 
     vcs = {},
     scroll = {
       accent = '#d79921',
-      short_accent = '#98971a'
     },
     lines = {},
     diagnostics = {
@@ -143,8 +138,8 @@ separator = {
   }
 },
 color = {
-  foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
-  background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
+  foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
+  background = {line = '#282828', even = '#b16286', odd = '#98971a'},
 }
 ```
 
@@ -156,8 +151,6 @@ These are colors which are applied to segments depending on their order in the v
   * line: default line colors - line foreground and background
   * even: default colors for even-numbered segments - foreground and background
   * odd: default colors for odd-numbered segments - foreground and background
-  * short_even: default colors for inactive even-numbered segments - foreground and background
-  * short_odd: default colors for inactive odd-numbered segments - foreground and background
 
 ### Segments
 #### Mode

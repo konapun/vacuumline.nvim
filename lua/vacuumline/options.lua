@@ -15,8 +15,8 @@ local default_options = {
     }
   },
   color = {
-    foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
-    background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
+    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
+    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
   },
   segment = {
     mode = {
@@ -32,8 +32,7 @@ local default_options = {
     file = {},
     vcs = {},
     scroll = {
-      accent = '#d79921',
-      short_accent = '#98971a'
+      accent = '#d79921'
     },
     lines = {},
     diagnostics = {
