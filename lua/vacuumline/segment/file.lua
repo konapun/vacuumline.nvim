@@ -27,7 +27,9 @@ local function generate(opts, mode)
 
           if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename
             local len = string.len(name)
-            return '...' .. string.sub(name, len - 10)
+            local n_chars = math.ceil(vim.fn.winwidth(0) / 10) + 1
+
+            return '...' .. string.sub(name, len - n_chars)
           end
           return name .. size
         end,

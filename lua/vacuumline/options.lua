@@ -7,20 +7,25 @@ local default_options = {
   separator = {
     segment = {
       left = '',
-      right = ''
+      right = '',
+      short_left = '',
+      short_right = ''
     },
     section = {
       left = '',
-      right = ''
+      right = '',
+      short_left = '',
+      short_right = ''
     }
   },
   color = {
-    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
-    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
+    foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
+    background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
   },
   segment = {
     mode = {
       enabled = true,
+      short_enabled = false,
       map = { -- TODO
         n = {label = ' ', background = '#b16286'}, -- NORMAL
         i = {label = ' ', background = '#98971a'}, -- INSERT
@@ -46,19 +51,25 @@ local default_options = {
     },
     file = {
       enabled = true,
+      short_enabled = true
     },
     vcs = {
       enabled = true,
+      short_enabled = false
     },
     scroll = {
       enabled = true,
+      short_enabled = true,
       accent = '#d79921',
+      short_accent = '#98971a'
     },
     lines = {
       enabled = true,
+      short_enabled = true,
     },
     diagnostics = {
       enabled = true,
+      short_enabled = true,
       background = '#fb4934',
       errors = {
         foreground = '#282828',
@@ -71,9 +82,11 @@ local default_options = {
     },
     search = {
       enabled = true,
+      short_enabled = false
     },
     lsp = {
       enabled = true,
+      short_enabled = false,
       foreground = '#98971a',
       background = '#282828'
     }
@@ -141,6 +154,7 @@ function M.format(opts, segments)
   }
 
   -- Add in dynamic config defaults
+  -- FIXME: clean this up
   local segment_config = {}
 
   local left_segment_index = 1
@@ -179,10 +193,6 @@ function M.format(opts, segments)
     }, config)
   end
 
-  --[[ return merge(
-    add_dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config),
-    add_dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
-  ) ]]
   return {
     colors = color_config,
     segments = segment_config

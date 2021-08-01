@@ -9,12 +9,19 @@ M.hide_in_width = condition.hide_in_width
 
 -- extensions
 
+function M.check_width(width)
+  return vim.fn.winwidth(0) > width
+end
+
+function M.gen_check_width(width)
+  return function()
+    return M.check_width(width)
+  end
+end
+
 -- Guarantees that mode will never be hidden
 function M.guarantee_mode()
-  local mode_width = 10
-  local available = vim.fn.winwidth(0)
-
-  return available > mode_width
+  return M.check_width(10)
 end
 
 function M.standard()

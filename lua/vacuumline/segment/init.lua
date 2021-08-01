@@ -25,25 +25,6 @@ M.right = {
   {key = 'scroll', generator = scroll}
 }
 
---[[
-gls.short_line_left[1] = {
-  BufferType = {
-    provider = 'FileTypeName',
-    separator = separator.left_segment,
-    separator_highlight = {palette.purple,palette.background},
-    highlight = {palette.background,palette.purple}
-  }
-}
-
-gls.short_line_right[1] = {
-  BufferIcon = {
-    provider= 'BufferIcon',
-    separator = separator.right_segment,
-    separator_highlight = {palette.purple,palette.background},
-    highlight = {palette.background,palette.purple}
-  }
-]]
-
 M.short_left = {
   {key = 'file', generator = file}
 }
