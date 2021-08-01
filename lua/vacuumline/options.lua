@@ -1,5 +1,8 @@
 local M = {}
 
+--TODO: Put short config in options instead of hardcoding in segments
+--  Keep passing mode but use it as key
+
 local default_options = {
   separator = {
     segment = {
