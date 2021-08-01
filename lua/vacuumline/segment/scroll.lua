@@ -1,5 +1,7 @@
 local condition = require('vacuumline.condition')
 
+local format_min_width = 50
+
 local function generate(opts, mode)
   local segment = opts.segments
   local color = opts.colors
@@ -14,7 +16,7 @@ local function generate(opts, mode)
     {
       [PerCentKey] = {
         provider = 'LinePercent',
-        condition = condition.standard,
+        condition = condition.gen_check_width(format_min_width),
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
@@ -24,7 +26,14 @@ local function generate(opts, mode)
       [ScrollBarKey] = {
         provider = 'ScrollBar',
         condition = condition.standard,
-        highlight = mode == 'short' and short_highlight or {config.accent, config.background}
+        highlight = mode == 'short' and short_highlight or {
+          config.accent, function()
+            if condition.check_width(format_min_width) then
+              return config.background
+            end
+            return next.background
+          end
+        }
       }
     }
   }
