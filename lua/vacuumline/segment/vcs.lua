@@ -14,8 +14,9 @@ local checkwidth = function()
   return false
 end
 
-local function generate(opts)
-  local config = opts.vcs
+local function generate(opts, mode)
+  local segment = opts.segments
+  local config = segment.vcs
 
   local VCS = {
     {

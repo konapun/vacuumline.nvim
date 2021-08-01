@@ -1,22 +1,26 @@
-local inspect = require('inspect')
+local function generate(opts, mode)
+  local segment = opts.segments
+  local color = opts.colors
+  local config = segment.scroll
+  local next = segment[config.next]
 
-local function generate(opts)
-  local config = opts.scroll
-  local next = opts[config.next]
+  local PerCentKey = 'PerCent_' .. mode
+  local ScrollBarKey = 'ScrollBar_' .. mode
+  local short_highlight = {color.foreground.line, color.background.line}
 
   local Scroll = {
     {
-      PerCent = {
+      [PerCentKey] = {
         provider = 'LinePercent',
-        highlight = {config.foreground, config.background},
-        separator = config.separator,
+        highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
+        separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
       }
     },
     {
-      ScrollBar = {
+      [ScrollBarKey] = {
         provider = 'ScrollBar',
-        hightlight = {config.accent, config.background}
+        highlight = mode == 'short' and short_highlight or {config.accent, config.background}
       }
     }
   }

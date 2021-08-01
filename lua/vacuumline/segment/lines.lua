@@ -1,23 +1,29 @@
 local fileinfo = require('galaxyline.provider_fileinfo')
 
-local function generate(opts)
-  local config = opts.lines
-  local next = opts[config.next]
+local function generate(opts, mode)
+  local segment = opts.segments
+  local color = opts.colors
+  local config = segment.lines
+  local next = segment[config.next]
+
+  local FileFormatKey = 'FileFormat_' .. mode
+  local LineInfoKey = 'LineInfo_' .. mode
+  local short_highlight = {color.foreground.line, color.background.line}
 
   local Lines = {
     {
-      FileFormat = {
+      [FileFormatKey] = {
         provider = function() return fileinfo.get_file_format() .. ' ' end,
-        highlight = {config.foreground, config.background},
-        separator = config.separator,
+        highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
+        separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
       }
     },
     {
-      LineInfo = {
+      [LineInfoKey] = {
         provider = 'LineColumn',
-        highlight = {config.foreground, config.background},
-        separator = config.half_separator,
+        highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
+        separator = mode ~= 'short' and config.half_separator,
         separator_highlight = {config.foreground, config.background},
       }
     }

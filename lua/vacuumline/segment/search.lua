@@ -1,8 +1,9 @@
 local vim = vim
 
-local function generate(opts)
-  local config = opts.search
-  local next = opts[config.next]
+local function generate(opts, mode)
+  local segment = opts.segments
+  local config = segment.search
+  local next = segment[config.next]
 
   local Search = {
     {

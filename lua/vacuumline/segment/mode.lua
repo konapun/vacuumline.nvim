@@ -1,9 +1,11 @@
 local condition = require('vacuumline.condition')
 local vim = vim
 
-local function generate(opts)
-  local config = opts.mode -- TODO: config needs to be built after sorting is done in order to choose the correct color for blending the next section, also needs to ensure keys/values exist
-  local next = opts[config.next]
+local function generate(opts, mode)
+  local segment = opts.segments
+  local color = opts.colors
+  local config = segment.mode
+  local next = segment[config.next]
   local mode_map = config.map
 
   local Mode = {
@@ -29,7 +31,7 @@ local function generate(opts)
           if condition.buffer_not_empty() then
             return next.background
           end
-          return config.foreground -- TODO: should be vacuumline background
+          return color.background.line
         end}
       }
     }

@@ -1,24 +1,29 @@
-local function generate(opts)
-  local config = opts.diagnostics
-  local next = opts[config.next]
+local function generate(opts, mode)
+  local segment = opts.segments
+  local color = opts.colors
+  local config = segment.diagnostics
+  local next = segment[config.next]
 
   local error_config = config.errors
   local warning_config = config.warnings
 
+  local DiagnosticWarnKey = 'DiagnosticWarn_' .. mode
+  local DiagnosticErrorKey = 'DiagnosticError_' .. mode
+
   local Diagnostics = {
     {
-      DiagnosticWarn = {
+      [DiagnosticWarnKey] = {
         provider = 'DiagnosticWarn',
-        highlight = {warning_config.foreground, warning_config.background},
-        separator = config.separator,
+        highlight = mode == 'short' and {warning_config.background, color.background.line} or {warning_config.foreground, warning_config.background},
+        separator = mode ~= 'short' and config.separator,
         separator_highlight = {warning_config.background, next.background}
       }
     },
     {
-      DiagnosticError = {
+      [DiagnosticErrorKey] = {
         provider = 'DiagnosticError',
-        highlight = {error_config.foreground, error_config.background},
-        separator = config.separator,
+        highlight = mode == 'short' and {error_config.background, color.background.line} or {error_config.foreground, error_config.background},
+        separator = mode ~= 'short' and config.separator,
         separator_highlight = {error_config.background, warning_config.background}
       }
     }

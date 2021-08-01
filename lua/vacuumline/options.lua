@@ -12,8 +12,8 @@ local default_options = {
     }
   },
   color = {
-    foreground = {even = '#282828', odd = '#282828'},
-    background = {even = '#b16286', odd = '#98971a'},
+    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
+    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
   },
   segment = {
     mode = {
@@ -178,7 +178,10 @@ function M.format(opts, segments)
     add_dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config),
     add_dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
   ) ]]
-  return segment_config
+  return {
+    colors = color_config,
+    segments = segment_config
+  }
 end
 
 return M

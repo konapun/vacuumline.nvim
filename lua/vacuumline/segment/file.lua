@@ -1,24 +1,30 @@
 local condition = require('vacuumline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
-local function generate(opts)
-  local config = opts.file
-  local next = opts[config.next]
+local function generate(opts, mode)
+  local segment = opts.segments
+  local color = opts.colors
+  local config = segment.file
+  local next = segment[config.next]
+
+  local FileIconKey = 'FileIcon_' .. mode
+  local FileNameKey = 'FileName_' .. mode
+  local short_highlight = {color.foreground.line, color.background.line}
 
   local File = {
     {
-      FileIcon = {
+      [FileIconKey] = {
         provider = 'FileIcon',
         condition = condition.buffer_not_empty,
-        highlight = {fileinfo.get_file_icon_color, config.background},
+        highlight = mode == 'short' and short_highlight or {fileinfo.get_file_icon_color, config.background},
       }
     },
     {
-      FileName = {
+      [FileNameKey] = {
         provider = {'FileName', 'FileSize'},
         condition = condition.buffer_not_empty,
-        highlight = {config.foreground, config.background},
-        separator = config.separator,
+        highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
+        separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
       }
     }

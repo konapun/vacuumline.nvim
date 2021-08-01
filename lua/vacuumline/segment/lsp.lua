@@ -1,11 +1,14 @@
-local function generate(opts)
-  local config = opts.lsp
+local function generate(opts, mode)
+  local color = opts.colors
+  local config = opts.segments.lsp
+
+  local LspInfoKey = 'LspInfo_' .. mode
 
   local LSP = {
     {
-      LspInfo = {
+      [LspInfoKey] = {
         provider = 'GetLspClient',
-        highlight = {config.foreground, config.background}
+        highlight = mode == 'short' and {color.foreground.line, color.background.line} or {config.foreground, config.background}
       }
     }
   }
