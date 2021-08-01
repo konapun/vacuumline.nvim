@@ -1,9 +1,9 @@
-local condition = require('galaxyline.condition')
+local condition = require('vacuumline.condition')
 local vcs = require('galaxyline.provider_vcs')
 local vim = vim
 
 local function section_condition()
-  return condition.buffer_not_empty() and condition.hide_in_width()
+  return condition.standard() and condition.buffer_not_empty() and condition.hide_in_width()
 end
 
 local function generate(opts, mode)

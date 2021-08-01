@@ -1,3 +1,4 @@
+local condition = require('vacuumline.condition')
 local vim = vim
 
 local function generate(opts, mode)
@@ -17,6 +18,7 @@ local function generate(opts, mode)
             return '/' .. search_term .. '[' .. search_count.current .. '/' .. search_count.total .. ']'
           end
         end,
+        condition = condition.standard,
         highlight = {config.foreground, config.background},
         separator = config.separator,
         separator_highlight = {config.background, next.background}

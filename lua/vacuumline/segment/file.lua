@@ -1,4 +1,4 @@
-local condition = require('galaxyline.condition')
+local condition = require('vacuumline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
 local function generate(opts, mode)
@@ -15,14 +15,23 @@ local function generate(opts, mode)
     {
       [FileIconKey] = {
         provider = 'FileIcon',
-        condition = condition.buffer_not_empty,
+        condition = condition.standard_not_empty,
         highlight = mode == 'short' and short_highlight or {fileinfo.get_file_icon_color, config.background},
       }
     },
     {
       [FileNameKey] = {
-        provider = {'FileName', 'FileSize'},
-        condition = condition.buffer_not_empty,
+        provider = function()
+          local name = fileinfo.get_current_file_name()
+          local size = fileinfo.get_file_size()
+
+          if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename
+            local len = string.len(name)
+            return '...' .. string.sub(name, len - 10)
+          end
+          return name .. size
+        end,
+        condition = condition.standard_not_empty,
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}

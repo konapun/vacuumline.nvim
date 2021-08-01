@@ -1,3 +1,5 @@
+local condition = require('vacuumline.condition')
+
 local function generate(opts, mode)
   local segment = opts.segments
   local color = opts.colors
@@ -12,6 +14,7 @@ local function generate(opts, mode)
     {
       [PerCentKey] = {
         provider = 'LinePercent',
+        condition = condition.standard,
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
@@ -20,6 +23,7 @@ local function generate(opts, mode)
     {
       [ScrollBarKey] = {
         provider = 'ScrollBar',
+        condition = condition.standard,
         highlight = mode == 'short' and short_highlight or {config.accent, config.background}
       }
     }

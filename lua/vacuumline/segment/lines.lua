@@ -1,4 +1,5 @@
 local fileinfo = require('galaxyline.provider_fileinfo')
+local condition = require('vacuumline.condition')
 
 local function generate(opts, mode)
   local segment = opts.segments
@@ -15,6 +16,7 @@ local function generate(opts, mode)
     {
       [FileFormatKey] = {
         provider = function() return fileinfo.get_file_format() .. ' ' end,
+        condition = condition.standard,
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
@@ -23,6 +25,7 @@ local function generate(opts, mode)
     {
       [LineInfoKey] = {
         provider = 'LineColumn',
+        condition = condition.standard,
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.section_separator,
         separator_highlight = {config.foreground, config.background},
