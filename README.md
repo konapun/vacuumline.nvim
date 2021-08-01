@@ -1,14 +1,14 @@
 # vacuumline.nvim
 Airline in the vacuum of space
 
-Vacuumline is a prebuilt configuration for galaxyline based on the look and functionality of Airline. It can be further
+vacuumline is a prebuilt configuration for galaxyline based on the look and functionality of Airline. It can be further
 configured to style icons, colors, and segments.
 
-<img src="./res/vacuumline.png" alt="vacuumline"/>
 <sub>full pane vacuumline</sub>
+<img src="./res/vacuumline.png" alt="vacuumline"/>
 
-<img src="./res/vacuumline-inactive.png" alt="vacuumline inactive"/>
 <sub>split pane vacuumline showing inctive and active styling</sub>
+<img src="./res/vacuumline-inactive.png" alt="vacuumline inactive"/>
 
 ## Features
   * Built on [galaxyline](https://github.com/glepnir/galaxyline.nvim)
@@ -17,13 +17,13 @@ configured to style icons, colors, and segments.
   * Active/inactive segment styling
   * Customizable
   * Prebuilt segments:
-    * [Mode]()
-    * [File]()
-    * [VCS]()
-    * [LSP]()
-    * [Lines]()
-    * [Diagnostics]()
-    * [Scroll]()
+    * [Mode](#mode)
+    * [File](#file)
+    * [VCS](#vcs)
+    * [LSP](#lsp)
+    * [Lines](#lines)
+    * [Diagnostics](#diagnostics)
+    * [Scroll](#scroll)
 
 ## Install
 The goal of vacuumline is just to expose a galaxyline configuration and thus requires galaxyline and its dependencies:
@@ -53,62 +53,44 @@ use {'konapun/vacuumline.nvim', requires = {
 ### Defaults
 Here is the full default configuration. Individual pieces are described in more depth below.
 ```lua
-local default_options = {
+{
   separator = {
     segment = {
       left = '',
-      right = ''
+      right = '',
+      short_left = '',
+      short_right = ''
     },
     section = {
       left = '',
-      right = ''
+      right = '',
+      short_left = '',
+      short_right = ''
     }
   },
   color = {
-    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
-    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
+    foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
+    background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
   },
   segment = {
     mode = {
-      enabled = true,
-      map = { -- TODO
+      map = {
         n = {label = ' ', background = '#b16286'}, -- NORMAL
         i = {label = ' ', background = '#98971a'}, -- INSERT
         c = {label = ' ', background = '#458588'}, -- COMMAND
         v = {label = ' ', background = '#d79921'}, -- VISUAL
         V = {label = ' ', background = '#fabd2f'}, -- VISUAL LINE
         t = {label = ' ', background = '#d3869b'}, -- TERMINAL
-        s = {label = 's', background = '#fb4934'},
-        S = {label = 'S', background = '#b8bb26'},
-        R = {label = 'R', background = '#b16286'},
-        r = {label = 'r', background = '#b16286'},
-        ce = {label = 'ce', background = '#b16286'},
-        cv = {label = 'cv', background = '#b16286'},
-        ic = {label = 'ic', background = '#8ec07c'},
-        no = {label = 'no', background = '#fabd2f'},
-        rm = {label = 'rm', background = '#b16286'},
-        Rv = {label = 'Rv', background = '#b16286'},
-        ['!'] = {label = '!', background = '#b16286'},
-        [''] = {label = '^S', background = '#83a598'},
-        ['^V'] = {label = ' ', background = '#680d6a'}, -- VISUAL BLOCK
-        ['r?'] = {label = 'r?', background = '#b16286'},
       }
     },
-    file = {
-      enabled = true,
-    },
-    vcs = {
-      enabled = true,
-    },
+    file = {},
+    vcs = {},
     scroll = {
-      enabled = true,
       accent = '#d79921',
+      short_accent = '#98971a'
     },
-    lines = {
-      enabled = true,
-    },
+    lines = {},
     diagnostics = {
-      enabled = true,
       background = '#fb4934',
       errors = {
         foreground = '#282828',
@@ -119,11 +101,8 @@ local default_options = {
         background = '#fabd2f'
       }
     },
-    search = {
-      enabled = true,
-    },
+    search = {},
     lsp = {
-      enabled = true,
       foreground = '#98971a',
       background = '#282828'
     }
@@ -132,80 +111,126 @@ local default_options = {
 ```
 
 ### Global configurations
-Global configuration values are defaults used throughout sections but can be overridden by individual section settings
+Global config values are used when no specific value is provided for a segment.
+
 ```lua
-TODO:
-- left segment
-- right segment
-- even colors
-- odd colors
-- Order, left, right
+separator = {
+  segment = {
+    left = '',
+    right = ''
+  },
+  section = {
+    left = '',
+    right = ''
+  }
+},
+color = {
+  foreground = {line = '#98971a', even = '#282828', odd = '#282828', short_even = '#98971a', short_odd = '#98971a'},
+  background = {line = '#282828', even = '#b16286', odd = '#98971a', short_even = '#282828', short_odd = '#282828'},
+}
 ```
 
-### Sections
+#### Separators
+Segment separators are used to separate segments, obviously.
+
+#### Colors
+These are colors which are applied to segments depending on their order in the vacuumline.
+  * line: default line colors - line foreground and background
+  * even: default colors for even-numbered segments - foreground and background
+  * odd: default colors for odd-numbered segments - foreground and background
+  * short_even: default colors for inactive even-numbered segments - foreground and background
+  * short_odd: default colors for inactive odd-numbered segments - foreground and background
+
+### Segments
 #### Mode
 Displays the current vim mode as a color indicator and text/icon display
+
+Collapse behavior: None
+
 ```lua
 mode = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = '',
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '', -- dynamic by default
   map = {
-    n = {label = '', foreground = '', background = ''},
-    i = {label = '', foreground = '', background = ''},
-    -- ...
+    n = {label = ' ', background = '#b16286'}, -- NORMAL
+    i = {label = ' ', background = '#98971a'}, -- INSERT
+    c = {label = ' ', background = '#458588'}, -- COMMAND
+    v = {label = ' ', background = '#d79921'}, -- VISUAL
+    V = {label = ' ', background = '#fabd2f'}, -- VISUAL LINE
+    t = {label = ' ', background = '#d3869b'}, -- TERMINAL
   }
 }
 ```
+
 #### File
 Displays an icon for the current filetype, the current file name, edit status, and file size
+
+Collapse behavior:
+  * Truncates filename depending on available width
+  * Hides filename and file size depending on available width
+
 ```lua
 file = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = ''
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '' -- dynamic by default
 }
 ```
+
 #### VCS
 Displays current branch name along with additions, changes, and deletions
+
+Collapse behavior:
+  * Collapses entire segment depending on available width
+
 ```lua
 vcs = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = ''
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '' -- dynamic by default
 }
 ```
+
 #### Scroll
 Displays current scroll position in the file as both percentage and visual indicator
+
+Collapse behavior:
+  * Hides percent indicator depending on available width
+
 ```lua
 scroll = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  accent = '',
-  separator = ''
+  accent = '', -- used to color the scroll indicator
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '' -- dynamic by default
 }
 ```
+
 #### Lines
 Displays current line and column along with line endings
+
+Collapse behavior:
+  * Hides line endings depending on available width
+  * Collapses entire segment depending on available width
+
 ```lua
 lines = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = '',
-  half_separator = ''
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '', -- dynamic by default
+  section_separator = '', -- dynamic by default
 }
 ```
+
 #### Diagnostics
 Displays errors, warnings, and info from LSP diagnostics
+
+Collapse behavior: None
+
 ```lua
 diagnostics = {
-  enabled = true,
-  separator = '',
+  separator = '', -- dynamic by default
   errors = {
     foreground = '',
     background = ''
@@ -216,23 +241,29 @@ diagnostics = {
   }
 }
 ```
+
 #### Search
 Displays current search term, current match, and total matches
+
+Collapse behavior: None
+
 ```lua
 search = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = ''
+  foreground = '', -- dynamic by default
+  background = '', -- dynamic by default
+  separator = '' -- dynamic by default
 }
 ```
+
 #### LSP
 Displays the active language server
+
+Collapse behavior:
+  * Hides depending on available width
+
 ```lua
 lsp = {
-  enabled = true,
-  foreground = '',
-  background = '',
-  separator = ''
+  foreground = '', -- dynamic by default
+  background = '' -- dynamic by default
 }
 ```

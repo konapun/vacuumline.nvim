@@ -7,15 +7,11 @@ local default_options = {
   separator = {
     segment = {
       left = '',
-      right = '',
-      short_left = '',
-      short_right = ''
+      right = ''
     },
     section = {
       left = '',
-      right = '',
-      short_left = '',
-      short_right = ''
+      right = ''
     }
   },
   color = {
