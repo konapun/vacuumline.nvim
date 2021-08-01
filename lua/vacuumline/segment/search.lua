@@ -6,9 +6,11 @@ local function generate(opts, mode)
   local config = segment.search
   local next = segment[config.next]
 
+  local SearchResultsKey = 'SearchResults_' .. mode
+
   local Search = {
     {
-      SearchResults = {
+      [SearchResultsKey] = {
         provider = function()
           local search_term = vim.fn.getreg('/')
           local search_count = vim.fn.searchcount({recompute = 1, maxcount = -1})

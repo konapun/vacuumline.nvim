@@ -5,9 +5,11 @@ For instance, the Diagnostics segment is self-colored but I want the next segmen
 color from the previous segment so Blank is used
 --]]
 local function generate(opts, mode)
+  local BlankKey = 'Blank_' .. mode
+
   local Blank = {
     {
-      Blank = {
+      [BlankKey] = {
         provider = function() end
       }
     }

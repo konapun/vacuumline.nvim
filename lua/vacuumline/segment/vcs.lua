@@ -10,23 +10,30 @@ local function generate(opts, mode)
   local segment = opts.segments
   local config = segment.vcs
 
+  local GitIconKey = 'GitIcon_' .. mode
+  local GitBranchKey = 'GitBranch_' .. mode
+  local DiffAddKey = 'DiffAdd_' .. mode
+  local DiffModifiedKey = 'DiffModified_' .. mode
+  local DiffRemoveKey = 'DiffRemove_' .. mode
+  local VcsEndKey = 'VcsEnd_' .. mode
+
   local VCS = {
     {
-      GitIcon = {
+      [GitIconKey] = {
         provider = function() return ' ' end,
         condition = section_condition,
         highlight = {config.foreground, config.background}, -- FIXME: use a different color for foreground
       }
     },
     {
-      GitBranch = {
+      [GitBranchKey] = {
         provider = function() return vcs.get_git_branch() .. ' ' end,
         condition = section_condition,
         highlight = {config.foreground, config.background},
       }
     },
     {
-      DiffAdd = {
+      [DiffAddKey] = {
         provider = 'DiffAdd',
         condition = section_condition,
         icon = ' ',
@@ -34,7 +41,7 @@ local function generate(opts, mode)
       }
     },
     {
-      DiffModified = {
+      [DiffModifiedKey] = {
         provider = 'DiffModified',
         condition = section_condition,
         icon = ' ',
@@ -42,7 +49,7 @@ local function generate(opts, mode)
       }
     },
     {
-      DiffRemove = {
+      [DiffRemoveKey] = {
         provider = 'DiffRemove',
         condition = section_condition,
         icon = ' ',
@@ -50,7 +57,7 @@ local function generate(opts, mode)
       }
     },
     {
-      VcsEnd = {
+      [VcsEndKey] = {
         provider = function() return config.separator end,
         condition = condition.buffer_not_empty,
         separator = config.separator,

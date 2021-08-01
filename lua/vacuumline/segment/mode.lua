@@ -8,20 +8,24 @@ local function generate(opts, mode)
   local next = segment[config.next]
   local mode_map = config.map
 
+  local ModeIndicatorKey = 'ModeIndicator_' .. mode
+  local ModeLabelKey = 'ModeLabel' .. mode
+
   local Mode = {
     {
-      ModeIndicator = {
+      [ModeIndicatorKey] = {
         provider = function()
           local mode_config = mode_map[vim.fn.mode()]
+          local galaxy_label = 'Galaxy' .. ModeIndicatorKey
 
-          vim.api.nvim_command("hi GalaxyModeIndicator guifg=" .. mode_config.background)
+          vim.api.nvim_command("hi " .. galaxy_label .. " guifg=" .. mode_config.background)
           return '▋'
         end,
         highlight = {config.background, config.background}
       }
     },
     {
-      ModeLabel = {
+      [ModeLabelKey] = {
         provider = function()
           return mode_map[vim.fn.mode()].label
         end,
