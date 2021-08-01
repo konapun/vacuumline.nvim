@@ -80,15 +80,17 @@ function M.format(opts, segments)
 
   local color_config = merge(default_options.color, opts.color)
 
+  local segment_opts = opts.segment or {}
+
   local static_segment_config = {
-    mode = merge(default_options.segment.mode, opts.segment.mode),
-    file = merge(default_options.segment.file, opts.segment.file),
-    vcs = merge(default_options.segment.vcs, opts.segment.vcs),
-    scroll = merge(default_options.segment.scroll, opts.segment.scroll),
-    lines = merge(default_options.segment.lines, opts.segment.lines),
-    diagnostics = merge(default_options.segment.diagnostics, opts.segment.diagnostics),
-    search = merge(default_options.segment.search, opts.segment.search),
-    lsp = merge(default_options.segment.lsp, opts.segment.lsp)
+    mode = merge(default_options.segment.mode, segment_opts.mode),
+    file = merge(default_options.segment.file, segment_opts.file),
+    vcs = merge(default_options.segment.vcs, segment_opts.vcs),
+    scroll = merge(default_options.segment.scroll, segment_opts.scroll),
+    lines = merge(default_options.segment.lines, segment_opts.lines),
+    diagnostics = merge(default_options.segment.diagnostics, segment_opts.diagnostics),
+    search = merge(default_options.segment.search, segment_opts.search),
+    lsp = merge(default_options.segment.lsp, segment_opts.lsp)
   }
 
   -- Add in dynamic config defaults

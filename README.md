@@ -49,6 +49,24 @@ use {'konapun/vacuumline.nvim', requires = {
 }}
 ```
 
+## Collapse Behavior
+One of the big advantages of vacuumline over a standard galaxyline config is the builtin responsiveness:
+
+<sub>uncollapsed vacuumline</sub>
+<img src="./res/vacuumline-no_collapse.png" height="20px" alt="uncollapsed"/>
+
+<sub>collapse level 1</sub>
+<img src="./res/vacuumline-collapse1.png" height="20px" alt="collapse level 1"/>
+
+<sub>collapse level 2</sub>
+<img src="./res/vacuumline-collapse2.png" height="20px" alt="collapse level 2"/>
+
+<sub>collapse level 3</sub>
+<img src="./res/vacuumline-collapse3.png" height="20px" alt="collapse level 3"/>
+
+<sub>collapse level 4</sub>
+<img src="./res/vacuumline-collapse4.png" height="20px" alt="collapse level 4"/>
+
 ## Configuration
 ### Defaults
 Here is the full default configuration. Individual pieces are described in more depth below.
