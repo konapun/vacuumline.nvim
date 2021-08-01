@@ -12,7 +12,7 @@ configured to style icons, colors, and segments.
 
 ## Features
   * Built on [galaxyline](https://github.com/glepnir/galaxyline.nvim)
-  * Adaptive segments based on pane size (expand/collapse)
+  * Adaptive segments based on pane size (expand/collapse - guarantees vim mode indicator is never hidden)
   * Dynamic theming
   * Active/inactive segment styling
   * Customizable

@@ -33,4 +33,10 @@ function M.standard_not_empty()
   return M.buffer_not_empty() and M.guarantee_mode()
 end
 
+function M.gen_standard_not_empty(width)
+  return function()
+    return M.standard_not_empty() and M.check_width(width)
+  end
+end
+
 return M

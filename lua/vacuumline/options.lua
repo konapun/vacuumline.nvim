@@ -24,52 +24,23 @@ local default_options = {
   },
   segment = {
     mode = {
-      enabled = true,
-      short_enabled = false,
-      map = { -- TODO
+      map = {
         n = {label = ' ', background = '#b16286'}, -- NORMAL
         i = {label = ' ', background = '#98971a'}, -- INSERT
         c = {label = ' ', background = '#458588'}, -- COMMAND
         v = {label = ' ', background = '#d79921'}, -- VISUAL
         V = {label = ' ', background = '#fabd2f'}, -- VISUAL LINE
         t = {label = ' ', background = '#d3869b'}, -- TERMINAL
-        s = {label = 's', background = '#fb4934'},
-        S = {label = 'S', background = '#b8bb26'},
-        R = {label = 'R', background = '#b16286'},
-        r = {label = 'r', background = '#b16286'},
-        ce = {label = 'ce', background = '#b16286'},
-        cv = {label = 'cv', background = '#b16286'},
-        ic = {label = 'ic', background = '#8ec07c'},
-        no = {label = 'no', background = '#fabd2f'},
-        rm = {label = 'rm', background = '#b16286'},
-        Rv = {label = 'Rv', background = '#b16286'},
-        ['!'] = {label = '!', background = '#b16286'},
-        [''] = {label = '^S', background = '#83a598'},
-        ['^V'] = {label = ' ', background = '#680d6a'}, -- VISUAL BLOCK
-        ['r?'] = {label = 'r?', background = '#b16286'},
       }
     },
-    file = {
-      enabled = true,
-      short_enabled = true
-    },
-    vcs = {
-      enabled = true,
-      short_enabled = false
-    },
+    file = {},
+    vcs = {},
     scroll = {
-      enabled = true,
-      short_enabled = true,
       accent = '#d79921',
       short_accent = '#98971a'
     },
-    lines = {
-      enabled = true,
-      short_enabled = true,
-    },
+    lines = {},
     diagnostics = {
-      enabled = true,
-      short_enabled = true,
       background = '#fb4934',
       errors = {
         foreground = '#282828',
@@ -80,13 +51,8 @@ local default_options = {
         background = '#fabd2f'
       }
     },
-    search = {
-      enabled = true,
-      short_enabled = false
-    },
+    search = {},
     lsp = {
-      enabled = true,
-      short_enabled = false,
       foreground = '#98971a',
       background = '#282828'
     }
@@ -109,30 +75,6 @@ local function merge(t1, t2)
   return merged
 end
 
-local function add_dynamic_config(segments, side, static_segment_config, color_config, separator_config)
-  local segment_config = {}
-  local segment_index = 1
-  local incrementor = side == 'left' and 1 or -1
-
-  for _, segment in ipairs(segments) do
-    local key = segment.key
-    local config = static_segment_config[key]
-    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
-    local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
-    local next = segments[segment_index + incrementor]
-
-    segment_index = segment_index + 1
-    segment_config[key] = merge({
-      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
-      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
-      separator = separator_config.segment[side],
-      next = next and next.key
-    }, config)
-
-    return segment_config
-  end
-end
-
 -- Configure and format vacuumline options based on user input
 function M.format(opts, segments)
   opts = opts or {separator = {}, color = {}, segment = {}}
@@ -143,14 +85,14 @@ function M.format(opts, segments)
   local color_config = merge(default_options.color, opts.color)
 
   local static_segment_config = {
-    mode = merge(default_options.segment.mode, {}),
-    file = merge(default_options.segment.file, {}),
-    vcs = merge(default_options.segment.vcs, {}),
-    scroll = merge(default_options.segment.scroll, {}),
-    lines = merge(default_options.segment.lines, {}),
-    diagnostics = merge(default_options.segment.diagnostics, {}),
-    search = merge(default_options.segment.search, {}),
-    lsp = merge(default_options.segment.lsp, {})
+    mode = merge(default_options.segment.mode, opts.segment.mode),
+    file = merge(default_options.segment.file, opts.segment.file),
+    vcs = merge(default_options.segment.vcs, opts.segment.vcs),
+    scroll = merge(default_options.segment.scroll, opts.segment.scroll),
+    lines = merge(default_options.segment.lines, opts.segment.lines),
+    diagnostics = merge(default_options.segment.diagnostics, opts.segment.diagnostics),
+    search = merge(default_options.segment.search, opts.segment.search),
+    lsp = merge(default_options.segment.lsp, opts.segment.lsp)
   }
 
   -- Add in dynamic config defaults

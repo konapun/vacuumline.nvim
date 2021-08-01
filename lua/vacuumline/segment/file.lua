@@ -1,15 +1,19 @@
 local condition = require('vacuumline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
+local format_hide_width = 45
+
 local function generate(opts, mode)
   local segment = opts.segments
   local color = opts.colors
   local config = segment.file
   local next = segment[config.next]
 
+  local short_highlight = {color.foreground.line, color.background.line}
+
   local FileIconKey = 'FileIcon_' .. mode
   local FileNameKey = 'FileName_' .. mode
-  local short_highlight = {color.foreground.line, color.background.line}
+  local FileEndKey = 'FileEnd_' .. mode
 
   local File = {
     {
@@ -33,8 +37,14 @@ local function generate(opts, mode)
           end
           return name .. size
         end,
+        condition = condition.gen_standard_not_empty(format_hide_width),
+        highlight = mode == 'short' and short_highlight or {config.foreground, config.background}
+      }
+    },
+    {
+      [FileEndKey] = {
+        provider = function() end,
         condition = condition.standard_not_empty,
-        highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
       }
