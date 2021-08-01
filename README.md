@@ -12,7 +12,7 @@ configured to style icons, colors, and segments.
 
 ## Features
   * Built on [galaxyline](https://github.com/glepnir/galaxyline.nvim)
-  * Adaptive segments based on pane size
+  * Adaptive segments based on pane size (expand/collapse)
   * Dynamic theming
   * Active/inactive segment styling
   * Customizable

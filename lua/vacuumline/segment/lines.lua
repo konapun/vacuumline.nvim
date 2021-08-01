@@ -1,7 +1,8 @@
 local fileinfo = require('galaxyline.provider_fileinfo')
 local condition = require('vacuumline.condition')
 
-local format_min_width = 50
+local format_collapse_width = 60
+local format_hide_width = 40
 
 local function generate(opts, mode)
   local segment = opts.segments
@@ -27,14 +28,14 @@ local function generate(opts, mode)
     {
       [FileFormatKey] = {
         provider = function() return fileinfo.get_file_format() .. ' ' end,
-        condition = condition.gen_check_width(format_min_width),
+        condition = condition.gen_check_width(format_collapse_width),
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background}
       }
     },
     {
       [LineInfoKey] = {
         provider = 'LineColumn',
-        condition = condition.standard,
+        condition = condition.gen_check_width(format_hide_width),
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.section_separator,
         separator_highlight = {config.foreground, config.background}
