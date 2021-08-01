@@ -6,6 +6,7 @@ local function generate(opts, mode)
   local config = segment.lines
   local next = segment[config.next]
 
+
   local FileFormatKey = 'FileFormat_' .. mode
   local LineInfoKey = 'LineInfo_' .. mode
   local short_highlight = {color.foreground.line, color.background.line}
@@ -23,7 +24,7 @@ local function generate(opts, mode)
       [LineInfoKey] = {
         provider = 'LineColumn',
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
-        separator = mode ~= 'short' and config.half_separator,
+        separator = mode ~= 'short' and config.section_separator,
         separator_highlight = {config.foreground, config.background},
       }
     }

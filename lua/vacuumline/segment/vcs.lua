@@ -1,17 +1,9 @@
-local condition = require('vacuumline.condition')
+local condition = require('galaxyline.condition')
 local vcs = require('galaxyline.provider_vcs')
 local vim = vim
 
-local checkwidth = function()
-  if not condition.buffer_not_empty() then
-    return false
-  end
-
-  local squeeze_width  = vim.fn.winwidth(0) / 2
-  if squeeze_width > 40 then
-    return true
-  end
-  return false
+local function section_condition()
+  return condition.buffer_not_empty() and condition.hide_in_width()
 end
 
 local function generate(opts, mode)
@@ -22,21 +14,21 @@ local function generate(opts, mode)
     {
       GitIcon = {
         provider = function() return ' ' end,
-        condition = condition.buffer_not_empty,
+        condition = section_condition,
         highlight = {config.foreground, config.background}, -- FIXME: use a different color for foreground
       }
     },
     {
       GitBranch = {
         provider = function() return vcs.get_git_branch() .. ' ' end,
-        condition = condition.buffer_not_empty,
+        condition = section_condition,
         highlight = {config.foreground, config.background},
       }
     },
     {
       DiffAdd = {
         provider = 'DiffAdd',
-        condition = checkwidth,
+        condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: use green instead for foreground
       }
@@ -44,7 +36,7 @@ local function generate(opts, mode)
     {
       DiffModified = {
         provider = 'DiffModified',
-        condition = checkwidth,
+        condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: Use yellow instead for foreground
       }
@@ -52,7 +44,7 @@ local function generate(opts, mode)
     {
       DiffRemove = {
         provider = 'DiffRemove',
-        condition = checkwidth,
+        condition = section_condition,
         icon = ' ',
         highlight = {config.foreground, config.background} -- TODO: use red instead for foreground
       }

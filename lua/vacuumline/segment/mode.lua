@@ -1,4 +1,4 @@
-local condition = require('vacuumline.condition')
+local condition = require('galaxyline.condition')
 local vim = vim
 
 local function generate(opts, mode)

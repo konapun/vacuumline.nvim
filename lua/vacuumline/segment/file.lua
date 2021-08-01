@@ -1,4 +1,4 @@
-local condition = require('vacuumline.condition')
+local condition = require('galaxyline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
 local function generate(opts, mode)

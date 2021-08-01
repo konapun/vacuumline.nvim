@@ -153,6 +153,7 @@ function M.format(opts, segments)
       background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment.left,
+      section_separator = separator_config.section.left,
       next = next and next.key
     }, config)
   end
@@ -170,6 +171,7 @@ function M.format(opts, segments)
       background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment.right,
+      section_separator = separator_config.section.right,
       next = next and next.key
     }, config)
   end
