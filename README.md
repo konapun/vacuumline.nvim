@@ -46,7 +46,7 @@ lua require('vacuumline').setup()
 use {'konapun/vacuumline.nvim', requires = {
   'glepnir/galaxyline.nvim', branch = 'main',
   'kyazdani42/nvim-web-devicons', opt = true
-}}
+}, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
 ```
 
 ## Collapse Behavior
