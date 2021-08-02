@@ -27,7 +27,12 @@ local function generate(opts, mode)
     },
     {
       [GitBranchKey] = {
-        provider = function() return vcs.get_git_branch() .. ' ' end,
+        provider = function()
+          local branch = vcs.get_git_branch()
+          if (branch) then
+            return branch .. ' '
+          end
+        end,
         condition = section_condition,
         highlight = {config.foreground, config.background},
       }
