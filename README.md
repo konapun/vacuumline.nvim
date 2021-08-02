@@ -31,7 +31,7 @@ The goal of vacuumline is just to expose a galaxyline configuration and thus req
 ### vim-plug
 ```vim
 Plug 'konapun/vacuumline.nvim'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
 " One of the following is required for showing icons
 Plug 'kyazdani42/nvim-web-devicons' " lua
 Plug 'ryanoasis/vim-devicons' " vimscript
@@ -72,7 +72,7 @@ One of the big advantages of vacuumline over a standard galaxyline config is the
 For convenience, rather than configuring colors for each segment separately, you may want to apply a theme.
 
 ```lua
-lua require('vacuumline').setup({
+require('vacuumline').setup({
   theme = require('vacuumline.theme.nord')
 })
 ```
@@ -87,7 +87,7 @@ The follow themes are built in. If you'd like to contribute a theme, please feel
 You can also use a custom theme:
 
 ```lua
-lua require('vacuumline').setup({
+require('vacuumline').setup({
   theme = {
     background = '#282828',
     foreground = '#98971a',
