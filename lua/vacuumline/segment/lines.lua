@@ -20,7 +20,6 @@ local function generate(opts, mode)
     {
       [LineEndKey] = {
         provider = function() end,
-        condition = condition.buffer_not_empty,
         separator = mode ~= 'short' and config.separator,
         separator_highlight = {config.background, next.background}
       }
