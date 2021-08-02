@@ -68,6 +68,49 @@ One of the big advantages of vacuumline over a standard galaxyline config is the
 <img src="./res/vacuumline-collapse4.png" height="20px" alt="collapse level 4"/>
 
 ## Configuration
+### Theming
+For convenience, rather than configuring colors for each segment separately, you may want to apply a theme.
+
+```lua
+lua require('vacuumline').setup({
+  theme = require('vacuumline.theme.nord')
+})
+```
+
+#### Builtin Themes
+The follow themes are built in. If you'd like to contribute a theme, please feel free to submit a PR.
+  * gruvbox: `theme = require('vacuumline.theme.gruvbox')`
+  * nord: `theme = require('vacuumline.theme.nord')`
+  * one-dark: `theme = require('vacuumline.theme.one-dark')`
+
+#### Custom Theme
+You can also use a custom theme:
+
+```lua
+lua require('vacuumline').setup({
+  theme = {
+    background = '#282828',
+    foreground = '#98971a',
+    accent     = '#d79921',
+    segment_odd_background  = '#b16286',
+    segment_odd_foreground  = '#282828',
+    segment_even_background = '#98971a',
+    segment_even_foreground = '#282828',
+    mode_normal      = '#b16286',
+    mode_insert      = '#98971a',
+    mode_command     = '#458588',
+    mode_visual      = '#d79921',
+    mode_visual_line = '#689d6a',
+    mode_terminal    = '#cc241d',
+    warning_foreground = '#282828',
+    warning_background = '#fabd2f',
+    error_foreground = '#282828',
+    error_background = '#fb4934'
+  }
+})
+
+```
+
 ### Defaults
 Here is the full default configuration. Individual pieces are described in more depth below.
 ```lua

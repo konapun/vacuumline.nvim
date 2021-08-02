@@ -1,58 +1,63 @@
+local gruvbox_theme = require('vacuumline.theme.gruvbox')
+local inspect = require('inspect')
+
 local M = {}
 
 --TODO: Put short config in options instead of hardcoding in segments
 --  Keep passing mode but use it as key
 
-local default_options = {
-  separator = {
-    segment = {
-      left = '',
-      right = ''
-    },
-    section = {
-      left = '',
-      right = ''
-    }
-  },
-  color = {
-    foreground = {line = '#98971a', even = '#282828', odd = '#282828'},
-    background = {line = '#282828', even = '#b16286', odd = '#98971a'},
-  },
-  segment = {
-    mode = {
-      map = {
-        n = {label = ' ', background = '#b16286'}, -- NORMAL
-        i = {label = ' ', background = '#98971a'}, -- INSERT
-        c = {label = ' ', background = '#458588'}, -- COMMAND
-        v = {label = ' ', background = '#d79921'}, -- VISUAL
-        V = {label = ' ', background = '#fabd2f'}, -- VISUAL LINE
-        t = {label = ' ', background = '#d3869b'}, -- TERMINAL
-      }
-    },
-    file = {},
-    vcs = {},
-    scroll = {
-      accent = '#d79921'
-    },
-    lines = {},
-    diagnostics = {
-      background = '#fb4934',
-      errors = {
-        foreground = '#282828',
-        background = '#fb4934'
+local function get_default_options(theme)
+  return {
+    separator = {
+      segment = {
+        left = '',
+        right = ''
       },
-      warnings = {
-        foreground = '#282828',
-        background = '#fabd2f'
+      section = {
+        left = '',
+        right = ''
       }
     },
-    search = {},
-    lsp = {
-      foreground = '#98971a',
-      background = '#282828'
+    color = {
+      foreground = {line = theme.foreground, even = theme.segment_even_foreground, odd = theme.segment_odd_foreground},
+      background = {line = theme.background, even = theme.segment_even_background, odd = theme.segment_odd_background}
+    },
+    segment = {
+      mode = {
+        map = {
+          n = {label = ' ', background = theme.mode_normal}, -- NORMAL
+          i = {label = ' ', background = theme.mode_insert}, -- INSERT
+          c = {label = ' ', background = theme.mode_command}, -- COMMAND
+          v = {label = ' ', background = theme.mode_visual}, -- VISUAL
+          V = {label = ' ', background = theme.mode_visual_line}, -- VISUAL LINE
+          t = {label = ' ', background = theme.mode_terminal}, -- TERMINAL
+        }
+      },
+      file = {},
+      vcs = {},
+      scroll = {
+        accent = theme.accent
+      },
+      lines = {},
+      diagnostics = {
+        background = theme.error_background,
+        errors = {
+          foreground = theme.error_foreground,
+          background = theme.error_background
+        },
+        warnings = {
+          foreground = theme.warning_foreground,
+          background = theme.warning_background
+        }
+      },
+      search = {},
+      lsp = {
+        foreground = theme.foreground,
+        background = theme.background
+      }
     }
   }
-}
+end
 
 -- Perform a one dimensional merge over two tables
 local function merge(t1, t2)
@@ -73,12 +78,11 @@ end
 -- Configure and format vacuumline options based on user input
 function M.format(opts, segments)
   opts = opts or {separator = {}, color = {}, segment = {}}
+  local default_options = get_default_options(opts.theme or gruvbox_theme)
 
   -- Set up defaults for each config section
   local separator_config = merge(default_options.separator, opts.separator)
-
   local color_config = merge(default_options.color, opts.color)
-
   local segment_opts = opts.segment or {}
 
   local static_segment_config = {
