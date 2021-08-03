@@ -3,7 +3,7 @@ local vcs = require('galaxyline.provider_vcs')
 local vim = vim
 
 local function section_condition()
-  return condition.standard() and condition.buffer_not_empty() and condition.hide_in_width()
+  return condition.standard() and condition.buffer_not_empty() and condition.hide_in_width() and vcs.get_git_branch()
 end
 
 local function generate(opts, mode)
@@ -22,16 +22,13 @@ local function generate(opts, mode)
       [GitIconKey] = {
         provider = function() return ' ' end,
         condition = section_condition,
-        highlight = {config.foreground, config.background}, -- FIXME: use a different color for foreground
+        highlight = {config.foreground, config.background},
       }
     },
     {
       [GitBranchKey] = {
         provider = function()
-          local branch = vcs.get_git_branch()
-          if (branch) then
-            return branch .. ' '
-          end
+          return vcs.get_git_branch() .. ' '
         end,
         condition = section_condition,
         highlight = {config.foreground, config.background},
@@ -63,7 +60,7 @@ local function generate(opts, mode)
     },
     {
       [VcsEndKey] = {
-        provider = function() return config.separator end,
+        provider = function() end,
         condition = condition.buffer_not_empty,
         separator = config.separator,
         separator_highlight = {config.background, config.vacuumline_background},

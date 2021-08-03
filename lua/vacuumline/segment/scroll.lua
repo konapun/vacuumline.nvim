@@ -19,7 +19,13 @@ local function generate(opts, mode)
         condition = condition.gen_check_width(format_min_width),
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background},
         separator = mode ~= 'short' and config.separator,
-        separator_highlight = {config.background, next.background}
+        separator_highlight = {config.background, function()
+          if condition.is_terminal() then -- FIXME: this segment shouldn't have to know about this; should be able to dynamically determine this
+            return segment[next.next].background
+          end
+
+          return next.background
+        end}
       }
     },
     {

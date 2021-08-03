@@ -39,4 +39,13 @@ function M.gen_standard_not_empty(width)
   end
 end
 
+function M.is_terminal(window)
+  window = window or 0
+  return vim.bo[window].buftype == 'terminal'
+end
+
+function M.not_terminal(window)
+  return not M.is_terminal(window)
+end
+
 return M

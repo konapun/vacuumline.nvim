@@ -27,7 +27,7 @@ local function generate(opts, mode)
     {
       [FileFormatKey] = {
         provider = function() return fileinfo.get_file_format() .. ' ' end,
-        condition = condition.gen_check_width(format_collapse_width),
+        condition = function() return condition.check_width(format_collapse_width) and condition.not_terminal() end,
         highlight = mode == 'short' and short_highlight or {config.foreground, config.background}
       }
     },
