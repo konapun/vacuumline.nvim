@@ -1,5 +1,6 @@
 local condition = require('vacuumline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
+local vim = vim
 
 local format_hide_width = 45
 
@@ -26,7 +27,7 @@ local function generate(opts, mode)
     {
       [FileNameKey] = {
         provider = function()
-          local name = fileinfo.get_current_file_name()
+          local name = fileinfo.get_current_file_name() -- TODO: display [No Name] instead of hiding in empty buffer
           local size = fileinfo.get_file_size()
 
           if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename

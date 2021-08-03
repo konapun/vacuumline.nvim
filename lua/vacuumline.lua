@@ -1,5 +1,5 @@
 local gl = require('galaxyline')
-local event_processor = require('galaxyline.event-processor')
+local event_processor = require('vacuumline.event-processor')
 local builder = require('vacuumline.builder')
 local vim = vim
 

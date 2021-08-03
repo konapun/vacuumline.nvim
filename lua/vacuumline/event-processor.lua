@@ -15,7 +15,9 @@ end
 
 function M.handle_buf_enter()
   -- TODO check the current buffer type so the vacuumline can be updated (editor, terminal, etc)
-  -- local buftype =
+  local buftype = vim.bo[0].buftype or 'normal'
+
+  print('TYPE: ' .. buftype)
 end
 
 return M

@@ -10,6 +10,8 @@ local lsp = require('vacuumline.segment.lsp')
 
 local M = {}
 
+-- EDITOR
+
 M.left = {
   {key = 'mode', generator = mode},
   {key = 'file', generator = file},
@@ -33,6 +35,29 @@ M.short_right = {
   {key = 'lines', generator = lines},
   {key = 'blank', generator = blank},
   {key = 'diagnostics', generator = diagnostics},
+  {key = 'scroll', generator = scroll}
+}
+
+-- TERMINAL
+
+M.term_left = {
+  {key = 'mode', generator = mode},
+  {key = 'file', generator = file}
+}
+
+M.term_right = {
+  {key = 'search', generator = search},
+  {key = 'lines', generator = lines},
+  {key = 'scroll', generator = scroll}
+}
+
+M.term_short_left = {
+  {key = 'mode', generator = mode},
+  {key = 'file', generator = file}
+}
+
+M.term_short_right = {
+  {key = 'lines', generator = lines},
   {key = 'scroll', generator = scroll}
 }
 
