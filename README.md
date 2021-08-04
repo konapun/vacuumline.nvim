@@ -89,23 +89,18 @@ You can also use a custom theme:
 ```lua
 require('vacuumline').setup({
   theme = {
-    background = '#282828',
-    foreground = '#98971a',
-    accent     = '#d79921',
-    segment_odd_background  = '#b16286',
-    segment_odd_foreground  = '#282828',
-    segment_even_background = '#98971a',
-    segment_even_foreground = '#282828',
-    mode_normal      = '#b16286',
-    mode_insert      = '#98971a',
-    mode_command     = '#458588',
-    mode_visual      = '#d79921',
-    mode_visual_line = '#689d6a',
-    mode_terminal    = '#cc241d',
-    warning_foreground = '#282828',
-    warning_background = '#fabd2f',
-    error_foreground = '#282828',
-    error_background = '#fb4934'
+    line             = {foreground = '#98971a', background = '#282828'},
+    segment_odd      = {foreground = '#282828', background = '#b16286'},
+    segment_even     = {foreground = '#282828', background = '#98971a'},
+    mode_normal      = {foreground = '#b16286'},
+    mode_insert      = {foreground = '#98971a'},
+    mode_command     = {foreground = '#458588'},
+    mode_visual      = {foreground = '#d79921'},
+    mode_visual_line = {foreground = '#689d6a'},
+    mode_terminal    = {foreground = '#cc241d'},
+    warning          = {foreground = '#282828', background = '#fabd2f'},
+    error            = {foreground = '#282828', background = '#fb4934'},
+    scroll           = {foreground = '#d79921'}
   }
 })
 

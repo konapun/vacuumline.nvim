@@ -20,23 +20,18 @@ local palette = {
 }
 
 local theme = {
-  background = palette.black,
-  foreground = palette.white,
-  accent     = palette.purple,
-  segment_odd_background  = palette.cyan,
-  segment_odd_foreground  = palette.black,
-  segment_even_background = palette.blue,
-  segment_even_foreground = palette.black,
-  mode_normal      = palette.cyan,
-  mode_insert      = palette.green,
-  mode_command     = palette.blue,
-  mode_visual      = palette.yellow,
-  mode_visual_line = palette.purple,
-  mode_terminal    = palette.red,
-  warning_foreground = palette.black,
-  warning_background = palette.bright_yellow,
-  error_foreground = palette.black,
-  error_background = palette.bright_red
+  line             = {foreground = palette.white, background = palette.black},
+  segment_odd      = {foreground = palette.black, background = palette.cyan},
+  segment_even     = {foreground = palette.black, background = palette.blue},
+  mode_normal      = {foreground = palette.cyan},
+  mode_insert      = {foreground = palette.green},
+  mode_command     = {foreground = palette.blue},
+  mode_visual      = {foreground = palette.yellow},
+  mode_visual_line = {foreground = palette.purple},
+  mode_terminal    = {foreground = palette.red},
+  warning          = {foreground = palette.black, background = palette.bright_yellow},
+  error            = {foreground = palette.black, background = palette.bright_red},
+  scroll           = {foreground = palette.purple}
 }
 
 return theme

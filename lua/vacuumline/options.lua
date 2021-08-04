@@ -18,41 +18,41 @@ local function get_default_options(theme)
       }
     },
     color = {
-      foreground = {line = theme.foreground, even = theme.segment_even_foreground, odd = theme.segment_odd_foreground},
-      background = {line = theme.background, even = theme.segment_even_background, odd = theme.segment_odd_background}
+      foreground = {line = theme.line.foreground, even = theme.segment_even.foreground, odd = theme.segment_odd.foreground},
+      background = {line = theme.line.background, even = theme.segment_even.background, odd = theme.segment_odd.background}
     },
     segment = {
       mode = {
         map = {
-          n = {label = ' ', background = theme.mode_normal}, -- NORMAL
-          i = {label = ' ', background = theme.mode_insert}, -- INSERT
-          c = {label = ' ', background = theme.mode_command}, -- COMMAND
-          v = {label = ' ', background = theme.mode_visual}, -- VISUAL
-          V = {label = ' ', background = theme.mode_visual_line}, -- VISUAL LINE
-          t = {label = ' ', background = theme.mode_terminal}, -- TERMINAL
+          n = {label = ' ', background = theme.mode_normal.foreground}, -- NORMAL
+          i = {label = ' ', background = theme.mode_insert.foreground}, -- INSERT
+          c = {label = ' ', background = theme.mode_command.foreground}, -- COMMAND
+          v = {label = ' ', background = theme.mode_visual.foreground}, -- VISUAL
+          V = {label = ' ', background = theme.mode_visual_line.foreground}, -- VISUAL LINE
+          t = {label = ' ', background = theme.mode_terminal.foreground}, -- TERMINAL
         }
       },
       file = {},
       vcs = {},
       scroll = {
-        accent = theme.accent
+        accent = theme.scroll.foreground
       },
       lines = {},
       diagnostics = {
-        background = theme.error_background,
+        background = theme.error.background,
         errors = {
-          foreground = theme.error_foreground,
-          background = theme.error_background
+          foreground = theme.error.foreground,
+          background = theme.error.background
         },
         warnings = {
-          foreground = theme.warning_foreground,
-          background = theme.warning_background
+          foreground = theme.warning.foreground,
+          background = theme.warning.background
         }
       },
       search = {},
       lsp = {
-        foreground = theme.foreground,
-        background = theme.background
+        foreground = theme.line.foreground,
+        background = theme.line.background
       }
     }
   }
