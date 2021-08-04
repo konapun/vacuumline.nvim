@@ -19,13 +19,14 @@ end
 
 -- Attach segments to galaxyline
 function M.build(gl, opts)
-  local built_opts = options.format(opts, segments)
+  local long_opts = options.format(opts, {left = segments.left, right = segments.right})
+  local short_opts = options.format(opts, {left = segments.short_left, right = segments.short_right})
 
   local gls = gl.section
-  build_side(gls, 'left', segments.left, built_opts)
-  build_side(gls, 'right', segments.right, built_opts)
-  build_side(gls, 'short_line_left', segments.short_left, built_opts)
-  build_side(gls, 'short_line_right', segments.short_right, built_opts)
+  build_side(gls, 'left', segments.left, long_opts)
+  build_side(gls, 'right', segments.right, long_opts)
+  build_side(gls, 'short_line_left', segments.short_left, short_opts)
+  build_side(gls, 'short_line_right', segments.short_right, short_opts)
 end
 
 return M

@@ -93,7 +93,7 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment[side],
       section_separator = separator_config.section[side],
-      next = next and next.key
+      next = next and next.key or key -- reference self if there's no next
     }, config)
   end
 
