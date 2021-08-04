@@ -74,6 +74,32 @@ local function merge(t1, t2)
   return merged
 end
 
+-- Add dynamic config values
+local function dynamic_config(segments, side, static_segment_config, color_config, separator_config)
+  local segment_config = {}
+  local increment = side == 'right' and -1 or 1
+
+  local segment_index = 1
+  for _, segment in ipairs(segments) do
+    local key = segment.key
+    local config = static_segment_config[key]
+    local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
+    local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
+    local next = segments[segment_index + increment]
+
+    segment_index = segment_index + 1
+    segment_config[key] = merge({
+      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
+      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
+      separator = separator_config.segment[side],
+      section_separator = separator_config.section[side],
+      next = next and next.key
+    }, config)
+  end
+
+  return segment_config
+end
+
 -- Configure and format vacuumline options based on user input
 function M.format(opts, segments)
   opts = opts or {separator = {}, color = {}, segment = {}}
@@ -96,45 +122,9 @@ function M.format(opts, segments)
   }
 
   -- Add in dynamic config defaults
-  -- FIXME: clean this up
-  -- TODO: do the same thing for short segments
-  local segment_config = {}
-
-  local left_segment_index = 1
-  for _, segment in ipairs(segments.left) do
-    local key = segment.key
-    local config = static_segment_config[key]
-    local even_odd = left_segment_index % 2 == 0 and 'even' or 'odd'
-    local not_even_odd = left_segment_index % 2 == 0 and 'odd' or 'even'
-    local next = segments.left[left_segment_index + 1]
-
-    left_segment_index = left_segment_index + 1
-    segment_config[key] = merge({
-      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
-      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
-      separator = separator_config.segment.left,
-      section_separator = separator_config.section.left,
-      next = next and next.key
-    }, config)
-  end
-
-  local right_segment_index = 1
-  for _, segment in ipairs(segments.right) do
-    local key = segment.key
-    local config = static_segment_config[key]
-    local even_odd = right_segment_index % 2 == 0 and 'even' or 'odd'
-    local not_even_odd = right_segment_index % 2 == 0 and 'odd' or 'even'
-    local next = segments.right[right_segment_index - 1]
-
-    right_segment_index = right_segment_index + 1
-    segment_config[key] = merge({
-      background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
-      foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
-      separator = separator_config.segment.right,
-      section_separator = separator_config.section.right,
-      next = next and next.key
-    }, config)
-  end
+  local left_segments = dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config)
+  local right_segments = dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
+  local segment_config = merge(left_segments, right_segments)
 
   return {
     colors = color_config,
