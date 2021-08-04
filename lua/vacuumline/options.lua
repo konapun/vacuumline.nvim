@@ -1,5 +1,4 @@
 local gruvbox_theme = require('vacuumline.theme.gruvbox')
-local inspect = require('inspect')
 
 local M = {}
 
@@ -98,6 +97,7 @@ function M.format(opts, segments)
 
   -- Add in dynamic config defaults
   -- FIXME: clean this up
+  -- TODO: do the same thing for short segments
   local segment_config = {}
 
   local left_segment_index = 1

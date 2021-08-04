@@ -29,6 +29,7 @@ local function generate(opts, mode)
     {
       [ModeLabelKey] = {
         provider = function()
+          -- TODO: terminal modes [term>normal]
           local mode_config = mode_map[vim.fn.mode()]
           local mode_label = mode_config and mode_config.label or ' '
 
