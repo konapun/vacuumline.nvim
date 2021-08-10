@@ -1,5 +1,6 @@
 local condition = require('vacuumline.condition')
 local fileinfo = require('galaxyline.provider_fileinfo')
+local vim = vim
 
 local format_hide_width = 45
 
@@ -31,9 +32,11 @@ local function generate(opts, mode)
 
           if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename
             local len = string.len(name)
-            local n_chars = math.ceil(vim.fn.winwidth(0) / 10) + 1
+            local n_chars = math.ceil(vim.fn.winwidth(0) / 8) + 1
+            local str_start = (len - n_chars) >= 1 and (len - n_chars) or 1
+            local ellipses = str_start > 1 and '...' or ''
 
-            return '...' .. string.sub(name, len - n_chars)
+            return ellipses .. string.sub(name, str_start)
           end
           return name .. size
         end,

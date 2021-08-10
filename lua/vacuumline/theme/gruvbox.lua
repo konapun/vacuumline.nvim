@@ -27,6 +27,8 @@ local theme = {
   mode_visual      = {foreground = palette.yellow},
   mode_visual_line = {foreground = palette.cyan},
   mode_terminal    = {foreground = palette.red},
+  hint             = {foreground = palette.black, background = palette.bright_green},
+  info             = {foreground = palette.black, background = palette.bright_blue},
   warning          = {foreground = palette.black, background = palette.bright_yellow},
   error            = {foreground = palette.black, background = palette.bright_red},
   scroll           = {foreground = palette.yellow}

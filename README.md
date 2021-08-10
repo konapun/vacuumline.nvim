@@ -98,6 +98,8 @@ require('vacuumline').setup({
     mode_visual      = {foreground = '#d79921'},
     mode_visual_line = {foreground = '#689d6a'},
     mode_terminal    = {foreground = '#cc241d'},
+    hint             = {foreground = '#282828', background = '#b8bb26'},
+    info             = {foreground = '#282828', background = '#83a598'},
     warning          = {foreground = '#282828', background = '#fabd2f'},
     error            = {foreground = '#282828', background = '#fb4934'},
     scroll           = {foreground = '#d79921'}
@@ -143,13 +145,21 @@ Here is the full default configuration. Individual pieces are described in more 
     lines = {},
     diagnostics = {
       background = '#fb4934',
-      errors = {
+      error = {
         foreground = '#282828',
         background = '#fb4934'
       },
-      warnings = {
+      warning = {
         foreground = '#282828',
         background = '#fabd2f'
+      },
+      info = {
+        foreground = '#282828',
+        background = '#83a598'
+      },
+      hint = {
+        foreground = '#282828',
+        background = '#b8bb26'
       }
     },
     search = {},
@@ -280,11 +290,19 @@ Collapse behavior: None
 ```lua
 diagnostics = {
   separator = '', -- dynamic by default
-  errors = {
+  error = {
     foreground = '',
     background = ''
   },
-  warnings = {
+  warning = {
+    foreground = '',
+    background = ''
+  },
+  info = {
+    foreground = '',
+    background = ''
+  },
+  hint = {
     foreground = '',
     background = ''
   }

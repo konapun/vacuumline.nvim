@@ -40,13 +40,21 @@ local function get_default_options(theme)
       lines = {},
       diagnostics = {
         background = theme.error.background,
-        errors = {
+        error = {
           foreground = theme.error.foreground,
           background = theme.error.background
         },
-        warnings = {
+        warning = {
           foreground = theme.warning.foreground,
           background = theme.warning.background
+        },
+        info = {
+          foreground = theme.info.foreground,
+          background = theme.info.background
+        },
+        hint = {
+          foreground = theme.hint.foreground,
+          background = theme.hint.background
         }
       },
       search = {},
