@@ -49,6 +49,16 @@ use {'konapun/vacuumline.nvim', requires = {
 }, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
 ```
 
+**Want to try out beta features before they make it into master? Use branch `next`!**
+
+Caution: beta features are considered experimental and may introduce breaking changes.
+```lua
+use {'konapun/vacuumline.nvim', branch = 'next', requires = {
+  'glepnir/galaxyline.nvim', branch = 'main',
+  'kyazdani42/nvim-web-devicons', opt = true
+}, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+```
+
 ## Collapse Behavior
 One of the big advantages of vacuumline over a standard galaxyline config is the builtin responsiveness:
 
