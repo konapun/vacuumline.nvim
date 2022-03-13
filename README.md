@@ -326,3 +326,11 @@ lsp = {
   background = '' -- dynamic by default
 }
 ```
+
+## Developing
+### Using packer
+Link your local vacuumline directory into your packer destination directory
+```sh
+cd <packer plugin directory> # ~/.local/share/nvim/site/pack/packer/start on my config
+ln -s <local dev vacuumline> vacuumline.nvim
+```
