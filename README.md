@@ -1,7 +1,7 @@
 # vacuumline.nvim
 Airline in the vacuum of space
 
-vacuumline is a prebuilt configuration for galaxyline based on the look and functionality of Airline. It can be further
+vacuumline is a prebuilt configuration for galaxyline/feline based on the look and functionality of Airline. It can be further
 configured to style icons, colors, and segments.
 
 <sub>full pane vacuumline</sub>
@@ -11,7 +11,7 @@ configured to style icons, colors, and segments.
 <img src="./res/vacuumline-inactive.png" alt="vacuumline inactive"/>
 
 ## Features
-  * Built on [galaxyline](https://github.com/glepnir/galaxyline.nvim)
+  * Support for using either [galaxyline](https://github.com/glepnir/galaxyline.nvim) or [feline](https://github.com/feline-nvim/feline.nvim) as backends
   * Adaptive segments based on pane size (expand/collapse - guarantees vim mode indicator is never hidden)
   * Dynamic theming
   * Active/inactive segment styling
@@ -57,6 +57,17 @@ use {'konapun/vacuumline.nvim', branch = 'next', requires = {
   'glepnir/galaxyline.nvim', branch = 'main',
   'kyazdani42/nvim-web-devicons', opt = true
 }, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+```
+
+## Selecting a Backend
+Vacuumline supports using either [galaxyline](https://github.com/glepnir/galaxyline.nvim) or [feline](https://github.com/feline-nvim/feline.nvim) as a backend. Why would you choose one over the other?
+As of the time of writing, feline has winbar support while galaxyline does not. Vacuuline returns a built but still customizable instance of whichever backend you choose so you're free to take full advantage
+of whatever specific features your backend of choice provides.
+
+```lua
+lua require('vacuumline').setup({
+  backend = require('vacuumline.backend.feline') -- galaxyline is the default backend but to use feline configure like so
+})
 ```
 
 ## Collapse Behavior
@@ -120,6 +131,7 @@ require('vacuumline').setup({
 Here is the full default configuration. Individual pieces are described in more depth below.
 ```lua
 {
+  backend = require('vacuumline.backend.galaxyline')
   separator = {
     segment = {
       left = '',

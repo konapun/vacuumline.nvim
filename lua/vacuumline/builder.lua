@@ -18,11 +18,12 @@ local function build_side(gls, side, segments, opts)
 end
 
 -- Attach segments to galaxyline
-function M.build(gl, opts)
+function M.build(provider_factory, opts)
   local long_opts = options.format(opts, {left = segments.left, right = segments.right})
   local short_opts = options.format(opts, {left = segments.short_left, right = segments.short_right})
 
   local gls = gl.section
+  -- TODO: Break into components
   build_side(gls, 'left', segments.left, long_opts)
   build_side(gls, 'right', segments.right, long_opts)
   build_side(gls, 'short_line_left', segments.short_left, short_opts)

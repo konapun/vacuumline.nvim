@@ -1,12 +1,13 @@
-local gl = require('galaxyline')
 local builder = require('vacuumline.builder')
+local providers = require('vacuumline.provider_factory')
 
 local M = {}
 
-gl.short_line_list = {'LuaTree', 'vista', 'dbui'}
-
 function M.setup(opts)
-  return builder.build(gl, opts)
+  local backend = opts.backend or require('vacuumline.backend.galaxyline')
+  local provider_factory = providers(backend)
+
+  return builder.build(provider_factory, opts)
 end
 
 return M
