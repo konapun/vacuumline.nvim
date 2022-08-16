@@ -4,9 +4,9 @@ Instantiate providers for a given backend
 local M = {}
 M.__index = M
 
-function M.new(provider)
+function M.new(backend)
   local self = setmetatable({}, M)
-  self.provider = provider
+  self.backend = backend
   return self
 end
 

@@ -30,4 +30,14 @@ function M.build(provider_factory, opts)
   build_side(gls, 'short_line_right', segments.short_right, short_opts)
 end
 
+function Builder(providers)
+  return {
+    function build(configuration)
+      local long_opts = options.format(opts, {left = segments.left, right = segments.right})
+      local short_opts = options.format(opts, {left = segments.short_left, right = segments.short_right})
+
+    end
+  }
+end
+
 return M
