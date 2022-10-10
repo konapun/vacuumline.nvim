@@ -1,7 +1,7 @@
 # vacuumline.nvim
 Airline in the vacuum of space
 
-vacuumline is a prebuilt configuration for galaxyline based on the look and functionality of Airline. It can be further
+vacuumline is a prebuilt configuration for galaxyline and lualine based on the look and functionality of Airline. It can be further
 configured to style icons, colors, and segments.
 
 <sub>full pane vacuumline</sub>
@@ -11,7 +11,7 @@ configured to style icons, colors, and segments.
 <img src="./res/vacuumline-inactive.png" alt="vacuumline inactive"/>
 
 ## Features
-  * Built on [galaxyline](https://github.com/glepnir/galaxyline.nvim)
+  * Choice of backends (currently supports [galaxyline](https://github.com/glepnir/galaxyline.nvim) and [lualine](https://github.com/nvim-lualine/lualine.nvim))
   * Adaptive segments based on pane size (expand/collapse - guarantees vim mode indicator is never hidden)
   * Dynamic theming
   * Active/inactive segment styling
@@ -26,9 +26,10 @@ configured to style icons, colors, and segments.
     * [Scroll](#scroll)
 
 ## Install
-The goal of vacuumline is just to expose a galaxyline configuration and thus requires galaxyline and its dependencies:
+The goal of vacuumline is just to expose a configuration for either galaxyline or lualine and thus requires one of the two and its dependencies:
 
 ### vim-plug
+#### Using galaxyline
 ```vim
 Plug 'konapun/vacuumline.nvim'
 Plug 'glepnir/galaxyline.nvim', {'branch': 'main'}
@@ -38,15 +39,34 @@ Plug 'ryanoasis/vim-devicons' " vimscript
 
 " Somewhere after plug#end()
 
-lua require('vacuumline').setup()
+lua require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline')(require 'galaxyline') })
+```
+#### Using lualine
+```vim
+Plug 'konapun/vacuumline.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Somewhere after plug#end()
+
+lua require('vacuumline').setup({ backend = require('vacuumline.backend.lualine')(require 'lualine') })
 ```
 
 ### packer
+#### Using galaxyline
 ```lua
 use {'konapun/vacuumline.nvim', requires = {
   'glepnir/galaxyline.nvim', branch = 'main',
   'kyazdani42/nvim-web-devicons', opt = true
-}, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline')(require 'galaxyline') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+```
+#### Using lualine
+```lua
+use {'konapun/vacuumline.nvim', requires = {
+  'nvim-lualine/lualine.nvim',
+  'kyazdani42/nvim-web-devicons', opt = true
+}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.lualine')(require 'lualine') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
 ```
 
 **Want to try out beta features before they make it into master? Use branch `next`!**
@@ -56,7 +76,7 @@ Caution: beta features are considered experimental and may introduce breaking ch
 use {'konapun/vacuumline.nvim', branch = 'next', requires = {
   'glepnir/galaxyline.nvim', branch = 'main',
   'kyazdani42/nvim-web-devicons', opt = true
-}, config = function() require('vacuumline').setup() end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+}, config = function() require('vacuumline').setup() end}
 ```
 
 ## Collapse Behavior
@@ -120,6 +140,7 @@ require('vacuumline').setup({
 Here is the full default configuration. Individual pieces are described in more depth below.
 ```lua
 {
+  backend = require('vacuumline.backend.galaxyline'),
   separator = {
     segment = {
       left = '',
@@ -175,6 +196,7 @@ Here is the full default configuration. Individual pieces are described in more 
 Global config values are used when no specific value is provided for a segment.
 
 ```lua
+backend = require('vacuumline.backend.galaxyline'),
 separator = {
   segment = {
     left = '',
@@ -190,6 +212,12 @@ color = {
   background = {line = '#282828', even = '#b16286', odd = '#98971a'},
 }
 ```
+
+#### Backends
+vacuumline abstracts the statusline provider and currently accepts using either [galaxyline](https://github.com/glepnir/galaxyline.nvim) or
+[lualine](https://github.com/nvim-lualine/lualine.nvim)) as backends (want to use something else? Open a ticket and I'll consider it!).
+**NOTE:** galaxyline DOES NOT support nvim0.8's winbar and thus the winbar config is a no op for galaxyline. vacuumline uses galaxyline as
+a default for historical reasons but due to functionality and speed of updates lualine is the suggested backend.
 
 #### Separators
 Segment separators are used to separate segments, obviously.
