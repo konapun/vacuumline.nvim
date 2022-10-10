@@ -39,7 +39,7 @@ Plug 'ryanoasis/vim-devicons' " vimscript
 
 " Somewhere after plug#end()
 
-lua require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline')(require 'galaxyline') })
+lua require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline') })
 ```
 #### Using lualine
 ```vim
@@ -50,7 +50,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " Somewhere after plug#end()
 
-lua require('vacuumline').setup({ backend = require('vacuumline.backend.lualine')(require 'lualine') })
+lua require('vacuumline').setup({ backend = require('vacuumline.backend.lualine') })
 ```
 
 ### packer
@@ -59,14 +59,14 @@ lua require('vacuumline').setup({ backend = require('vacuumline.backend.lualine'
 use {'konapun/vacuumline.nvim', requires = {
   'glepnir/galaxyline.nvim', branch = 'main',
   'kyazdani42/nvim-web-devicons', opt = true
-}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline')(require 'galaxyline') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.galaxyline') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
 ```
 #### Using lualine
 ```lua
 use {'konapun/vacuumline.nvim', requires = {
   'nvim-lualine/lualine.nvim',
   'kyazdani42/nvim-web-devicons', opt = true
-}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.lualine')(require 'lualine') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
+}, config = function() require('vacuumline').setup({ backend = require('vacuumline.backend.lualine') }) end} -- Add this line to use defaults; otherwise, call `setup` with your config as described below wherever you configure your plugins
 ```
 
 **Want to try out beta features before they make it into master? Use branch `next`!**

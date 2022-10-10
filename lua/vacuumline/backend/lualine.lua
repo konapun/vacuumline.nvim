@@ -1,3 +1,4 @@
+local lualine = require('lualine')
 local statusline = require('backend.lualine.statusline')
 local winbar = require('backend.lualine.winbar')
 
@@ -39,10 +40,10 @@ return {
 end
 
 return function(config)
-  local lualine = build_lualine(config)
+  local lualine_config = build_lualine(config)
 
   return {
-    get_statusline = statusline(lualine),
-    get_winbar = winbar(lualine),
+    get_statusline = statusline(lualine_config),
+    get_winbar = winbar(lualine_config),
   }
 end

@@ -1,12 +1,15 @@
-local gl = require('galaxyline')
-local builder = require('vacuumline.builder')
+local get_factory = require('backend.factory')
+local get_builder = require('vacuumline.builder')
+local get_options = require('vacuumline.options')
 
-local M = {}
+local function setup(opts)
+  local options = get_options(opts)
+  local factory = get_factory(options.backend)
+  local build = get_builder(factory)
 
-gl.short_line_list = {'LuaTree', 'vista', 'dbui'}
-
-function M.setup(opts)
-  return builder.build(gl, opts)
+  build(opts)
 end
 
-return M
+return {
+  setup = setup,
+}

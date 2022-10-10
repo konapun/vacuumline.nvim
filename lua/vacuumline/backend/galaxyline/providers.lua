@@ -1,6 +1,7 @@
 local vim = vim
 local fileinfo = require('galaxyline.provider_fileinfo')
 local mode = require('vacuumline.provider.mode')
+local search = require('vacuumline.provider.search')
 
 local ModeIndicatorKey = 'ModeIndicator_' .. 'FIXME' -- FIXME
 local galaxy_label = 'Galaxy' .. ModeIndicatorKey
@@ -69,6 +70,7 @@ local function scroll_bar()
 end
 
 local function search_results()
+  return search()
 end
 
 local function vcs_icon()

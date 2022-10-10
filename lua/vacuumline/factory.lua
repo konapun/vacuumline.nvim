@@ -93,7 +93,7 @@ local function provider(backend)
 end
 
 -- Create a factory for a given backend
-function New(backend)
+return function(backend)
   return {
     -- statusline provides backend-specific functionality for manipulating the statusline
     statusline = statusline(backend),

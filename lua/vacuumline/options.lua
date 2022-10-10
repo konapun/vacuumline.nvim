@@ -1,10 +1,5 @@
 local gruvbox_theme = require('vacuumline.theme.gruvbox')
 
-local M = {}
-
---TODO: Put short config in options instead of hardcoding in segments
---  Keep passing mode but use it as key
-
 local function get_default_options(theme)
   return {
     separator = {
@@ -101,7 +96,7 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
 end
 
 -- Configure and format vacuumline options based on user input
-function M.format(opts, segments)
+return function(opts, segments)
   opts = opts or {separator = {}, color = {}, segment = {}}
   local default_options = get_default_options(opts.theme or gruvbox_theme)
 
@@ -127,9 +122,8 @@ function M.format(opts, segments)
   local segment_config = merge(left_segments, right_segments)
 
   return {
+    backend = opts.backend or require('backend.galaxyline'),
     colors = color_config,
     segments = segment_config
   }
 end
-
-return M
