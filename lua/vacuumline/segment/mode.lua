@@ -1,3 +1,4 @@
+local segment = require('vacuumline.segment')
 local condition = require('galaxyline.condition')
 local vim = vim
 

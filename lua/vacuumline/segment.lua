@@ -10,16 +10,14 @@
 -- Segment size
 -- - short
 -- - long
-return {
-  New = function()
-    return {
-      provider = 'TODO', -- TODO
-      condition = function () end, -- TODO
-      foreground = '#ffffff', -- TODO
-      background = '#000000', -- TODO
-      separator = '>', -- TODO
-      separator_foreground = '#ffffff', -- TODO
-      separator_background = '#000000', -- TODO
-    }
-  end
-}
+return function(definition)
+  return {
+    provider = definition.provider,
+    condition = definition.condition or function() end,
+    foreground = definition.foreground,
+    background = definition.background,
+    separator = definition.separator.symbol,
+    separator_foreground = definition.separator.foreground,
+    separator_background = definition.seprator.background,
+  }
+end
