@@ -1,25 +1,27 @@
 -- initialize the statusline factory from a given backend
 local function statusline(backend)
-  statusline = backend.get_statusline()
+  local sl = backend.get_statusline()
+
   return {
     append_left = function(segment, status)
-      return statusline.append_left(segment, status)
+      return sl.append_left(segment, status)
     end,
     append_right = function(segment, status)
-      return statusline.append_right(segment, status)
+      return sl.append_right(segment, status)
     end,
   }
 end
 
 -- initialize the winbar factory from a given backend
 local function winbar(backend)
-  winbar = backend.get_winbar()
+  local wb = backend.get_winbar()
+
   return {
     append_left = function(segment, status)
-      return winbar.append_left(segment, status)
+      return wb.append_left(segment, status)
     end,
     append_right = function(segment, status)
-      return winbar.append_right(segment, status)
+      return wb.append_right(segment, status)
     end,
   }
 end

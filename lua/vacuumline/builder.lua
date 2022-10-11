@@ -1,5 +1,3 @@
--- TODO: Rather than making segment handle active/inactive/etc, have a standard config for each and pass as options to segment generator
-
 local get_statusline = require('vacuumline.statusline')
 local get_winbar = require('vacuumline.winbar')
 

@@ -2,7 +2,8 @@ local segment = require('vacuumline.segment')
 local condition = require('galaxyline.condition')
 local vim = vim
 
-local function generate(opts, mode)
+-- TODO: function signature, body
+return function(opts, mode)
   local segment = opts.segments
   local color = opts.colors
   local config = segment.mode
@@ -50,6 +51,4 @@ local function generate(opts, mode)
 
   return Mode
 end
-
-return generate
 
