@@ -362,3 +362,8 @@ Link your local vacuumline directory into your packer destination directory
 cd <packer plugin directory> # ~/.local/share/nvim/site/pack/packer/start on my config
 ln -s <local dev vacuumline> vacuumline.nvim
 ```
+### Terminology
+Vacuumline exposes a **statusline** and a **winbar** (depending on backend).
+
+The **statusline** is made of **sections** which themselves are composed of one or more **segments**.
+Sections are styled separately for **active** and **inactive** buffers.
