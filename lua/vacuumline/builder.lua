@@ -1,22 +1,23 @@
 local get_statusline = require('vacuumline.statusline')
 local get_winbar = require('vacuumline.winbar')
+local section = require('vacuumline.section')
 
 return function(factory)
   local function build_statusline(statusline)
     local sections = statusline.sections
     local statusline_factory = factory.statusline
 
-    for _, section in ipairs(sections.left.active) do
-      statusline_factory.append_left(section, 'active')
+    for _, active_section in ipairs(sections.left.active) do
+      statusline_factory.append_left(active_section, section.Active)
     end
-    for _, section in ipairs(sections.left.inactive) do
-      statusline_factory.append_left(section, 'inactive')
+    for _, inactive_section in ipairs(sections.left.inactive) do
+      statusline_factory.append_left(inactive_section, section.Inactive)
     end
-    for _, section in ipairs(sections.right.active) do
-      statusline_factory.append_right(section, 'active')
+    for _, active_section  in ipairs(sections.right.active) do
+      statusline_factory.append_right(active_section, section.Active)
     end
-    for _, section in ipairs(sections.right.inactive) do
-      statusline_factory.append_right(section, 'inactive')
+    for _, inactive_section in ipairs(sections.right.inactive) do
+      statusline_factory.append_right(inactive_section, section.Inactive)
     end
   end
 
@@ -24,17 +25,17 @@ return function(factory)
     local sections = winbar.sections
     local winbar_factory = factory.winbar
 
-    for _, section in ipairs(sections.left.active) do
-      winbar_factory.append_left(section, 'active')
+    for _, active_section in ipairs(sections.left.active) do
+      winbar_factory.append_left(active_section, section.Active)
     end
-    for _, section in ipairs(sections.left.inactive) do
-      winbar_factory.append_left(section, 'inactive')
+    for _, inactive_section in ipairs(sections.left.inactive) do
+      winbar_factory.append_left(inactive_section, section.Inactive)
     end
-    for _, section in ipairs(sections.right.active) do
-      winbar_factory.append_right(section, 'active')
+    for _, active_section in ipairs(sections.right.active) do
+      winbar_factory.append_right(active_section, section.Active)
     end
-    for _, section in ipairs(sections.right.inactive) do
-      winbar_factory.append_right(section, 'inactive')
+    for _, inactive_section in ipairs(sections.right.inactive) do
+      winbar_factory.append_right(inactive_section, section.Inactive)
     end
   end
 

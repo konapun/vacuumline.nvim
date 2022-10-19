@@ -1,5 +1,6 @@
 local vim = vim
 local fileinfo = require('galaxyline.provider_fileinfo')
+local vcs = require('galaxyline.provider_vcs')
 local mode = require('vacuumline.provider.mode')
 local search = require('vacuumline.provider.search')
 
@@ -74,18 +75,26 @@ local function search_results()
 end
 
 local function vcs_icon()
+  return ' '
 end
 
 local function vcs_branch()
+  return vcs.get_git_branch()
 end
 
 local function vcs_diff_added()
+  -- TODO:  icon = ' ', -- This can probably be added to the section?
+  return 'DiffAdd'
 end
 
 local function vcs_diff_modified()
+  -- TODO:  icon = ' ',
+  return 'DiffModified'
 end
 
 local function vcs_diff_removed()
+  -- TODO:  icon = ' ',
+  return 'DiffRemove'
 end
 
 return {
