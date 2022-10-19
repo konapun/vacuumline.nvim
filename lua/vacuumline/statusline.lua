@@ -1,4 +1,4 @@
-local get_segment_factory = require('vacuumline.segment_factory')
+local get_section_factory = require('vacuumline.section_factory')
 
 -- Return an internal representation of the statusline
 return function(config)
@@ -12,32 +12,32 @@ return function(config)
     background = theme.inactive.background,
   }
 
-  local active_segments = get_segment_factory(active_config)
-  local inactive_segments = get_segment_factory(inactive_config)
+  local active_sections = get_section_factory(active_config)
+  local inactive_sections = get_section_factory(inactive_config)
 
   return {
-    segments = {
+    sections = {
       left = {
         active = {
-          active_segments.mode(),
-          active_segments.file(),
-          active_segments.vcs(),
+          active_sections.mode(),
+          active_sections.file(),
+          active_sections.vcs(),
         },
         inactive = {
-          inactive_segments.file(),
+          inactive_sections.file(),
         },
       },
       right = {
         active = {
-          active_segments.lsp(),
-          active_segments.search(),
-          active_segments.format(),
-          active_segments.diagnostics(),
-          active_segments.scroll(),
+          active_sections.lsp(),
+          active_sections.search(),
+          active_sections.format(),
+          active_sections.diagnostics(),
+          active_sections.scroll(),
         },
         inactive = {
-          inactive_segments.format(),
-          inactive_segments.scroll(),
+          inactive_sections.format(),
+          inactive_sections.scroll(),
         },
       },
     }

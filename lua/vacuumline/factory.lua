@@ -101,7 +101,7 @@ return function(backend)
     statusline = statusline(backend),
     -- winbar provides backend-specific functionality for manipulating the winbar
     winbar = winbar(backend),
-    -- provider provides backend-specific providers for use within segments
+    -- provider provides backend-specific providers for use within sections
     provider = provider(backend),
   }
 end

@@ -3,38 +3,38 @@ local get_winbar = require('vacuumline.winbar')
 
 return function(factory)
   local function build_statusline(statusline)
-    local segments = statusline.segments
+    local sections = statusline.sections
     local statusline_factory = factory.statusline
 
-    for _, segment in ipairs(segments.left.active) do
-      statusline_factory.append_left(segment, 'active') -- FIXME: this will hit the actual backend's statusline API. Is this what we want? Probably not since the segment itself hasn't been adapted. Where should this happen?
+    for _, section in ipairs(sections.left.active) do
+      statusline_factory.append_left(section, 'active')
     end
-    for _, segment in ipairs(segments.left.inactive) do
-      statusline_factory.append_left(segment, 'inactive') -- FIXME: same
+    for _, section in ipairs(sections.left.inactive) do
+      statusline_factory.append_left(section, 'inactive')
     end
-    for _, segment in ipairs(segments.right.active) do
-      statusline_factory.append_right(segment, 'active') -- FIXME: same
+    for _, section in ipairs(sections.right.active) do
+      statusline_factory.append_right(section, 'active')
     end
-    for _, segment in ipairs(segments.right.inactive) do
-      statusline_factory.append_right(segment, 'inactive') -- FIXME: same
+    for _, section in ipairs(sections.right.inactive) do
+      statusline_factory.append_right(section, 'inactive')
     end
   end
 
   local function build_winbar(winbar)
-    local segments = winbar.segments
+    local sections = winbar.sections
     local winbar_factory = factory.winbar
 
-    for _, segment in ipairs(segments.left.active) do
-      winbar_factory.append_left(segment, 'active')
+    for _, section in ipairs(sections.left.active) do
+      winbar_factory.append_left(section, 'active')
     end
-    for _, segment in ipairs(segments.left.inactive) do
-      winbar_factory.append_left(segment, 'inactive')
+    for _, section in ipairs(sections.left.inactive) do
+      winbar_factory.append_left(section, 'inactive')
     end
-    for _, segment in ipairs(segments.right.active) do
-      winbar_factory.append_right(segment, 'active')
+    for _, section in ipairs(sections.right.active) do
+      winbar_factory.append_right(section, 'active')
     end
-    for _, segment in ipairs(segments.right.inactive) do
-      winbar_factory.append_right(segment, 'inactive')
+    for _, section in ipairs(sections.right.inactive) do
+      winbar_factory.append_right(section, 'inactive')
     end
   end
 
