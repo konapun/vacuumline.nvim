@@ -1,5 +1,10 @@
 local get_section_factory = require('vacuumline.section_factory')
 
+Status = {
+  Active = 'active',
+  Inactive = 'Inactive'
+}
+
 -- Return an internal representation of the statusline
 return function(config)
   local theme = config.theme

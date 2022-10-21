@@ -6,9 +6,5 @@ return function(config)
   return {
     get_statusline = statusline(galaxyline),
     get_winbar = winbar,
-    make_segment = function(segment)
-      -- TODO
-      return segment
-    end,
   }
 end

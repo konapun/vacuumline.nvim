@@ -5,21 +5,28 @@ local section = require('vacuumline.section')
 return function(providers, theme)
   -- mode color indicator
   local color_indicator = segment({
-    provider = providers.mode_color,
-    condition = 'TODO',
-    foreground = 'TODO',
-    background = 'TODO',
-    separator = 'TODO',
-    separator_foreground = 'TODO',
-    separator_background = 'TODO',
+    id = 'mode_color_indicator',
+    provider = providers.mode_color, -- FIXME
+    color = {
+      foreground = theme.background,
+      background = theme.background,
+    },
   })
-  color_indicator.add_condition(function()
-    -- TODO
-  end)
 
   -- mode icon indicator
   local icon_indicator = segment({
-    provider = providers.mode_icon,
+    id = 'mode_icon_indicator',
+    provider = providers.mode_icon, -- FIXME
+    color = {
+      foreground = theme.foreground,
+      background = theme.background,
+      style = 'bold',
+    },
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.foreground,
+      background = theme.background, -- FIXME
+    },
   })
 
   local mode = section()
@@ -32,4 +39,3 @@ return function(providers, theme)
 
   return mode
 end
-

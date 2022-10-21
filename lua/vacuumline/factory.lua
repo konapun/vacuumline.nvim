@@ -3,11 +3,11 @@ local function statusline(backend)
   local sl = backend.get_statusline()
 
   return {
-    append_left = function(segment, status)
-      return sl.append_left(segment, status)
+    append_left = function(status, segment)
+      return sl.append_left(status, segment)
     end,
-    append_right = function(segment, status)
-      return sl.append_right(segment, status)
+    append_right = function(status, segment)
+      return sl.append_right(status, segment)
     end,
   }
 end
@@ -17,11 +17,11 @@ local function winbar(backend)
   local wb = backend.get_winbar()
 
   return {
-    append_left = function(segment, status)
-      return wb.append_left(segment, status)
+    append_left = function(status, segment)
+      return wb.append_left(status, segment)
     end,
-    append_right = function(segment, status)
-      return wb.append_right(segment, status)
+    append_right = function(status, segment)
+      return wb.append_right(status, segment)
     end,
   }
 end

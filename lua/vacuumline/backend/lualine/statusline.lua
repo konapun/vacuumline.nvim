@@ -9,9 +9,11 @@ return function(sections)
   end
 
   return {
-    append_left = function(segment, status)
+    append_left = function(status, segment)
+      -- TODO
     end,
-    append_right = function(segment, status)
+    append_right = function(status, segment)
+      -- TODO
     end,
   }
 end

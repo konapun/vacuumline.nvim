@@ -1,60 +1,23 @@
-local condition = require('vacuumline.condition')
-local fileinfo = require('galaxyline.provider_fileinfo')
-local vim = vim
+local segment = require('vacuumline.segment')
+local section = require('vacuumline.section')
 
-local format_hide_width = 45
-
-local function generate(opts, mode)
-  local segment = opts.segments
-  local color = opts.colors
-  local config = segment.file
-  local next = segment[config.next]
-
-  local short_highlight = {color.foreground.line, color.background.line}
-
-  local FileIconKey = 'FileIcon_' .. mode
-  local FileNameKey = 'FileName_' .. mode
-  local FileEndKey = 'FileEnd_' .. mode
-
-  local File = {
-    {
-      [FileIconKey] = {
-        provider = 'FileIcon',
-        condition = condition.standard_not_empty,
-        highlight = mode == 'short' and short_highlight or {fileinfo.get_file_icon_color, config.background},
-      }
+-- FIXME: need to pass providers since these are backend-dependent (or should the backend convert this somehow?)
+return function(providers, theme)
+  -- file icon
+  local file_icon = segment({
+    id = 'file_icon',
+    provider = providers.file_icon, -- FIXME
+    condition = conditions.not_empty,
+    color = {
+      foreground = theme.background,
+      background = theme.background,
     },
-    {
-      [FileNameKey] = {
-        provider = function()
-          local name = fileinfo.get_current_file_name()
-          local size = fileinfo.get_file_size()
+  })
+  file_icon.add_condition(conditions.not_empty)
 
-          if mode ~= 'short' and not condition.hide_in_width() then -- truncated filename
-            local len = string.len(name)
-            local n_chars = math.ceil(vim.fn.winwidth(0) / 8) + 1
-            local str_start = (len - n_chars) >= 1 and (len - n_chars) or 1
-            local ellipses = str_start > 1 and '...' or ''
+  local file = section()
 
-            return ellipses .. string.sub(name, str_start)
-          end
-          return name .. size
-        end,
-        condition = condition.gen_standard_not_empty(format_hide_width),
-        highlight = mode == 'short' and short_highlight or {config.foreground, config.background}
-      }
-    },
-    {
-      [FileEndKey] = {
-        provider = function() end,
-        condition = condition.standard_not_empty,
-        separator = mode ~= 'short' and config.separator,
-        separator_highlight = {config.background, next.background}
-      }
-    }
-  }
+  file.add_segment(file_icon)
 
-  return File
+  return file
 end
-
-return generate

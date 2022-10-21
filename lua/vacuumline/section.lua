@@ -1,6 +1,3 @@
-Active = 'active'
-Inactive = 'inactive'
-
 -- section: create a new section which holds segments
 return function()
   local segments = {}

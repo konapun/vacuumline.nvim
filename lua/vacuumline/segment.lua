@@ -20,15 +20,24 @@ end
 -- - short
 -- - long
 return function(definition)
+  local color = definition.color
+  local separator = definition.separator
+
   local segment = {
+    id = definition.id,
     provider = definition.provider,
     condition = definition.condition or function() end,
     icon = definition.icon, -- FIXME: is this needed? Is there a lualine equivalent?
-    foreground = definition.foreground,
-    background = definition.background,
-    separator = definition.separator.symbol,
-    separator_foreground = definition.separator.foreground,
-    separator_background = definition.seprator.background,
+    color = {
+      foreground = color.foreground,
+      background = color.background,
+      style = color.style,
+    },
+    separator = {
+      symbol = separator.symbol,
+      foreground = separator.foreground,
+      background = separator.background,
+    },
   }
 
   local conditions = {}
@@ -46,7 +55,7 @@ return function(definition)
         behaviors.shrink = fn
       elseif behavior == 'grow' then
       end
-        behaviors.grow = fn
+      behaviors.grow = fn
     end,
   }
 end

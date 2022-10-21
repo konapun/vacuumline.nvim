@@ -7,17 +7,25 @@ return function(factory)
     local sections = statusline.sections
     local statusline_factory = factory.statusline
 
-    for _, active_section in ipairs(sections.left.active) do
-      statusline_factory.append_left(active_section, section.Active)
+    for _, active_section in ipairs(sections.left.active) do -- TODO: make fn to do this
+      for _, segment in ipairs(active_section.segments) do
+        statusline_factory.append_left(section.Active, segment)
+      end
     end
     for _, inactive_section in ipairs(sections.left.inactive) do
-      statusline_factory.append_left(inactive_section, section.Inactive)
+      for _, segment in ipairs(inactive_section.segments) do
+        statusline_factory.append_left(section.Inactive, segment)
+      end
     end
     for _, active_section  in ipairs(sections.right.active) do
-      statusline_factory.append_right(active_section, section.Active)
+      for _, segment in ipairs(active_section.segments) do
+        statusline_factory.append_right(section.Active, segment)
+      end
     end
     for _, inactive_section in ipairs(sections.right.inactive) do
-      statusline_factory.append_right(inactive_section, section.Inactive)
+      for _, segment in ipairs(inactive_section.segments) do
+        statusline_factory.append_right(section.Inactive, segment)
+      end
     end
   end
 
@@ -26,16 +34,24 @@ return function(factory)
     local winbar_factory = factory.winbar
 
     for _, active_section in ipairs(sections.left.active) do
-      winbar_factory.append_left(active_section, section.Active)
+      for _, segment in ipairs(active_section.segments) do
+        winbar_factory.append_left(section.Active, segment)
+      end
     end
     for _, inactive_section in ipairs(sections.left.inactive) do
-      winbar_factory.append_left(inactive_section, section.Inactive)
+      for _, segment in ipairs(inactive_section.segments) do
+        winbar_factory.append_left(section.Inactive, segment)
+      end
     end
     for _, active_section in ipairs(sections.right.active) do
-      winbar_factory.append_right(active_section, section.Active)
+      for _, segment in ipairs(active_section.segments) do
+        winbar_factory.append_right(section.Active, segment)
+      end
     end
     for _, inactive_section in ipairs(sections.right.inactive) do
-      winbar_factory.append_right(inactive_section, section.Inactive)
+      for _, segment in ipairs(inactive_section.segments) do
+        winbar_factory.append_right(section.Inactive, segment)
+      end
     end
   end
 
@@ -50,4 +66,3 @@ return function(factory)
 
   return build
 end
-

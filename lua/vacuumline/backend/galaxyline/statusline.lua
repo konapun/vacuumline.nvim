@@ -1,4 +1,4 @@
-local section = require('vacuumline.section')
+local statusline = require('vacuumline.statusline')
 local make_segment = require('vacuumline.backend.galaxyline.segment')
 
 local side = {
@@ -29,16 +29,16 @@ return function(galaxyline)
   end
 
   return {
-    append_left = function(segment, status)
+    append_left = function(status, segment)
       local gl_segment = make_segment(segment, status)
 
-      local s = status == section.Active and side.left or side.left_short
+      local s = status == statusline.Status.Active and side.left or side.left_short
       add_segment(s, gl_segment)
     end,
-    append_right = function(segment, status)
+    append_right = function(status, segment)
       local gl_segment = make_segment(segment, status)
 
-      local s = status == section.Active and side.right or side.right_short
+      local s = status == statusline.Status.Active and side.right or side.right_short
       add_segment(s, gl_segment)
     end,
   }

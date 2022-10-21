@@ -4,9 +4,6 @@ local vcs = require('galaxyline.provider_vcs')
 local mode = require('vacuumline.provider.mode')
 local search = require('vacuumline.provider.search')
 
-local ModeIndicatorKey = 'ModeIndicator_' .. 'FIXME' -- FIXME
-local galaxy_label = 'Galaxy' .. ModeIndicatorKey
-
 local function diagnostic_warn()
   return 'DiagnosticWarn' -- galaxyline builtin
 end
@@ -50,7 +47,7 @@ end
 local function mode_color()
   local color = mode.mode_color()
 
-  vim.api.nvim_command("hi " .. galaxy_label .. " guifg=" .. color)
+  vim.api.nvim_command("hi GalaxyViMode guifg=" .. color)
   return '▋'
 end
 
