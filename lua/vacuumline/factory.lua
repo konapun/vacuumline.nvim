@@ -26,74 +26,6 @@ local function winbar(backend)
   }
 end
 
--- providers
-local function diagnostics(backend)
-  return {
-    warn = function() end,
-    error = function() end,
-    info = function() end,
-  }
-end
-local function file(backend)
-  return {
-    icon = function() end,
-    name = function() end,
-    size = function() end,
-    format = function() end,
-    position = {
-      line = function() end,
-      column = function() end,
-    }
-  }
-end
-local function lsp(backend)
-  return {
-    client = function() end,
-  }
-end
-local function mode(backend)
-  return {
-    color = function() end,
-    label = function() end,
-    icon = function() end,
-  }
-end
-local function scroll(backend)
-  return {
-    percent = function() end,
-    scrollbar = function() end,
-  }
-end
-local function search(backend)
-  return {
-    results = function() end,
-  }
-end
-local function vcs(backend)
-  return {
-    icon = function() end,
-    branch = function() end,
-    diff = {
-      added = function() end,
-      modified = function() end,
-      removed = function() end,
-    }
-  }
-end
-
--- initialize the provider factory from a given backend
-local function provider(backend)
-  return {
-    diagnostics = diagnostics(backend),
-    file = file(backend),
-    lsp = lsp(backend),
-    mode = mode(backend),
-    scroll = scroll(backend),
-    search = search(backend),
-    vcs = vcs(backend),
-  }
-end
-
 -- Create a factory for a given backend
 return function(backend)
   return {
@@ -101,8 +33,6 @@ return function(backend)
     statusline = statusline(backend),
     -- winbar provides backend-specific functionality for manipulating the winbar
     winbar = winbar(backend),
-    -- provider provides backend-specific providers for use within sections
-    provider = provider(backend),
   }
 end
 

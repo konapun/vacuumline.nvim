@@ -1,4 +1,5 @@
 local vim = vim
+local internal_provider = require('vacuumline.provider')
 local fileinfo = require('galaxyline.provider_fileinfo')
 local vcs = require('galaxyline.provider_vcs')
 local mode = require('vacuumline.provider.mode')
@@ -94,26 +95,41 @@ local function vcs_diff_removed()
   return 'DiffRemove'
 end
 
+-- return a mapping from internal provider names to galaxyline provider functions
 return {
-  diagnostic_warn = diagnostic_warn,
-  diagnostic_error = diagnostic_error,
-  diagnostic_info = diagnostic_info,
-  file_icon = file_icon,
-  file_name = file_name,
-  file_size = file_size,
-  file_format = file_format,
-  file_position_line = file_position_line,
-  file_position_column = file_position_column,
-  lsp_client = lsp_client,
-  mode_color = mode_color,
-  mode_label = mode_label,
-  mode_icon = mode_icon,
-  scroll_percent = scroll_percent,
-  scroll_bar = scroll_bar,
-  search_results = search_results,
-  vcs_icon = vcs_icon,
-  vcs_branch = vcs_branch,
-  vcs_diff_added = vcs_diff_added,
-  vcs_diff_modified = vcs_diff_modified,
-  vcs_diff_removed = vcs_diff_removed,
+  -- diagnostics
+  [internal_provider.diagnostics.warn] = diagnostic_warn,
+  [internal_provider.diagnostics.error] = diagnostic_error,
+  [internal_provider.diagnostics.info] = diagnostic_info,
+
+  -- file
+  [internal_provider.file.icon] = file_icon,
+  [internal_provider.file.name] = file_name,
+  [internal_provider.file.size] = file_size,
+  [internal_provider.file.format] = file_format,
+  [internal_provider.file.position.line] = file_position_line,
+  [internal_provider.file.position.column] = file_position_column,
+
+  -- mode
+  [internal_provider.mode.color] = mode_color,
+  [internal_provider.mode.label] = mode_label,
+  [internal_provider.mode.icon] = mode_icon,
+
+  -- lsp
+  [internal_provider.lsp.client] = lsp_client,
+
+  -- scroll
+  [internal_provider.scroll.percent] = scroll_percent,
+  [internal_provider.scroll.bar] = scroll_bar,
+
+  -- search
+  [internal_provider.search.results] = search_results,
+
+  -- vcs
+  [internal_provider.vcs.icon] = vcs_icon,
+  [internal_provider.vcs.branch] = vcs_branch,
+  [internal_provider.vcs.diff.added] = vcs_diff_added,
+  [internal_provider.vcs.diff.modified] = vcs_diff_modified,
+  [internal_provider.vcs.diff.removed] = vcs_diff_removed,
 }
+

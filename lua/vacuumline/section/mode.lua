@@ -1,12 +1,13 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
+local providers = require('vacuumline.providers')
 
 -- FIXME: need to pass providers since these are backend-dependent (or should the backend convert this somehow?)
-return function(providers, theme)
+return function(theme)
   -- mode color indicator
   local color_indicator = segment({
     id = 'mode_color_indicator',
-    provider = providers.mode_color, -- FIXME
+    provider = providers.mode.color,
     color = {
       foreground = theme.background,
       background = theme.background,
@@ -16,7 +17,7 @@ return function(providers, theme)
   -- mode icon indicator
   local icon_indicator = segment({
     id = 'mode_icon_indicator',
-    provider = providers.mode_icon, -- FIXME
+    provider = providers.mode.icon,
     color = {
       foreground = theme.foreground,
       background = theme.background,

@@ -367,3 +367,6 @@ Vacuumline exposes a **statusline** and a **winbar** (depending on backend).
 
 The **statusline** is made of **sections** which themselves are composed of one or more **segments**.
 Sections are styled separately for **active** and **inactive** buffers.
+
+**Providers** expose functionality to use within sections.
+
