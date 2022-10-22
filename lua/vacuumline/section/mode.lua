@@ -26,15 +26,11 @@ return function(theme)
     separator = {
       symbol = theme.separator,
       foreground = theme.foreground,
-      background = theme.background, -- FIXME
+      background = theme.background, -- FIXME - this depends on the next segment
     },
   })
 
   local mode = section()
-
-  -- TODO: add shrink/grow behavior to section API
-  --- Text truncate behavior
-  --- segment show/hide based on available space
   mode.add_segment(color_indicator)
   mode.add_segment(icon_indicator)
 

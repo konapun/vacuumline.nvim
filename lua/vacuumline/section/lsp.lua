@@ -1,25 +1,25 @@
-local condition = require('vacuumline.condition')
-local vim = vim
+local segment = require('vacuumline.segment')
+local section = require('vacuumline.section')
+local providers = require('vacuumline.providers')
 
-local format_hide_width = 40
-
-local function generate(opts, mode)
-  local color = opts.colors
-  local config = opts.segments.lsp
-
-  local LspInfoKey = 'LspInfo_' .. mode
-
-  local LSP = {
-    {
-      [LspInfoKey] = {
-        provider = 'GetLspClient',
-        condition = function() return condition.check_width(format_hide_width) and condition.not_terminal() end,
-        highlight = mode == 'short' and {color.foreground.line, color.background.line} or {config.foreground, config.background}
-      }
+return function(theme)
+  -- lsp client info
+  local client = segment({
+    id = 'lsp_client',
+    provider = providers.lsp.client,
+    color = {
+      foreground = theme.lsp.foreground,
+      background = theme.lsp.background,
+    },
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.lsp.background,
+      background = theme.lsp.background,
     }
-  }
+  })
 
-  return LSP
+  local lsp = section()
+  lsp.add_segment(client)
+
+  return lsp
 end
-
-return generate

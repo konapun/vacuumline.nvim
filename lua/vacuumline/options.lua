@@ -13,18 +13,20 @@ local function get_default_options(theme)
       }
     },
     color = {
-      foreground = {line = theme.line.foreground, even = theme.segment_even.foreground, odd = theme.segment_odd.foreground},
-      background = {line = theme.line.background, even = theme.segment_even.background, odd = theme.segment_odd.background}
+      foreground = { line = theme.line.foreground, even = theme.segment_even.foreground,
+        odd = theme.segment_odd.foreground },
+      background = { line = theme.line.background, even = theme.segment_even.background,
+        odd = theme.segment_odd.background }
     },
     segment = {
       mode = {
         map = {
-          n = {label = ' ', background = theme.mode_normal.foreground}, -- NORMAL
-          i = {label = ' ', background = theme.mode_insert.foreground}, -- INSERT
-          c = {label = ' ', background = theme.mode_command.foreground}, -- COMMAND
-          v = {label = ' ', background = theme.mode_visual.foreground}, -- VISUAL
-          V = {label = ' ', background = theme.mode_visual_line.foreground}, -- VISUAL LINE
-          t = {label = ' ', background = theme.mode_terminal.foreground}, -- TERMINAL
+          n = { label = ' ', background = theme.mode_normal.foreground }, -- NORMAL
+          i = { label = ' ', background = theme.mode_insert.foreground }, -- INSERT
+          c = { label = ' ', background = theme.mode_command.foreground }, -- COMMAND
+          v = { label = ' ', background = theme.mode_visual.foreground }, -- VISUAL
+          V = { label = ' ', background = theme.mode_visual_line.foreground }, -- VISUAL LINE
+          t = { label = ' ', background = theme.mode_terminal.foreground }, -- TERMINAL
         }
       },
       file = {},
@@ -42,6 +44,14 @@ local function get_default_options(theme)
         warnings = {
           foreground = theme.warning.foreground,
           background = theme.warning.background
+        },
+        info = {
+          foreground = theme.info.foreground,
+          background = theme.info.background
+        },
+        hint = {
+          foreground = theme.hint.foreground,
+          background = theme.hint.background
         }
       },
       search = {},
@@ -56,12 +66,12 @@ end
 -- Perform a one dimensional merge over two tables
 local function merge(t1, t2)
   local merged = {}
-  for k,v in pairs(t1) do
+  for k, v in pairs(t1) do
     merged[k] = v
   end
 
   if t2 then
-    for k,v in pairs(t2) do
+    for k, v in pairs(t2) do
       merged[k] = v
     end
   end
@@ -97,7 +107,7 @@ end
 
 -- Configure and format vacuumline options based on user input
 return function(opts, segments)
-  opts = opts or {separator = {}, color = {}, segment = {}}
+  opts = opts or { separator = {}, color = {}, segment = {} }
   local default_options = get_default_options(opts.theme or gruvbox_theme)
 
   -- Set up defaults for each config section

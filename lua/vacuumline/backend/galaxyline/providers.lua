@@ -5,6 +5,10 @@ local vcs = require('galaxyline.provider_vcs')
 local mode = require('vacuumline.provider.mode')
 local search = require('vacuumline.provider.search')
 
+local function diagnostic_hint()
+  return 'DiagnosticHint' -- galaxyline builtin
+end
+
 local function diagnostic_warn()
   return 'DiagnosticWarn' -- galaxyline builtin
 end
@@ -97,7 +101,10 @@ end
 
 -- return a mapping from internal provider names to galaxyline provider functions
 return {
+  [internal_provider.null] = function() end,
+
   -- diagnostics
+  [internal_provider.diagnostics.hint] = diagnostic_hint,
   [internal_provider.diagnostics.warn] = diagnostic_warn,
   [internal_provider.diagnostics.error] = diagnostic_error,
   [internal_provider.diagnostics.info] = diagnostic_info,

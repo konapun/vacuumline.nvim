@@ -1,6 +1,8 @@
 -- These are to be used internally by segments and will be transformed by the specific backend
 return {
+  null = 'null', -- TODO: Maybe not needed? (galaxyline may be able to handle what's needed if lualine doesn't need this)
   diagnostics = {
+    hint = 'diagnostic_hint',
     warn = 'diagnostic_warn',
     error = 'diagnostic_error',
     info = 'diagnostic_info',

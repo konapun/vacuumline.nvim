@@ -1,43 +1,71 @@
+local segment = require('vacuumline.segment')
+local section = require('vacuumline.section')
+local providers = require('vacuumline.providers')
 local condition = require('vacuumline.condition')
 
-local function diagnostic_condition()
-  return condition.standard() and condition.not_terminal()
-end
-
-local function generate(opts, mode)
-  local segment = opts.segments
-  local color = opts.colors
-  local config = segment.diagnostics
-  local next = segment[config.next]
-
-  local error_config = config.errors
-  local warning_config = config.warnings
-
-  local DiagnosticWarnKey = 'DiagnosticWarn_' .. mode
-  local DiagnosticErrorKey = 'DiagnosticError_' .. mode
-
-  local Diagnostics = {
-    {
-      [DiagnosticWarnKey] = {
-        provider = 'DiagnosticWarn',
-        condition = diagnostic_condition,
-        highlight = mode == 'short' and {warning_config.background, color.background.line} or {warning_config.foreground, warning_config.background},
-        separator = mode ~= 'short' and config.separator,
-        separator_highlight = {warning_config.background, next.background}
-      }
+-- TODO: Conditions
+return function(theme)
+  local hint = segment({
+    id = 'diagnostics_hint',
+    provider = providers.diagnostics.hint,
+    color = {
+      foreground = theme.diagnostics.hint.foreground,
+      background = theme.diagnostics.hint.background,
     },
-    {
-      [DiagnosticErrorKey] = {
-        provider = 'DiagnosticError',
-        condition = diagnostic_condition,
-        highlight = mode == 'short' and {error_config.background, color.background.line} or {error_config.foreground, error_config.background},
-        separator = mode ~= 'short' and config.separator,
-        separator_highlight = {error_config.background, warning_config.background}
-      }
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.diagnostics.hint.background,
+      background = theme.diagnostics.info.background, -- TODO: or use next()?
     }
-  }
+  })
 
-  return Diagnostics
+  local info = segment({
+    id = 'diagnostics_info',
+    provider = providers.diagnostics.info,
+    color = {
+      foreground = theme.diagnostics.info.foreground,
+      background = theme.diagnostics.info.background,
+    },
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.diagnostics.info.background,
+      background = theme.diagnostics.warning.background, -- TODO: or use next()?
+    }
+  })
+
+  local warn = segment({
+    id = 'diagnostics_warn',
+    provider = providers.diagnostics.warn,
+    color = {
+      foreground = theme.diagnostics.warning.foreground,
+      background = theme.diagnostics.warning.background,
+    },
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.diagnostics.warning.background,
+      background = theme.diagnostics.error.background, -- TODO: or use next()?
+    }
+  })
+
+  local error = segment({
+    id = 'diagnostics_error',
+    provider = providers.diagnostics.error,
+    color = {
+      foreground = theme.diagnostics.error.foreground,
+      background = theme.diagnostics.error.background,
+    },
+    separator = {
+      symbol = theme.separator,
+      foreground = theme.diagnostics.error.background,
+      background = theme.background, -- FIXME
+    }
+  })
+
+  local diagnostics = section()
+  diagnostics.add_segment(hint)
+  diagnostics.add_segment(info)
+  diagnostics.add_segment(warn)
+  diagnostics.add_segment(error)
+
+  return diagnostics
 end
-
-return generate
