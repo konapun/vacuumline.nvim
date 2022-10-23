@@ -2,6 +2,7 @@ local lualine = require('lualine')
 local statusline = require('backend.lualine.statusline')
 local winbar = require('backend.lualine.winbar')
 
+-- FIXME: do we need config? For galaxyline this is done separately for statusline and winbar
 local function build_lualine(config)
   local theme = config.theme
   return {
@@ -39,8 +40,8 @@ local function build_lualine(config)
   }
 end
 
-return function(config)
-  local lualine_config = build_lualine(config)
+return function()
+  local lualine_config = build_lualine()
 
   return {
     get_statusline = statusline(lualine_config),

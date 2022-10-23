@@ -105,8 +105,17 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
   return segment_config
 end
 
+local function format_options(options)
+  opts = opts or { separator = {}, color = {}, segment = {} }
+  local default_options = get_default_options(opts.theme or gruvbox_theme)
+end
+
+local function format_segments(segments, options)
+  -- TODO
+end
+
 -- Configure and format vacuumline options based on user input
-return function(opts, segments)
+local function FIXME(opts, segments)
   opts = opts or { separator = {}, color = {}, segment = {} }
   local default_options = get_default_options(opts.theme or gruvbox_theme)
 
@@ -137,3 +146,8 @@ return function(opts, segments)
     segments = segment_config
   }
 end
+
+return {
+  format_options =  format_options,
+  format_segments = format_segments,
+}

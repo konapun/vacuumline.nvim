@@ -1,9 +1,11 @@
 local get_statusline = require('vacuumline.statusline')
 local get_winbar = require('vacuumline.winbar')
 local section = require('vacuumline.section')
+local options = require('vacuumline.options')
 
 return function(factory)
   local function build_statusline(statusline)
+    -- TODO: options.format_segments to get in-order colors, access to `next`, etc
     local sections = statusline.sections
     local statusline_factory = factory.statusline
 
