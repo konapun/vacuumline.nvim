@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 return function(theme)
   -- search results
@@ -8,13 +8,13 @@ return function(theme)
     id = 'search_results',
     provider = providers.search.results,
     color = {
-      foreground = theme.search.foreground,
-      background = theme.search.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.search.background,
-      background = theme.search.background,
+      foreground = theme.background,
+      background = theme.background,
     }
   })
 

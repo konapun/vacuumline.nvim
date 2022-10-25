@@ -1,3 +1,4 @@
+local util = require('vacuumline.util')
 local gruvbox_theme = require('vacuumline.theme.gruvbox')
 
 local function get_default_options(theme)
@@ -63,23 +64,8 @@ local function get_default_options(theme)
   }
 end
 
--- Perform a one dimensional merge over two tables
-local function merge(t1, t2)
-  local merged = {}
-  for k, v in pairs(t1) do
-    merged[k] = v
-  end
-
-  if t2 then
-    for k, v in pairs(t2) do
-      merged[k] = v
-    end
-  end
-
-  return merged
-end
-
 -- Add dynamic config values
+-- TODO: should we generate named configs for each section? (theme.search.foreground, theme.search.background, etc)
 local function dynamic_config(segments, side, static_segment_config, color_config, separator_config)
   local segment_config = {}
   local increment = side == 'right' and -1 or 1
@@ -93,7 +79,7 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
     local next = segments[segment_index + increment]
 
     segment_index = segment_index + 1
-    segment_config[key] = merge({
+    segment_config[key] = util.merge({
       background = key == 'blank' and color_config.background[not_even_odd] or color_config.background[even_odd],
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment[side],
@@ -105,49 +91,49 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
   return segment_config
 end
 
+-- apply user configs over default options
 local function format_options(options)
-  opts = opts or { separator = {}, color = {}, segment = {} }
-  local default_options = get_default_options(opts.theme or gruvbox_theme)
-end
-
-local function format_segments(segments, options)
-  -- TODO
-end
-
--- Configure and format vacuumline options based on user input
-local function FIXME(opts, segments)
-  opts = opts or { separator = {}, color = {}, segment = {} }
+  local opts = options or { separator = {}, color = {}, segment = {} }
   local default_options = get_default_options(opts.theme or gruvbox_theme)
 
   -- Set up defaults for each config section
-  local separator_config = merge(default_options.separator, opts.separator)
-  local color_config = merge(default_options.color, opts.color)
-  local segment_opts = opts.segment or {}
+  local separator_config = util.merge(default_options.separator, opts.separator)
+  local color_config = util.merge(default_options.color, opts.color)
 
-  local static_segment_config = {
-    mode = merge(default_options.segment.mode, segment_opts.mode),
-    file = merge(default_options.segment.file, segment_opts.file),
-    vcs = merge(default_options.segment.vcs, segment_opts.vcs),
-    scroll = merge(default_options.segment.scroll, segment_opts.scroll),
-    lines = merge(default_options.segment.lines, segment_opts.lines),
-    diagnostics = merge(default_options.segment.diagnostics, segment_opts.diagnostics),
-    search = merge(default_options.segment.search, segment_opts.search),
-    lsp = merge(default_options.segment.lsp, segment_opts.lsp)
+  local segment_opts = opts.segment or {}
+  local segment_config = {
+    mode = util.merge(default_options.segment.mode, segment_opts.mode),
+    file = util.merge(default_options.segment.file, segment_opts.file),
+    vcs = util.merge(default_options.segment.vcs, segment_opts.vcs),
+    scroll = util.merge(default_options.segment.scroll, segment_opts.scroll),
+    lines = util.merge(default_options.segment.lines, segment_opts.lines),
+    diagnostics = util.merge(default_options.segment.diagnostics, segment_opts.diagnostics),
+    search = util.merge(default_options.segment.search, segment_opts.search),
+    lsp = util.merge(default_options.segment.lsp, segment_opts.lsp)
   }
 
-  -- Add in dynamic config defaults
-  local left_segments = dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config)
-  local right_segments = dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
-  local segment_config = merge(left_segments, right_segments)
-
   return {
-    backend = opts.backend or require('backend.galaxyline'),
+    backend = opts.backend or require('vacuumline.backend.galaxyline'),
     colors = color_config,
+    separator = separator_config,
     segments = segment_config
   }
 end
 
+-- generate a dynamic section config for alternating colors, separators, etc
+local function format_segments(segments, options)
+  local static_segment_config = options.segments
+  local color_config = options.colors
+  local separator_config = options.separator
+
+  local left_segments = dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config)
+  local right_segments = dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
+  local segment_config = util.merge(left_segments, right_segments)
+
+  return segment_config
+end
+
 return {
-  format_options =  format_options,
+  format_options = format_options,
   format_segments = format_segments,
 }

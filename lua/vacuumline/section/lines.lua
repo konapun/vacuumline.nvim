@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 return function(theme)
   -- file format
@@ -21,7 +21,7 @@ return function(theme)
   -- line column
   local line_column = segment({
     id = 'line_column',
-    provider = providers.line.column, -- FIXME: combine
+    provider = providers.file.position.column, -- FIXME: combine with line
     color = {
       foreground = theme.foreground,
       background = theme.background,

@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 local condition = require('vacuumline.condition')
 
 -- TODO: Conditions
@@ -9,13 +9,13 @@ return function(theme)
     id = 'diagnostics_hint',
     provider = providers.diagnostics.hint,
     color = {
-      foreground = theme.diagnostics.hint.foreground,
-      background = theme.diagnostics.hint.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diagnostics.hint.background,
-      background = theme.diagnostics.info.background, -- TODO: or use next()?
+      foreground = theme.foreground,
+      background = theme.background, -- TODO: or use next()?
     }
   })
 
@@ -23,13 +23,13 @@ return function(theme)
     id = 'diagnostics_info',
     provider = providers.diagnostics.info,
     color = {
-      foreground = theme.diagnostics.info.foreground,
-      background = theme.diagnostics.info.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diagnostics.info.background,
-      background = theme.diagnostics.warning.background, -- TODO: or use next()?
+      foreground = theme.background,
+      background = theme.background, -- TODO: or use next()?
     }
   })
 
@@ -37,13 +37,13 @@ return function(theme)
     id = 'diagnostics_warn',
     provider = providers.diagnostics.warn,
     color = {
-      foreground = theme.diagnostics.warning.foreground,
-      background = theme.diagnostics.warning.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diagnostics.warning.background,
-      background = theme.diagnostics.error.background, -- TODO: or use next()?
+      foreground = theme.background,
+      background = theme.background, -- TODO: or use next()?
     }
   })
 
@@ -51,12 +51,12 @@ return function(theme)
     id = 'diagnostics_error',
     provider = providers.diagnostics.error,
     color = {
-      foreground = theme.diagnostics.error.foreground,
-      background = theme.diagnostics.error.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diagnostics.error.background,
+      foreground = theme.background,
       background = theme.background, -- FIXME
     }
   })

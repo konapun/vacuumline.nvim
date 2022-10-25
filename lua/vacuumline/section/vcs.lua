@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 return function(theme)
   local vcs_icon = segment({
@@ -37,13 +37,13 @@ return function(theme)
     id = 'diff_add',
     provider = providers.vcs.diff.add,
     color = {
-      foreground = theme.diff.add.foreground,
-      background = theme.diff.add.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diff.add.background,
-      background = theme.diff.add.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
   })
 
@@ -51,13 +51,13 @@ return function(theme)
     id = 'diff_modified',
     provider = providers.vcs.diff.modified,
     color = {
-      foreground = theme.diff.modified.foreground,
-      background = theme.diff.modified.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diff.modified.background,
-      background = theme.diff.modified.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
   })
 
@@ -65,13 +65,13 @@ return function(theme)
     id = 'diff_remove',
     provider = providers.vcs.diff.remove,
     color = {
-      foreground = theme.diff.remove.foreground,
-      background = theme.diff.remove.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.diff.remove.background,
-      background = theme.diff.remove.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
   })
 

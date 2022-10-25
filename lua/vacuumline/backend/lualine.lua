@@ -44,7 +44,7 @@ return function()
   local lualine_config = build_lualine()
 
   return {
-    get_statusline = statusline(lualine_config),
-    get_winbar = winbar(lualine_config),
+    statusline = statusline(lualine_config),
+    winbar = winbar(lualine_config),
   }
 end

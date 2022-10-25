@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 -- FIXME: need to pass providers since these are backend-dependent (or should the backend convert this somehow?)
 return function(theme)

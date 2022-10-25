@@ -20,23 +20,23 @@ end
 -- - short
 -- - long
 return function(definition)
-  local color = definition.color
-  local separator = definition.separator
+  local color = definition.color or {}
+  local separator = definition.separator or {}
 
   local segment = {
     id = definition.id,
     provider = definition.provider,
     condition = definition.condition or function() end,
-    icon = definition.icon, -- FIXME: is this needed? Is there a lualine equivalent?
+    icon = definition.icon or nil, -- FIXME: is this needed? Is there a lualine equivalent?
     color = {
       foreground = color.foreground,
       background = color.background,
-      style = color.style,
+      style = color.style or nil,
     },
     separator = {
-      symbol = separator.symbol,
-      foreground = separator.foreground,
-      background = separator.background,
+      symbol = separator.symbol or nil,
+      foreground = separator.foreground or nil,
+      background = separator.background or nil,
     },
   }
 

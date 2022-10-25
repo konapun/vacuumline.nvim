@@ -1,4 +1,4 @@
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 -- adapt an internal segment into a galaxyline segment
 return function(segment, status)

@@ -1,6 +1,6 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
-local providers = require('vacuumline.providers')
+local providers = require('vacuumline.provider')
 
 return function(theme)
   -- lsp client info
@@ -8,13 +8,13 @@ return function(theme)
     id = 'lsp_client',
     provider = providers.lsp.client,
     color = {
-      foreground = theme.lsp.foreground,
-      background = theme.lsp.background,
+      foreground = theme.foreground,
+      background = theme.background,
     },
     separator = {
       symbol = theme.separator,
-      foreground = theme.lsp.background,
-      background = theme.lsp.background,
+      foreground = theme.background,
+      background = theme.background,
     }
   })
 

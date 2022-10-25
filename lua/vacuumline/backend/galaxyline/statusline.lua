@@ -32,13 +32,13 @@ return function(galaxyline)
     append_left = function(status, segment)
       local gl_segment = make_segment(segment, status)
 
-      local s = status == statusline.Status.Active and side.left or side.left_short
+      local s = status == 'active' and side.left or side.left_short
       add_segment(s, gl_segment)
     end,
     append_right = function(status, segment)
       local gl_segment = make_segment(segment, status)
 
-      local s = status == statusline.Status.Active and side.right or side.right_short
+      local s = status == 'active' and side.right or side.right_short
       add_segment(s, gl_segment)
     end,
   }

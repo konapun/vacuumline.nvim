@@ -20,9 +20,9 @@ return function(theme)
       local search = require('vacuumline.section.search')
       return search(theme)
     end,
-    format = function()
-      local format = require('vacuumline.section.format')
-      return format(theme)
+    lines = function()
+      local lines = require('vacuumline.section.lines')
+      return lines(theme)
     end,
     diagnostics = function()
       local diagnostics = require('vacuumline.section.diagnostics')

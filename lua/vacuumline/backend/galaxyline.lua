@@ -1,10 +1,10 @@
 local galaxyline = require('galaxyline')
-local statusline = require('backend.galaxyline.statusline')
-local winbar = require('winbar.null')
+local statusline = require('vacuumline.backend.galaxyline.statusline')
+local winbar = require('vacuumline.winbar.null')
 
 return function()
   return {
-    get_statusline = statusline(galaxyline),
-    get_winbar = winbar,
+    statusline = statusline(galaxyline),
+    winbar = winbar,
   }
 end
