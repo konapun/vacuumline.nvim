@@ -12,10 +12,7 @@ return {
     name = 'file_name',
     size = 'file_size',
     format = 'file_format',
-    position = {
-      line = 'file_position_line',
-      column = 'file_position_column',
-    }
+    position = 'file_position',
   },
   mode = {
     color = 'mode_color',

@@ -9,7 +9,7 @@ return function(theme)
     id = 'file_icon',
     provider = providers.file.icon,
     color = {
-      foreground = theme.background,
+      foreground = theme.foreground,
       background = theme.background,
     },
   })
@@ -30,7 +30,7 @@ return function(theme)
     provider = providers.null,
     separator = {
       symbol = theme.separator,
-      foreground = theme.background,
+      foreground = theme.foreground,
       background = theme.background, -- TODO: next.background
     },
   })

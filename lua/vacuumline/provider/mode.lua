@@ -6,11 +6,11 @@ local function get_mode_map(overrides)
   -- TODO: use colors from map
   return {
     n = { label = 'NORMAL', icon = ' ', background = '#00ff00' }, -- NORMAL
-    i = { label = 'INSERT', icon = ' ', background = '#00ff00' }, -- INSERT
-    c = { label = 'COMMAND', icon = ' ', background = '#00ff00' }, -- COMMAND
-    v = { label = 'VISUAL', icon = ' ', background = '#00ff00' }, -- VISUAL
-    V = { label = 'VISUAL L', icon = ' ', background = '#00ff00' }, -- VISUAL LINE
-    t = { label = 'TERMINAL', icon = ' ', background = '#00ff00' }, -- TERMINAL
+    i = { label = 'INSERT', icon = ' ', background = '#ffff00' }, -- INSERT
+    c = { label = 'COMMAND', icon = ' ', background = '#00ffff' }, -- COMMAND
+    v = { label = 'VISUAL', icon = ' ', background = '#ff00ff' }, -- VISUAL
+    V = { label = 'VISUAL L', icon = ' ', background = '#0000ff' }, -- VISUAL LINE
+    t = { label = 'TERMINAL', icon = ' ', background = '#ff0000' }, -- TERMINAL
   }
 end
 

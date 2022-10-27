@@ -36,6 +36,7 @@ return function(theme)
   local diff_add = segment({
     id = 'diff_add',
     provider = providers.vcs.diff.added,
+    icon = ' ',
     color = {
       foreground = theme.foreground,
       background = theme.background,
@@ -50,6 +51,7 @@ return function(theme)
   local diff_modified = segment({
     id = 'diff_modified',
     provider = providers.vcs.diff.modified,
+    icon = ' ',
     color = {
       foreground = theme.foreground,
       background = theme.background,
@@ -64,6 +66,7 @@ return function(theme)
   local diff_remove = segment({
     id = 'diff_remove',
     provider = providers.vcs.diff.removed,
+    icon = ' ',
     color = {
       foreground = theme.foreground,
       background = theme.background,

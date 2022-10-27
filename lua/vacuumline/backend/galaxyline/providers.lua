@@ -44,12 +44,8 @@ return function(config)
     return fileinfo.get_file_format()
   end
 
-  local function file_position_line()
-    return file.file_position_line()
-  end
-
-  local function file_position_column()
-    return file.file_position_column()
+  local function file_position()
+    return file.file_position()
   end
 
   local function lsp_client()
@@ -58,8 +54,9 @@ return function(config)
 
   local function mode_color()
     local color = mode.mode_color()
+    local id = "mode_color_indicator_active" -- FIXME: Is there a better way to do this?
 
-    vim.api.nvim_command("hi GalaxyViMode guifg=" .. color)
+    vim.api.nvim_command("hi Galaxy"..id.." guifg=" .. color)
     return '▋'
   end
 
@@ -118,8 +115,7 @@ return function(config)
     [internal_provider.file.name] = file_name,
     [internal_provider.file.size] = file_size,
     [internal_provider.file.format] = file_format,
-    [internal_provider.file.position.line] = file_position_line,
-    [internal_provider.file.position.column] = file_position_column,
+    [internal_provider.file.position] = file_position,
 
     -- mode
     [internal_provider.mode.color] = mode_color,

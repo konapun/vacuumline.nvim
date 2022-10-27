@@ -21,7 +21,7 @@ return function(theme)
   -- line column
   local line_column = segment({
     id = 'line_column',
-    provider = providers.file.position.column, -- FIXME: combine with line
+    provider = providers.file.position,
     color = {
       foreground = theme.foreground,
       background = theme.background,

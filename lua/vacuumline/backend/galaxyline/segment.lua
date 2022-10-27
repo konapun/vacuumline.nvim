@@ -19,7 +19,7 @@ return function(config)
         -- condition = segment.condition,
         icon = segment.icon, -- FIXME: This probably isn't needed since it can be part of the provider
         highlight = { color.foreground, color.background },
-        -- separator = separator.symbol,
+        separator = separator.symbol,
         -- separator_highlight = { separator.foreground, separator.background },
       }
     }

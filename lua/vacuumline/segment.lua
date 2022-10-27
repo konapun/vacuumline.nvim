@@ -34,7 +34,7 @@ return function(definition)
       style = color.style or nil,
     },
     separator = {
-      symbol = separator.symbol or '>',
+      symbol = separator.symbol,
       foreground = separator.foreground or '#ffffff',
       background = separator.background or '#000000',
     },
