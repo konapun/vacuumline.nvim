@@ -1,5 +1,5 @@
-local statusline = require('vacuumline.statusline')
-local make_segment = require('vacuumline.backend.galaxyline.segment')
+local get_segment_maker = require('vacuumline.backend.galaxyline.segment')
+local util = require('vacuumline.util')
 
 local side = {
   left = {
@@ -20,10 +20,13 @@ local side = {
   },
 }
 
-return function(galaxyline)
+return function(galaxyline, config)
   galaxyline.short_line_list = {'LuaTree', 'vista', 'dbui'}
 
+  local make_segment = get_segment_maker(config)
+
   local function add_segment(s, segment)
+    print('gls.' .. s.key .. '[' .. s.index .. '] = ' .. util.dump(segment))
     galaxyline.section[s.key][s.index] = segment
     s.index = s.index + 1
   end

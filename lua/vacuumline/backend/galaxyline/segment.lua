@@ -1,21 +1,28 @@
-local providers = require('vacuumline.provider')
+local get_providers = require('vacuumline.backend.galaxyline.providers')
+local condition = require('galaxyline.condition')
 
--- adapt an internal segment into a galaxyline segment
-return function(segment, status)
-  local segment_key = segment.id .. '_' .. status
+-- Initialzie a segment builder with the provided theme
+return function(config)
+  local providers = get_providers(config)
 
-  local color = segment.color
-  local separator = segment.separator
-  local provider = providers[segment.provider] -- TODO: check for not found errors
+  -- Adapt an internal segment into a galaxyline segment
+  return function(segment, status)
+    local segment_key = segment.id .. '_' .. status
 
-  return {
-    [segment_key] = {
-      provider = provider,
-      condition = segment.condition,
-      icon = segment.icon, -- FIXME: This probably isn't needed since it can be part of the provider
-      highlight = { color.foreground, color.background },
-      separator = separator.symbol,
-      separator_highlight = { separator.foreground, separator.background },
+    local color = segment.color
+    local separator = segment.separator
+    local provider = providers[segment.provider] -- TODO: check for not found errors
+
+    return {
+      [segment_key] = {
+        provider = provider,
+        -- condition = segment.condition,
+        icon = segment.icon, -- FIXME: This probably isn't needed since it can be part of the provider
+        highlight = { color.foreground, color.background },
+        -- separator = separator.symbol,
+        -- separator_highlight = { separator.foreground, separator.background },
+      }
     }
-  }
+  end
 end
+

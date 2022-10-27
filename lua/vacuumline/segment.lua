@@ -26,17 +26,17 @@ return function(definition)
   local segment = {
     id = definition.id,
     provider = definition.provider,
-    condition = definition.condition or function() end,
+    condition = definition.condition or nil, -- FIXME
     icon = definition.icon or nil, -- FIXME: is this needed? Is there a lualine equivalent?
     color = {
-      foreground = color.foreground,
-      background = color.background,
+      foreground = color.foreground or '#ffffff',
+      background = color.background or '#000000',
       style = color.style or nil,
     },
     separator = {
-      symbol = separator.symbol or nil,
-      foreground = separator.foreground or nil,
-      background = separator.background or nil,
+      symbol = separator.symbol or '>',
+      foreground = separator.foreground or '#ffffff',
+      background = separator.background or '#000000',
     },
   }
 
