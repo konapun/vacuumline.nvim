@@ -1,33 +1,30 @@
--- Perform a one dimensional merge over two tables
-local function merge(t1, t2)
-  local merged = {}
-  for k, v in pairs(t1) do
-    merged[k] = v
-  end
+local vim = vim
 
-  if t2 then
-    for k, v in pairs(t2) do
-      merged[k] = v
+-- Perform a full merge over variadic tables
+local function merge(...)
+  local result = {}
+  for _, table in ipairs({...}) do
+    for key, value in pairs(table) do
+      if type(value) == 'table' then
+        if type(result[key] or false) == 'table' then
+          merge(result[key], value)
+        else
+          result[key] = value
+        end
+      else
+        result[key] = value
+      end
     end
   end
-
-  return merged
+  return result
 end
 
-local function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
+-- Inspect the contents of a variable
+local function inspect(o)
+  return vim.inspect(o)
 end
 
 return {
   merge = merge,
-  dump = dump
+  inspect = inspect,
 }

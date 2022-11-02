@@ -13,6 +13,7 @@ return function(config)
     local separator = segment.separator
     local provider = providers[segment.provider] -- TODO: check for not found errors
 
+    print('Using separator', separator.symbol)
     return {
       [segment_key] = {
         provider = provider,
@@ -20,7 +21,7 @@ return function(config)
         icon = segment.icon, -- FIXME: This probably isn't needed since it can be part of the provider
         highlight = { color.foreground, color.background },
         separator = separator.symbol,
-        -- separator_highlight = { separator.foreground, separator.background },
+        separator_highlight = { separator.foreground, separator.background },
       }
     }
   end

@@ -1,13 +1,11 @@
 local get_statusline = require('vacuumline.statusline')
 local get_winbar = require('vacuumline.winbar')
-local options = require('vacuumline.options')
 
 local active = 'active'
 local inactive = 'inactive'
 
 return function(factory)
   local function build_statusline(statusline)
-    -- TODO: options.format_segments to get in-order colors, access to `next`, etc
     local sections = statusline.sections
     local statusline_factory = factory.statusline
 
@@ -61,7 +59,7 @@ return function(factory)
 
   -- build the configuration for passing to the backend
   local function build(config)
-    local statusline = get_statusline(config) -- TODO: pass less? build a theme and pass it instead of the whole config?
+    local statusline = get_statusline(config)
     local winbar = get_winbar(config)
 
     build_statusline(statusline)

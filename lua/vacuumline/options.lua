@@ -65,7 +65,6 @@ local function get_default_options(theme)
 end
 
 -- Add dynamic config values
--- TODO: should we generate named configs for each section? (theme.search.foreground, theme.search.background, etc)
 local function dynamic_config(segments, side, static_segment_config, color_config, separator_config)
   local segment_config = {}
   local increment = side == 'right' and -1 or 1
@@ -121,19 +120,19 @@ local function format_options(options)
 end
 
 -- generate a dynamic section config for alternating colors, separators, etc
-local function format_segments(segments, options)
-  local static_segment_config = options.segments
+local function format_sections(sections, options)
+  local static_section_config = options.segments
   local color_config = options.colors
   local separator_config = options.separator
 
-  local left_segments = dynamic_config(segments.left, 'left', static_segment_config, color_config, separator_config)
-  local right_segments = dynamic_config(segments.right, 'right', static_segment_config, color_config, separator_config)
-  local segment_config = util.merge(left_segments, right_segments)
+  local left_sections = dynamic_config(sections.left, 'left', static_section_config, color_config, separator_config)
+  local right_sections = dynamic_config(sections.right, 'right', static_section_config, color_config, separator_config)
+  local section_config = util.merge(left_sections, right_sections)
 
-  return segment_config
+  return section_config
 end
 
 return {
   format_options = format_options,
-  format_segments = format_segments,
+  format_sections = format_sections,
 }

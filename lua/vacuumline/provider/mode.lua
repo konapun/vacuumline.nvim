@@ -1,21 +1,19 @@
 local vim = vim
 
 local function get_mode_map(overrides)
-  local map = overrides -- TODO: apply overrides
-
-  -- TODO: use colors from map
+  -- TODO: Override icon from options?
   return {
-    n = { label = 'NORMAL', icon = ' ', background = '#00ff00' }, -- NORMAL
-    i = { label = 'INSERT', icon = ' ', background = '#ffff00' }, -- INSERT
-    c = { label = 'COMMAND', icon = ' ', background = '#00ffff' }, -- COMMAND
-    v = { label = 'VISUAL', icon = ' ', background = '#ff00ff' }, -- VISUAL
-    V = { label = 'VISUAL L', icon = ' ', background = '#0000ff' }, -- VISUAL LINE
-    t = { label = 'TERMINAL', icon = ' ', background = '#ff0000' }, -- TERMINAL
+    n = { label = 'NORMAL', icon = ' ', background = overrides.mode_normal.foreground }, -- NORMAL
+    i = { label = 'INSERT', icon = ' ', background = overrides.mode_insert.foreground }, -- INSERT
+    c = { label = 'COMMAND', icon = ' ', background = overrides.mode_command.foreground }, -- COMMAND
+    v = { label = 'VISUAL', icon = ' ', background = overrides.mode_visual.foreground }, -- VISUAL
+    V = { label = 'VISUAL L', icon = ' ', background = overrides.mode_visual_line.foreground }, -- VISUAL LINE
+    t = { label = 'TERMINAL', icon = ' ', background = overrides.mode_terminal.foreground }, -- TERMINAL
   }
 end
 
 return function(config)
-  local mode_map = get_mode_map({}) -- FIXME: pass config.segment.mode.map
+  local mode_map = get_mode_map(config.theme)
 
   local function mode_color()
     local mode_config = mode_map[vim.fn.mode()]

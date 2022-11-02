@@ -1,5 +1,4 @@
 local get_segment_maker = require('vacuumline.backend.galaxyline.segment')
-local util = require('vacuumline.util')
 
 local side = {
   left = {
@@ -26,7 +25,6 @@ return function(galaxyline, config)
   local make_segment = get_segment_maker(config)
 
   local function add_segment(s, segment)
-    print('gls.' .. s.key .. '[' .. s.index .. '] = ' .. util.dump(segment))
     galaxyline.section[s.key][s.index] = segment
     s.index = s.index + 1
   end
