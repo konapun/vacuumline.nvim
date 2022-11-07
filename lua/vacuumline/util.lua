@@ -19,6 +19,14 @@ local function merge(...)
   return result
 end
 
+local function map(tbl, fn)
+  local result = {}
+  for key, value in pairs(tbl) do
+    result[key] = fn(value)
+  end
+  return result
+end
+
 -- Inspect the contents of a variable
 local function inspect(o)
   return vim.inspect(o)
@@ -26,5 +34,6 @@ end
 
 return {
   merge = merge,
+  map = map,
   inspect = inspect,
 }

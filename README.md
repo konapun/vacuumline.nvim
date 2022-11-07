@@ -373,4 +373,3 @@ Sections are styled separately for **active** and **inactive** buffers.
 ### Dev Notes
 #### TODO
 - [ ] Unify options passing to segments so the backend doesn't have to
-- [ ] Pass initialized objects to backend?
