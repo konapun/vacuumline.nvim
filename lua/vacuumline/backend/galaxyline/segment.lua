@@ -13,7 +13,6 @@ return function(config)
     local separator = segment.separator
     local provider = providers[segment.provider] -- TODO: check for not found errors
 
-    print('Using separator', separator.symbol)
     return {
       [segment_key] = {
         provider = provider,

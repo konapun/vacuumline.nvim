@@ -2,8 +2,9 @@ local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 
--- FIXME: need to pass providers since these are backend-dependent (or should the backend convert this somehow?)
 return function(config)
+  print('Mode config', vim.inspect(config))
+
   -- mode color indicator
   local color_indicator = segment({
     id = 'mode_color_indicator',
@@ -26,7 +27,7 @@ return function(config)
     separator = {
       symbol = config.separator,
       foreground = config.foreground,
-      background = config.background, -- FIXME - this depends on the next segment
+      background = config.next.background,
     },
   })
 

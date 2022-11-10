@@ -65,17 +65,17 @@ local function get_default_options(theme)
 end
 
 -- Add dynamic config values
-local function dynamic_config(segments, side, static_segment_config, color_config, separator_config)
+local function dynamic_config(segments, side, static_section_config, color_config, separator_config)
   local segment_config = {}
   local increment = side == 'right' and -1 or 1
 
-  local segment_index = 1
+  local segment_index = 1 -- track index manually since it can go backwards
   for _, segment in ipairs(segments) do
-    local key = segment.key
-    local config = static_segment_config[key]
+    local key = segment[1]
+    local config = static_section_config[key]
     local even_odd = segment_index % 2 == 0 and 'even' or 'odd'
     local not_even_odd = segment_index % 2 == 0 and 'odd' or 'even'
-    local next = segments[segment_index + increment]
+    local next = segments[segment_index + increment] -- key, generator
 
     segment_index = segment_index + 1
     segment_config[key] = util.merge({
@@ -83,8 +83,13 @@ local function dynamic_config(segments, side, static_segment_config, color_confi
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment[side],
       section_separator = separator_config.section[side],
-      next = next and next.key or key -- reference self if there's no next
+      next = next and next[1] or key -- reference self if there's no next
     }, config)
+  end
+
+  -- link next segments
+  for _, config in ipairs(segment_config) do
+    config.next = segment_config[config.next]
   end
 
   return segment_config
@@ -113,6 +118,16 @@ local function format_options(options)
 
   return {
     backend = opts.backend or require('vacuumline.backend.galaxyline'),
+    active = {
+      colors = color_config,
+      separator = separator_config,
+      segments = segment_config
+    },
+    inactive = {
+      colors = color_config,
+      separator = separator_config,
+      segments = segment_config
+    },
     colors = color_config,
     separator = separator_config,
     segments = segment_config
@@ -125,11 +140,7 @@ local function format_sections(sections, options)
   local color_config = options.colors
   local separator_config = options.separator
 
-  local left_sections = dynamic_config(sections.left, 'left', static_section_config, color_config, separator_config)
-  local right_sections = dynamic_config(sections.right, 'right', static_section_config, color_config, separator_config)
-  local section_config = util.merge(left_sections, right_sections)
-
-  return section_config
+  return dynamic_config(sections, 'left', static_section_config, color_config, separator_config)
 end
 
 return {

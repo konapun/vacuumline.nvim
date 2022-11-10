@@ -1,34 +1,34 @@
 return {
-  mode = function(config)
+  mode = function()
     local mode = require('vacuumline.section.mode')
-    return mode(config.mode)
+    return {'mode', function(config) return mode(config.mode) end}
   end,
-  file = function(config)
+  file = function()
     local file = require('vacuumline.section.file')
-    return file(config.file)
+    return {'file', function(config) return file(config.file) end}
   end,
-  vcs = function(config)
+  vcs = function()
     local vcs = require('vacuumline.section.vcs')
-    return vcs(config.vcs)
+    return {'vcs', function(config) return vcs(config.vcs) end}
   end,
-  lsp = function(config)
+  lsp = function()
     local lsp = require('vacuumline.section.lsp')
-    return lsp(config.lsp)
+    return {'lsp', function(config) return lsp(config.lsp) end}
   end,
-  search = function(config)
+  search = function()
     local search = require('vacuumline.section.search')
-    return search(config.search)
+    return {'search', function(config) return search(config.search) end}
   end,
-  lines = function(config)
+  lines = function()
     local lines = require('vacuumline.section.lines')
-    return lines(config.lines)
+    return {'lines', function(config) return lines(config.lines) end}
   end,
-  diagnostics = function(config)
+  diagnostics = function()
     local diagnostics = require('vacuumline.section.diagnostics')
-    return diagnostics(config.diagnostics)
+    return {'diagnostics', function(config) return diagnostics(config.diagnostics) end}
   end,
-  scroll = function(config)
+  scroll = function()
     local scroll = require('vacuumline.section.scroll')
-    return scroll(config.scroll)
+    return {'scroll', function(config) return scroll(config.scroll) end}
   end,
 }
