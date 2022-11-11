@@ -3,8 +3,6 @@ local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 
 return function(config)
-  print('Mode config', vim.inspect(config))
-
   -- mode color indicator
   local color_indicator = segment({
     id = 'mode_color_indicator',
@@ -26,7 +24,7 @@ return function(config)
     },
     separator = {
       symbol = config.separator,
-      foreground = config.foreground,
+      foreground = config.background,
       background = config.next.background,
     },
   })

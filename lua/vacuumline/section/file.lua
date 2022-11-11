@@ -3,14 +3,14 @@ local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 
 -- TODO: Conditions
-return function(theme)
+return function(config)
   -- file icon
   local file_icon = segment({
     id = 'file_icon',
     provider = providers.file.icon,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
   })
 
@@ -19,8 +19,8 @@ return function(theme)
     id = 'file_name',
     provider = providers.file.name,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
   })
 
@@ -29,9 +29,9 @@ return function(theme)
     id = 'file_endcap',
     provider = providers.null,
     separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background, -- TODO: next.background
+      symbol = config.separator,
+      foreground = config.background,
+      background = config.next.background,
     },
   })
 

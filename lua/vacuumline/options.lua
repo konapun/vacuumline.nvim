@@ -83,13 +83,14 @@ local function dynamic_config(segments, side, static_section_config, color_confi
       foreground = key == 'blank' and color_config.foreground[not_even_odd] or color_config.foreground[even_odd],
       separator = separator_config.segment[side],
       section_separator = separator_config.section[side],
-      next = next and next[1] or key -- reference self if there's no next
+      next = next and next[1] or nil -- reference self if there's no next
     }, config)
   end
 
   -- link next segments
-  for _, config in ipairs(segment_config) do
-    config.next = segment_config[config.next]
+  for _, config in pairs(segment_config) do
+    local next = config.next and segment_config[config.next] or {foreground = '#ff0000', background = '#000000'}
+    config.next = next
   end
 
   return segment_config

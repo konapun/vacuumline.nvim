@@ -2,19 +2,14 @@ local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 
-return function(theme)
+return function(config)
   local vcs_icon = segment({
     id = 'vcs_icon',
     provider = providers.vcs.icon,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
       style = 'bold',
-    },
-    separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background,
     },
   })
 
@@ -22,14 +17,9 @@ return function(theme)
     id = 'vcs_branch',
     provider = providers.vcs.branch,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
       style = 'bold',
-    },
-    separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background,
     },
   })
 
@@ -38,13 +28,8 @@ return function(theme)
     provider = providers.vcs.diff.added,
     icon = ' ',
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
-    },
-    separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
   })
 
@@ -53,13 +38,8 @@ return function(theme)
     provider = providers.vcs.diff.modified,
     icon = ' ',
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
-    },
-    separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
   })
 
@@ -68,15 +48,17 @@ return function(theme)
     provider = providers.vcs.diff.removed,
     icon = ' ',
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background,
+      symbol = config.separator,
+      foreground = config.background,
+      background = config.next.background,
     },
   })
+
+  -- TODO: Add separator separately so that individual segments can be hidden
 
   local vcs = section()
   vcs.add_segment(vcs_icon)

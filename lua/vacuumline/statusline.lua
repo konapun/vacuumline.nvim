@@ -15,15 +15,15 @@ local sections = {
   },
   right = {
     active = {
-      section_factory.lsp(),
+      --[[ section_factory.lsp(),
       section_factory.search(),
       section_factory.lines(),
       section_factory.diagnostics(),
-      section_factory.scroll()
+      section_factory.scroll() ]]
     },
     inactive = {
-      section_factory.lines(),
-      section_factory.scroll()
+      --[[ section_factory.lines(),
+      section_factory.scroll() ]]
     }
   }
 }
@@ -42,7 +42,6 @@ return function(config)
   local right_active_config = options.format_sections(sections.right.active, config.active)
   local right_inactive_config = options.format_sections(sections.right.inactive, config.inactive)
 
-  print('Got left active config (dynamic):', vim.inspect(left_active_config))
   return {
     sections = {
       left = {
