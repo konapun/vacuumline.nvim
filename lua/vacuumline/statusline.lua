@@ -15,11 +15,11 @@ local sections = {
   },
   right = {
     active = {
-      --[[ section_factory.lsp(),
+      section_factory.lsp(),
       section_factory.search(),
       section_factory.lines(),
       section_factory.diagnostics(),
-      section_factory.scroll() ]]
+      section_factory.scroll()
     },
     inactive = {
       --[[ section_factory.lines(),
@@ -37,10 +37,10 @@ end
 
 -- Return an internal representation of the statusline
 return function(config)
-  local left_active_config = options.format_sections(sections.left.active, config.active)
-  local left_inactive_config = options.format_sections(sections.left.inactive, config.inactive)
-  local right_active_config = options.format_sections(sections.right.active, config.active)
-  local right_inactive_config = options.format_sections(sections.right.inactive, config.inactive)
+  local left_active_config = options.format_sections(sections.left.active, 'left', config.active)
+  local left_inactive_config = options.format_sections(sections.left.inactive, 'left', config.inactive)
+  local right_active_config = options.format_sections(sections.right.active, 'right', config.active)
+  local right_inactive_config = options.format_sections(sections.right.inactive, 'right', config.inactive)
 
   return {
     sections = {

@@ -14,7 +14,7 @@ return function(theme)
     separator = {
       symbol = theme.separator,
       foreground = theme.background,
-      background = theme.background, -- TODO: next.background
+      background = theme.next.background,
     },
   })
 
@@ -29,7 +29,7 @@ return function(theme)
     separator = {
       symbol = theme.separator,
       foreground = theme.background,
-      background = theme.background, -- TODO: next.background
+      background = theme.background,
     },
   })
 

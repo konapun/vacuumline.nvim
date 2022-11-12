@@ -22,12 +22,6 @@ return function(config)
       foreground = config.foreground,
       background = config.background,
     },
-  })
-
-  -- file endcap TODO: is this needed or a relic from galaxyline?
-  local endcap = segment({
-    id = 'file_endcap',
-    provider = providers.null,
     separator = {
       symbol = config.separator,
       foreground = config.background,
@@ -38,7 +32,6 @@ return function(config)
   local file = section()
   file.add_segment(file_icon)
   file.add_segment(file_name)
-  file.add_segment(endcap)
 
   return file
 end

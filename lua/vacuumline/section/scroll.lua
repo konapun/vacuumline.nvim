@@ -2,19 +2,19 @@ local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 
-return function(theme)
+return function(config)
   -- scroll percent
   local scroll_percent = segment({
     id = 'scroll_percent',
     provider = providers.scroll.percent,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.foreground,
+      background = config.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.background,
-      background = theme.background,
+      symbol = config.separator,
+      foreground = config.background,
+      background = config.next.background,
     }
   })
 
@@ -22,13 +22,13 @@ return function(theme)
     id = 'scroll_bar',
     provider = providers.scroll.bar,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.accent,
+      background = config.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.background,
-      background = theme.background,
+      symbol = config.separator,
+      foreground = config.background,
+      background = config.background,
     }
   })
 

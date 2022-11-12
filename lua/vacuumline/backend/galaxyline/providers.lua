@@ -102,8 +102,6 @@ return function(config)
 
   -- return a mapping from internal provider names to galaxyline provider functions
   return {
-    [internal_provider.null] = function() end,
-
     -- diagnostics
     [internal_provider.diagnostics.hint] = diagnostic_hint,
     [internal_provider.diagnostics.warn] = diagnostic_warn,

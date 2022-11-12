@@ -89,7 +89,7 @@ local function dynamic_config(segments, side, static_section_config, color_confi
 
   -- link next segments
   for _, config in pairs(segment_config) do
-    local next = config.next and segment_config[config.next] or {foreground = '#ff0000', background = '#000000'}
+    local next = config.next and segment_config[config.next] or {foreground = '#ff0000', background = '#282828'} -- FIXME: get this from default options
     config.next = next
   end
 
@@ -136,12 +136,12 @@ local function format_options(options)
 end
 
 -- generate a dynamic section config for alternating colors, separators, etc
-local function format_sections(sections, options)
+local function format_sections(sections, side, options)
   local static_section_config = options.segments
   local color_config = options.colors
   local separator_config = options.separator
 
-  return dynamic_config(sections, 'left', static_section_config, color_config, separator_config)
+  return dynamic_config(sections, side, static_section_config, color_config, separator_config) -- FIXME: pass configuration with side rather than separately?
 end
 
 return {

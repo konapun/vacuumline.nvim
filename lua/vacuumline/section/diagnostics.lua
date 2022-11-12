@@ -4,32 +4,33 @@ local providers = require('vacuumline.provider')
 local condition = require('vacuumline.condition')
 
 -- TODO: Conditions
-return function(theme)
-  local hint = segment({
-    id = 'diagnostics_hint',
-    provider = providers.diagnostics.hint,
-    color = {
-      foreground = theme.foreground,
-      background = theme.background,
-    },
-    separator = {
-      symbol = theme.separator,
-      foreground = theme.foreground,
-      background = theme.background, -- TODO: or use next()?
-    }
-  })
-
+return function(config)
+  -- print('Diagnostics config', vim.inspect(config))
   local info = segment({
     id = 'diagnostics_info',
     provider = providers.diagnostics.info,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.info.foreground,
+      background = config.info.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.background,
-      background = theme.background, -- TODO: or use next()?
+      symbol = config.separator,
+      foreground = config.info.background,
+      background = config.next.background,
+    }
+  })
+
+  local hint = segment({
+    id = 'diagnostics_hint',
+    provider = providers.diagnostics.hint,
+    color = {
+      foreground = config.hint.foreground,
+      background = config.hint.background,
+    },
+    separator = {
+      symbol = config.separator,
+      foreground = config.hint.background,
+      background = config.info.background,
     }
   })
 
@@ -37,13 +38,13 @@ return function(theme)
     id = 'diagnostics_warn',
     provider = providers.diagnostics.warn,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.warnings.foreground,
+      background = config.warnings.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.background,
-      background = theme.background, -- TODO: or use next()?
+      symbol = config.separator,
+      foreground = config.warnings.background,
+      background = config.hint.background,
     }
   })
 
@@ -51,19 +52,19 @@ return function(theme)
     id = 'diagnostics_error',
     provider = providers.diagnostics.error,
     color = {
-      foreground = theme.foreground,
-      background = theme.background,
+      foreground = config.errors.foreground,
+      background = config.errors.background,
     },
     separator = {
-      symbol = theme.separator,
-      foreground = theme.background,
-      background = theme.background, -- FIXME
+      symbol = config.separator,
+      foreground = config.errors.background,
+      background = config.warnings.background,
     }
   })
 
   local diagnostics = section()
-  diagnostics.add_segment(hint)
   diagnostics.add_segment(info)
+  diagnostics.add_segment(hint)
   diagnostics.add_segment(warn)
   diagnostics.add_segment(error)
 
