@@ -64,6 +64,17 @@ local function get_default_options(theme)
   }
 end
 
+local function index_segments(segments)
+  local indexed_segments = {}
+  for _, segment in ipairs(segments) do
+    local key = segment[1]
+    local gen = segment[2]
+
+    indexed_segments[key] = gen
+  end
+  return indexed_segments
+end
+
 -- Add dynamic config values
 local function dynamic_config(segments, side, static_section_config, color_config, separator_config)
   local segment_config = {}
@@ -88,9 +99,20 @@ local function dynamic_config(segments, side, static_section_config, color_confi
   end
 
   -- link next segments
-  for _, config in pairs(segment_config) do
+  local indexed_segments = index_segments(segments)
+  for key, config in pairs(segment_config) do
     local next = config.next and segment_config[config.next] or {foreground = '#ff0000', background = '#282828'} -- FIXME: get this from default options
-    config.next = next
+
+    config.next_background = function()
+      local next_key = config.next
+      while next_key ~= nil do
+        local section = indexed_segments[next_key]
+        -- TODO: test section condition (but the section function isn't called yet! need to figure out how to track initialized sections)
+        next_key = nil
+      end
+      return next.background
+    end
+    -- config.next = next
   end
 
   return segment_config

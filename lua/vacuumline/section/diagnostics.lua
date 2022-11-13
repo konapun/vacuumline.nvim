@@ -16,7 +16,7 @@ return function(config)
     separator = {
       symbol = config.separator,
       foreground = config.info.background,
-      background = config.next.background,
+      background = config.next_background,
     }
   })
 

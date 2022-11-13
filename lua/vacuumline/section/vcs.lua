@@ -55,7 +55,7 @@ return function(config)
     separator = {
       symbol = config.separator,
       foreground = config.background,
-      background = config.next.background,
+      background = config.next_background,
     },
   })
 

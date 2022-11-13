@@ -373,4 +373,4 @@ Sections are styled separately for **active** and **inactive** buffers.
 ### Dev Notes
 #### TODO
 - [ ] Unify options passing to segments so the backend doesn't have to
-- [ ] Recompute options on buffer change to rerender sections reactively (with respect to .next)
+- [ ] Recompute options on buffer change to rerender sections reactively (with respect to .next) OR make `next` a function that checks for hidden sections
