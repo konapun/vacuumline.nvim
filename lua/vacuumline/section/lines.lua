@@ -33,9 +33,5 @@ return function(theme)
     },
   })
 
-  local lines = section()
-  lines.add_segment(file_format)
-  lines.add_segment(line_column)
-
-  return lines
+  return section({ file_format, line_column })
 end

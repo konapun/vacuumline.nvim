@@ -1,3 +1,15 @@
+-- Given a list of condition functions, return a single function that executes all conditions
+local function combine_conditions(conditions)
+  return function()
+    for _, condition in ipairs(conditions) do
+      if not condition() then
+        return false
+      end
+    end
+    return true
+  end
+end
+
 -- The segment observer surfaces resize events to the segment
 local segment_observer = function(segment)
   return {
@@ -40,14 +52,12 @@ return function(definition)
     },
   }
 
-  local conditions = {}
   local behaviors = {}
 
   return {
     definition = segment,
     add_condition = function(condition)
-      -- TODO
-      table.insert(conditions, condition)
+      segment.condition = condition --combine_conditions({ segment.condition, condition }) FIXME: add this back
     end,
     add_behavior = function(behavior, fn)
       -- TODO

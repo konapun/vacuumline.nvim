@@ -29,9 +29,5 @@ return function(config)
     },
   })
 
-  local mode = section()
-  mode.add_segment(color_indicator)
-  mode.add_segment(icon_indicator)
-
-  return mode
+  return section({ color_indicator, icon_indicator })
 end

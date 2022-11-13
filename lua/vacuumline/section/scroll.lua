@@ -32,9 +32,5 @@ return function(config)
     }
   })
 
-  local scroll = section()
-  scroll.add_segment(scroll_percent)
-  scroll.add_segment(scroll_bar)
-
-  return scroll
+  return section({ scroll_percent, scroll_bar })
 end

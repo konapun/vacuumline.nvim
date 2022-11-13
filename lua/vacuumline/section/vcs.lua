@@ -1,6 +1,7 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
+local conditions = require('vacuumline.condition')
 
 return function(config)
   local vcs_icon = segment({
@@ -60,12 +61,7 @@ return function(config)
 
   -- TODO: Add separator separately so that individual segments can be hidden
 
-  local vcs = section()
-  vcs.add_segment(vcs_icon)
-  vcs.add_segment(vcs_branch)
-  vcs.add_segment(diff_add)
-  vcs.add_segment(diff_modified)
-  vcs.add_segment(diff_remove)
-
-  return vcs
+  return section({ vcs_icon, vcs_branch, diff_add, diff_modified, diff_remove }, {
+    conditions = { conditions.standard_not_empty }
+  })
 end

@@ -1,13 +1,14 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
+local conditions = require('vacuumline.condition')
 
--- TODO: Conditions
 return function(config)
   -- file icon
   local file_icon = segment({
     id = 'file_icon',
     provider = providers.file.icon,
+    -- condition = conditions.standard_not_empty,
     color = {
       foreground = config.foreground,
       background = config.background,
@@ -29,9 +30,7 @@ return function(config)
     },
   })
 
-  local file = section()
-  file.add_segment(file_icon)
-  file.add_segment(file_name)
-
-  return file
+  return section({ file_icon, file_name }, {
+    conditions = { conditions.standard_not_empty }
+  })
 end

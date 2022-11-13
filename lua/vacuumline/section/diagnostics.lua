@@ -62,11 +62,5 @@ return function(config)
     }
   })
 
-  local diagnostics = section()
-  diagnostics.add_segment(info)
-  diagnostics.add_segment(hint)
-  diagnostics.add_segment(warn)
-  diagnostics.add_segment(error)
-
-  return diagnostics
+  return section({ info, hint, warn, error })
 end

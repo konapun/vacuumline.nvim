@@ -18,8 +18,5 @@ return function(theme)
     }
   })
 
-  local search = section()
-  search.add_segment(search_results)
-
-  return search
+  return section({ search_results })
 end
