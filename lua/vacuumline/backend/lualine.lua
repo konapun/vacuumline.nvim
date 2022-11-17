@@ -1,4 +1,4 @@
-local lualine = require('lualine')
+local backend = require('lualine')
 local statusline = require('vacuumline.backend.lualine.statusline')
 local winbar = require('vacuumline.backend.lualine.winbar')
 
@@ -17,21 +17,24 @@ local function build_lualine(config)
     },
     -- FIXME: this should be part of the statusline module
     sections = {
-      -- these are to remove the defaults
+      -- Remove defaults
       lualine_a = {},
       lualine_b = {},
       lualine_y = {},
       lualine_z = {},
-      -- These will be filled later
+
+      -- Left and right sections for appending
       lualine_c = {},
       lualine_x = {},
     },
     inactive_sections = {
-      -- these are to remove the defaults
+      -- Remove defaults
       lualine_a = {},
       lualine_b = {},
       lualine_y = {},
       lualine_z = {},
+
+      -- Left and right sections for appending
       lualine_c = {},
       lualine_x = {},
     },
@@ -42,6 +45,7 @@ return function(config)
   local lualine = build_lualine(config)
 
   print('USING LUALINE BACKEND')
+  backend.setup(lualine) -- FIXME: might need to do this after in builder? If so, add this to the backend interface
   return {
     statusline = statusline(lualine),
     winbar = winbar(lualine),
