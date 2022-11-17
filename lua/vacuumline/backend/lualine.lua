@@ -11,10 +11,11 @@ local function build_lualine(config)
         -- We are going to use lualine_c an lualine_x as left and
         -- right section. Both are highlighted by c theme .  So we
         -- are just setting default looks o statusline
-        normal = { c = { fg = config.color.foreground.line, bg = config.color.background.line } },
-        inactive = { c = { fg = config.color.foreground.line, bg = config.color.background.line } }, -- FIXME
+        normal = { c = { fg = config.colors.foreground.line, bg = config.colors.background.line } },
+        inactive = { c = { fg = config.colors.foreground.line, bg = config.colors.background.line } }, -- FIXME
       },
     },
+    -- FIXME: this should be part of the statusline module
     sections = {
       -- these are to remove the defaults
       lualine_a = {},
@@ -38,11 +39,11 @@ local function build_lualine(config)
 end
 
 return function(config)
-  local lualine_config = build_lualine(config)
+  local lualine = build_lualine(config)
 
   print('USING LUALINE BACKEND')
   return {
-    statusline = statusline(lualine_config),
-    winbar = winbar(lualine_config),
+    statusline = statusline(lualine),
+    winbar = winbar(lualine),
   }
 end

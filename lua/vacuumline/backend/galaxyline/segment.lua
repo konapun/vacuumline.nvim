@@ -1,7 +1,7 @@
 local get_providers = require('vacuumline.backend.galaxyline.providers')
 local condition = require('galaxyline.condition')
 
--- Initialzie a segment builder with the provided theme
+-- Initialize a segment builder with the provided theme
 return function(config)
   local providers = get_providers(config)
 

@@ -1,24 +1,19 @@
 local get_segment_maker = require('vacuumline.backend.lualine.segment')
 
-return function(config)
-  local make_segment = get_segment_maker(config)
-
-  local function ins_left(component)
-    table.insert(sections.lualine_c, component)
-  end
-
-  local function ins_right(component)
-    table.insert(sections.lualine_x, component)
-  end
+return function(sections)
+  local make_segment = get_segment_maker()
 
   return {
+    -- TODO: status is either active or inactive
     append_left = function(status, segment)
-      print('APPENDING LEFT')
-      -- TODO
+      local component = make_segment(segment, status)
+
+      table.insert(sections.lualine_c, component)
     end,
     append_right = function(status, segment)
-      print('APPENDING RIGHT')
-      -- TODO
+      local component = make_segment(segment, status)
+
+      table.insert(sections.lualine_x, component)
     end,
   }
 end
