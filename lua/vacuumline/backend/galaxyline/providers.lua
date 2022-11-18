@@ -45,27 +45,7 @@ return function(config)
   end
 
   local function file_position()
-    return file.file_position()
-  end
-
-  local function lsp_client()
-    return lsp.get_lsp_client()
-  end
-
-  local function mode_color()
-    local color = mode.mode_color()
-    local id = "mode_color_indicator_active" -- FIXME: Is there a better way to do this?
-
-    vim.api.nvim_command("hi Galaxy"..id.." guifg=" .. color)
-    return '▋'
-  end
-
-  local function mode_label()
-    return mode.mode_label()
-  end
-
-  local function mode_icon()
-    return mode.mode_icon()
+    return file.position()
   end
 
   local function scroll_percent()
@@ -74,6 +54,26 @@ return function(config)
 
   local function scroll_bar()
     return extension.scrollbar_instance()
+  end
+
+  local function lsp_client()
+    return lsp.get_lsp_client()
+  end
+
+  local function mode_color()
+    local color = mode.color()
+    local id = "mode_color_indicator_active" -- FIXME: Is there a better way to do this?
+
+    vim.api.nvim_command("hi Galaxy"..id.." guifg=" .. color)
+    return '▋'
+  end
+
+  local function mode_label()
+    return mode.label()
+  end
+
+  local function mode_icon()
+    return mode.icon()
   end
 
   local function search_results()

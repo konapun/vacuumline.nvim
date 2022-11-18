@@ -1,69 +1,73 @@
 local vim = vim
 local internal_provider = require('vacuumline.provider')
+local diagnostics = require('vacuumline.provider.diagnostics')
+local file = require('vacuumline.provider.file')
+local lsp = require('vacuumline.provider.lsp')
 local get_mode = require('vacuumline.provider.mode')
 local search = require('vacuumline.provider.search')
+local vcs = require('vacuumline.provider.vcs')
 
 return function(config)
-  -- local mode = get_mode(config)
+  local mode = get_mode(config)
 
   local function diagnostic_hint()
-    return 'diagnostic hint' -- TODO
+    return diagnostics.get_diagnostic_hint()
   end
 
   local function diagnostic_warn()
-    return 'diagnostic warn' -- TODO
+    return diagnostics.get_diagnostic_warn()
   end
 
   local function diagnostic_error()
-    return 'diagnostic error' -- TODO
+    return diagnostics.get_diagnostic_error()
   end
 
   local function diagnostic_info()
-    return 'diagnostic info' -- TODO
+    return diagnostics.get_diagnostic_info()
   end
 
   local function file_icon()
-    return 'file icon' -- TODO
+    return file.file_icon()
   end
 
   local function file_name()
-    return 'file name' -- TODO
+    return file.name()
   end
 
   local function file_size()
-    return 'file size' -- TODO
+    return file.size()
   end
 
   local function file_format()
-    return 'file format' -- TODO
+    return file.format()
   end
 
   local function file_position()
-    return 'file position' -- TODO
-  end
-
-  local function lsp_client()
-    return 'lsp client' -- TODO
-  end
-
-  local function mode_color()
-    return 'mode color' -- TODO
-  end
-
-  local function mode_label()
-    return 'mode label' -- TODO
-  end
-
-  local function mode_icon()
-    return 'mode icon' -- TODO
+    return file.position()
   end
 
   local function scroll_percent()
-    return 'scroll percent' -- TODO
+    return file.sroll_percent()
   end
 
   local function scroll_bar()
-    return 'scroll bar' -- TODO
+    return file.scrollbar_instance()
+  end
+
+  local function lsp_client()
+    return lsp.client()
+  end
+
+  local function mode_color()
+    return mode.color()
+  end
+
+  local function mode_label()
+    return mode.label()
+  end
+
+  local function mode_icon()
+    return mode.icon()
   end
 
   local function search_results()
@@ -71,23 +75,23 @@ return function(config)
   end
 
   local function vcs_icon()
-    return ' '
+    return vcs.icon()
   end
 
   local function vcs_branch()
-    return 'vcs branch' -- TODO
+    return vcs.branch()
   end
 
   local function vcs_diff_added()
-    return 'vcs diff added' -- TODO
+    return vcs.diff_added()
   end
 
   local function vcs_diff_modified()
-    return 'vcs diff modified' -- TODO
+    return vcs.diff_modified()
   end
 
   local function vcs_diff_removed()
-    return 'vcs diff removed' -- TODO
+    return vcs.diff_removed()
   end
 
   -- return a mapping from internal provider names to galaxyline provider functions

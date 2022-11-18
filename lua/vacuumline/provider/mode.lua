@@ -39,8 +39,8 @@ return function(config)
   end
 
   return {
-    mode_color = mode_color,
-    mode_label = mode_label,
-    mode_icon = mode_icon,
+    color = mode_color,
+    label = mode_label,
+    icon = mode_icon,
   }
 end
