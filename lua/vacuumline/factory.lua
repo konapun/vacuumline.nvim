@@ -29,13 +29,15 @@ end
 -- Create a factory for a given backend
 return function(backend)
   return {
-    -- statusline provides backend-specific functionality for manipulating the statusline
-    statusline = statusline(backend),
-    -- winbar provides backend-specific functionality for manipulating the winbar
-    winbar = winbar(backend),
-    finish = function() -- FIXME: I don't like this; see if this can be done statelessly
-      return backend.finish()
+    setup = function(build)
+      return backend.setup(function(api)
+        return build({
+          -- statusline provides backend-specific functionality for manipulating the statusline
+          statusline = statusline(api),
+          -- winbar provides backend-specific functionality for manipulating the winbar
+          winbar = winbar(api),
+        })
+      end)
     end
   }
 end
-

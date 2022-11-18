@@ -43,11 +43,15 @@ end
 return function(config)
   local lualine = build_lualine(config)
 
-  return {
+  local api = {
     statusline = statusline(lualine),
     winbar = winbar(lualine),
-    finish = function()
-      backend.setup(lualine) -- FIXME: might need to do this after in builder? If so, add this to the backend interface
+  }
+
+  return {
+    setup = function(build)
+      build(api)
+      backend.setup(lualine)
     end
   }
 end
