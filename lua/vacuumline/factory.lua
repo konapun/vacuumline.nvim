@@ -33,6 +33,9 @@ return function(backend)
     statusline = statusline(backend),
     -- winbar provides backend-specific functionality for manipulating the winbar
     winbar = winbar(backend),
+    finish = function() -- FIXME: I don't like this; see if this can be done statelessly
+      return backend.finish()
+    end
   }
 end
 

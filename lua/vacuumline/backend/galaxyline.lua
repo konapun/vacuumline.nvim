@@ -5,6 +5,6 @@ local winbar = require('vacuumline.winbar.null')
 return function(config)
   return {
     statusline = statusline(galaxyline, config),
-    winbar = winbar,
+    winbar = winbar
   }
 end

@@ -15,7 +15,6 @@ local function build_lualine(config)
         inactive = { c = { fg = config.colors.foreground.line, bg = config.colors.background.line } }, -- FIXME
       },
     },
-    -- FIXME: this should be part of the statusline module
     sections = {
       -- Remove defaults
       lualine_a = {},
@@ -44,10 +43,11 @@ end
 return function(config)
   local lualine = build_lualine(config)
 
-  print('USING LUALINE BACKEND')
-  backend.setup(lualine) -- FIXME: might need to do this after in builder? If so, add this to the backend interface
   return {
     statusline = statusline(lualine),
     winbar = winbar(lualine),
+    finish = function()
+      backend.setup(lualine) -- FIXME: might need to do this after in builder? If so, add this to the backend interface
+    end
   }
 end

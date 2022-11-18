@@ -64,6 +64,7 @@ return function(factory)
 
     build_statusline(statusline)
     build_winbar(winbar)
+    factory.finish() -- FIXME
   end
 
   return build

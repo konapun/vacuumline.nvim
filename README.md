@@ -372,6 +372,20 @@ Sections are styled separately for **active** and **inactive** buffers.
 
 ### Dev Notes
 #### TODO
-- [ ] Unify options passing to segments so the backend doesn't have to
+- [X] Unify options passing to segments so the backend doesn't have to
 - [ ] Recompute options on buffer change to rerender sections reactively (with respect to .next) OR make `next` a function that checks for hidden sections
 - [ ] Adopt lualine's section/component terminology
+- [ ] Modify backend api:
+  ```lua
+  local function build(config)
+    local statusline = get_statusline(config)
+    local winbar = get_winbar(config)
+
+    local initialize = factory.setup(function(api)
+      build_statusline(api.statusline)
+      build_winbar(api.winbar)
+    end)
+    initialize()
+  end
+  ```
+
