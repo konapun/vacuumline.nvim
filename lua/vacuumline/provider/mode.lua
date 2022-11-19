@@ -1,14 +1,13 @@
 local vim = vim
 
 local function get_mode_map(theme)
-  -- TODO: Overrides from theme
   return {
-    n = { label = 'NORMAL', icon = ' ', background = theme.mode_normal.foreground }, -- NORMAL
-    i = { label = 'INSERT', icon = ' ', background = theme.mode_insert.foreground }, -- INSERT
-    c = { label = 'COMMAND', icon = ' ', background = theme.mode_command.foreground }, -- COMMAND
-    v = { label = 'VISUAL', icon = ' ', background = theme.mode_visual.foreground }, -- VISUAL
-    V = { label = 'VISUAL L', icon = ' ', background = theme.mode_visual_line.foreground }, -- VISUAL LINE
-    t = { label = 'TERMINAL', icon = ' ', background = theme.mode_terminal.foreground }, -- TERMINAL
+    n = { label = 'NORMAL', icon = theme.n.label, background = theme.n.background }, -- NORMAL
+    i = { label = 'INSERT', icon = theme.i.label, background = theme.i.background }, -- INSERT
+    c = { label = 'COMMAND', icon = theme.c.label, background = theme.c.background }, -- COMMAND
+    v = { label = 'VISUAL', icon = theme.v.label, background = theme.v.background }, -- VISUAL
+    V = { label = 'VISUAL L', icon = theme.V.label, background = theme.V.background }, -- VISUAL LINE
+    t = { label = 'TERMINAL', icon = theme.t.label, background = theme.t.label }, -- TERMINAL
   }
 end
 
