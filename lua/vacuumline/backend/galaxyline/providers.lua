@@ -10,7 +10,7 @@ local search = require('vacuumline.provider.search')
 local file = require('vacuumline.provider.file')
 
 return function(config)
-  local mode = get_mode(config)
+  local mode = get_mode(config.theme)
 
   local function diagnostic_hint()
     return diagnostic.get_diagnostic_hint()

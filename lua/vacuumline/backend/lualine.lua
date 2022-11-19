@@ -44,7 +44,7 @@ return function(config)
   local lualine = build_lualine(config)
 
   local api = {
-    statusline = statusline(lualine),
+    statusline = statusline(lualine, config),
     winbar = winbar(lualine),
   }
 

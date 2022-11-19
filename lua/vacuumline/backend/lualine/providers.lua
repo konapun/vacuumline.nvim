@@ -8,7 +8,8 @@ local search = require('vacuumline.provider.search')
 local vcs = require('vacuumline.provider.vcs')
 
 return function(config)
-  local mode = get_mode(config)
+  -- FIXME
+  local mode = get_mode(config.theme) -- FIXME: modify and pass config
 
   local function diagnostic_hint()
     return diagnostics.get_diagnostic_hint()

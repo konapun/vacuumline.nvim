@@ -1,7 +1,7 @@
 local get_segment_maker = require('vacuumline.backend.lualine.segment')
 
-return function(lualine)
-  local make_segment = get_segment_maker(lualine)
+return function(lualine, config)
+  local make_segment = get_segment_maker(config)
 
   return {
     -- TODO: status is either active or inactive
