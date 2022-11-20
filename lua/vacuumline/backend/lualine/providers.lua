@@ -11,23 +11,24 @@ return function(config)
   local mode = get_mode(config.active.segments.mode.map)
 
   local function diagnostic_hint()
-    return diagnostics.get_diagnostic_hint()
+    return diagnostics.hint() or ' '
   end
 
   local function diagnostic_warn()
-    return diagnostics.get_diagnostic_warn()
+    return diagnostics.warn() or ' '
+
   end
 
   local function diagnostic_error()
-    return diagnostics.get_diagnostic_error()
+    return diagnostics.error() or ' '
   end
 
   local function diagnostic_info()
-    return diagnostics.get_diagnostic_info()
+    return diagnostics.info() or ' '
   end
 
   local function file_icon()
-    return file.file_icon()
+    return file.icon()
   end
 
   local function file_name()
@@ -47,7 +48,8 @@ return function(config)
   end
 
   local function scroll_percent()
-    return file.sroll_percent()
+    -- return file.scroll_percent()
+    return '5' -- FIXME:
   end
 
   local function scroll_bar()
@@ -59,7 +61,9 @@ return function(config)
   end
 
   local function mode_color()
-    return mode.color()
+    -- FIXME
+    local color = mode.color()
+    return '▋'
   end
 
   local function mode_label()
@@ -71,7 +75,7 @@ return function(config)
   end
 
   local function search_results()
-    return search()
+    return search() or ' '
   end
 
   local function vcs_icon()
@@ -83,15 +87,17 @@ return function(config)
   end
 
   local function vcs_diff_added()
-    return vcs.diff_added()
+    return vcs.diff_added() or ' '
+
   end
 
   local function vcs_diff_modified()
-    return vcs.diff_modified()
+    return vcs.diff_modified() or ' '
+
   end
 
   local function vcs_diff_removed()
-    return vcs.diff_removed()
+    return vcs.diff_removed() or ' '
   end
 
   -- return a mapping from internal provider names to galaxyline provider functions

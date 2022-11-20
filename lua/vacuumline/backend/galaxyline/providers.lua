@@ -1,47 +1,45 @@
 local vim = vim
 local internal_provider = require('vacuumline.provider')
-local extension = require('galaxyline.provider_extensions')
-local diagnostic = require('galaxyline.provider_diagnostic')
-local fileinfo = require('galaxyline.provider_fileinfo')
-local lsp = require('galaxyline.provider_lsp')
-local vcs = require('galaxyline.provider_vcs')
+local diagnostics = require('vacuumline.provider.diagnostics')
+local file = require('vacuumline.provider.file')
+local lsp = require('vacuumline.provider.lsp')
 local get_mode = require('vacuumline.provider.mode')
 local search = require('vacuumline.provider.search')
-local file = require('vacuumline.provider.file')
+local vcs = require('vacuumline.provider.vcs')
 
 return function(config)
   local mode = get_mode(config.active.segments.mode.map)
 
   local function diagnostic_hint()
-    return diagnostic.get_diagnostic_hint()
+    return diagnostics.hint()
   end
 
   local function diagnostic_warn()
-    return diagnostic.get_diagnostic_warn()
+    return diagnostics.warn()
   end
 
   local function diagnostic_error()
-    return diagnostic.get_diagnostic_error()
+    return diagnostics.error()
   end
 
   local function diagnostic_info()
-    return diagnostic.get_diagnostic_info()
+    return diagnostics.info()
   end
 
   local function file_icon()
-    return fileinfo.get_file_icon()
+    return file.icon()
   end
 
   local function file_name()
-    return fileinfo.get_current_file_name()
+    return file.name()
   end
 
   local function file_size()
-    return fileinfo.get_file_size()
+    return file.size()
   end
 
   local function file_format()
-    return fileinfo.get_file_format()
+    return file.format()
   end
 
   local function file_position()
@@ -49,22 +47,22 @@ return function(config)
   end
 
   local function scroll_percent()
-    return fileinfo.current_line_percent()
+    return file.scroll_percent()
   end
 
   local function scroll_bar()
-    return extension.scrollbar_instance()
+    return file.scrollbar_instance()
   end
 
   local function lsp_client()
-    return lsp.get_lsp_client()
+    return lsp.client()
   end
 
   local function mode_color()
     local color = mode.color()
     local id = "mode_color_indicator_active" -- FIXME: Is there a better way to do this?
 
-    vim.api.nvim_command("hi Galaxy"..id.." guifg=" .. color)
+    vim.api.nvim_command("hi Galaxy" .. id .. " guifg=" .. color)
     return '▋'
   end
 
@@ -81,15 +79,15 @@ return function(config)
   end
 
   local function vcs_icon()
-    return ' '
+    return vcs.icon()
   end
 
   local function vcs_branch()
-    return vcs.get_git_branch()
+    return vcs.branch()
   end
 
   local function vcs_diff_added()
-    return vcs.diff_add()
+    return vcs.diff_added()
   end
 
   local function vcs_diff_modified()
@@ -97,7 +95,7 @@ return function(config)
   end
 
   local function vcs_diff_removed()
-    return vcs.diff_remove()
+    return vcs.diff_removed()
   end
 
   -- return a mapping from internal provider names to galaxyline provider functions

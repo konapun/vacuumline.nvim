@@ -106,7 +106,7 @@ local function get_hunks_data()
 end
 
 local function get_icon()
-  return '' -- TODO: other VCS
+  return ' ' -- TODO: other VCS
 end
 
 local function get_branch()

@@ -1,51 +1,70 @@
-local condition = require('galaxyline.condition')
 local vim = vim
 
-local M = {}
+local function buffer_not_empty()
+  return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
+end
 
--- galaxyline conditions
-M.buffer_not_empty = condition.buffer_not_empty
-M.hide_in_width = condition.hide_in_width
+local function hide_in_width()
+  local squeeze_width = vim.fn.winwidth(0) / 2
+  return squeeze_width > 50
+end
 
--- extensions
-
-function M.check_width(width)
+local function check_width(width)
   return vim.fn.winwidth(0) > width
 end
 
-function M.gen_check_width(width)
+local function gen_check_width(width)
   return function()
-    return M.check_width(width)
+    return check_width(width)
   end
 end
 
 -- Guarantees that mode will never be hidden
-function M.guarantee_mode()
-  return M.check_width(10)
+local function guarantee_mode()
+  return check_width(10)
 end
 
-function M.standard()
-  return M.guarantee_mode()
+local function standard()
+  return guarantee_mode()
 end
 
 -- Buffer not empty and guarantee mode
-function M.standard_not_empty()
-  return M.buffer_not_empty() and M.guarantee_mode()
+local function standard_not_empty()
+  return buffer_not_empty() and guarantee_mode()
 end
 
-function M.gen_standard_not_empty(width)
+local function gen_standard_not_empty(width)
   return function()
-    return M.standard_not_empty() and M.check_width(width)
+    return standard_not_empty() and check_width(width)
   end
 end
 
-function M.is_terminal(window)
+local function is_terminal(window)
   window = window or 0
   return vim.bo[window].buftype == 'terminal'
 end
 
-function M.not_terminal(window)
-  return not M.is_terminal(window)
+local function not_terminal(window)
+  return not is_terminal(window)
 end
 
-return M
+local function check_vcs()
+  local filepath = vim.fn.expand('%:p:h')
+  local gitdir = vim.fn.finddir('.git', filepath .. ';')
+
+  return gitdir and #gitdir > 0 and #gitdir < #filepath
+end
+
+return {
+  buffer_not_empty = buffer_not_empty,
+  hide_in_width = hide_in_width,
+  check_width = check_width,
+  gen_check_width = gen_check_width,
+  guarantee_mode = guarantee_mode,
+  standard = standard,
+  standard_not_empty = standard_not_empty,
+  gen_standard_not_empty = gen_standard_not_empty,
+  is_terminal = is_terminal,
+  not_terminal = not_terminal,
+  check_vcs = check_vcs,
+}

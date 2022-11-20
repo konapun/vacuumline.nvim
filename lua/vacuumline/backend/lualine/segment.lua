@@ -6,20 +6,21 @@ return function(config)
 
   return function(segment)
     local color = segment.color
-    local separator = segment.separator -- FIXME: I don't think lualine needs this
+    local separator = segment.separator
     local provider = providers[segment.provider]
 
-    -- format is prodvider
     return {
       provider,
       condition = segment.condition,
       icon = segment.icon, -- FIXME: Is this needed?
-      color = {
-        fg = color.foreground,
-        bg = color.background,
-      },
-      -- TODO: separator config per segment?
-      separator = separator.symbol,
+      color = function()
+        return {
+          fg = color.foreground,
+          bg = color.background,
+        }
+      end,
+      padding = { left = 0, right = 0 },
+      separator = { left = separator.symbol, right = separator.symbol }, -- FIXME
     }
   end
 end

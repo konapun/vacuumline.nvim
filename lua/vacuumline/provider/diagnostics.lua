@@ -62,8 +62,8 @@ local function get_diagnostic_info()
 end
 
 return {
-  get_diagnostic_hint = get_diagnostic_hint,
-  get_diagnostic_info = get_diagnostic_info,
-  get_diagnostic_warn = get_diagnostic_warn,
-  get_diagnostic_error = get_diagnostic_error,
+  hint = get_diagnostic_hint,
+  info = get_diagnostic_info,
+  warn = get_diagnostic_warn,
+  error = get_diagnostic_error,
 }
