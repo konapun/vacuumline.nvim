@@ -10,6 +10,7 @@ return function(config)
     id = 'file_icon',
     provider = providers.file.icon,
     formatter = formatters.pad_before,
+    condition = conditions.combine(conditions.standard_not_empty, conditions.has_focus),
     color = {
       foreground = config.foreground,
       background = config.background,
@@ -31,7 +32,5 @@ return function(config)
     },
   })
 
-  return section({ file_icon, file_name }, {
-    conditions = { conditions.standard_not_empty }
-  })
+  return section({ file_icon, file_name })
 end

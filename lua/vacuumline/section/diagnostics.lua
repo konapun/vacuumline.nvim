@@ -5,7 +5,6 @@ local condition = require('vacuumline.condition')
 
 -- TODO: Conditions
 return function(config)
-  -- print('Diagnostics config', vim.inspect(config))
   local info = segment({
     id = 'diagnostics_info',
     provider = providers.diagnostics.info,

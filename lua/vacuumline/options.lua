@@ -90,10 +90,40 @@ local function get_inactive_config(active_config)
     }
   }
 
+  local active_segments = active_config.segments
+  local segments = {
+    diagnostics = {
+      background = colors.background.line,
+      errors = {
+        foreground = active_segments.diagnostics.errors.background,
+        background = colors.background.line
+      },
+      warnings = {
+        foreground = active_segments.diagnostics.warnings.background,
+        background = colors.background.line
+      },
+      info = {
+        foreground = active_segments.diagnostics.info.background,
+        background = colors.background.line
+      },
+      hint = {
+        foreground = active_segments.diagnostics.hint.background,
+        background = colors.background.line
+      }
+    },
+    file = active_segments.file,
+    lines = active_segments.lines,
+    lsp = active_segments.lsp,
+    mode = active_segments.mode,
+    scroll = active_segments.scroll,
+    search = active_segments.search,
+    vcs = active_segments.vcs
+  }
+
   return {
     colors = colors,
     separator = separator,
-    segments = active_config.segments
+    segments = segments
   }
 end
 

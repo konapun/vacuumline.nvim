@@ -23,6 +23,7 @@ local sections = {
     },
     inactive = {
       section_factory.lines(),
+      section_factory.diagnostics(),
       section_factory.scroll()
     }
   }

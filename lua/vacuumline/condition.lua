@@ -1,5 +1,19 @@
 local vim = vim
 
+local function combine(...)
+  local conditions = {...}
+
+  return function()
+    for _, condition in ipairs(conditions) do
+      if not condition() then
+        return false
+      end
+    end
+
+    return true
+  end
+end
+
 local function buffer_not_empty()
   return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
 end
@@ -55,7 +69,15 @@ local function check_vcs()
   return gitdir and #gitdir > 0 and #gitdir < #filepath
 end
 
+local function has_focus()
+  -- FIXME
+  -- return vim.g.statusline_winid == vim.fn.win_getid()
+  return true
+end
+
 return {
+  combine = combine,
+  has_focus = has_focus,
   buffer_not_empty = buffer_not_empty,
   hide_in_width = hide_in_width,
   check_width = check_width,
@@ -66,5 +88,5 @@ return {
   gen_standard_not_empty = gen_standard_not_empty,
   is_terminal = is_terminal,
   not_terminal = not_terminal,
-  check_vcs = check_vcs,
+  check_vcs = check_vcs
 }
