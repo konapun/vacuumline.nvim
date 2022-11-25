@@ -8,7 +8,7 @@ return function(theme)
   local file_format = segment({
     id = 'file_format',
     provider = providers.file.format,
-    formatter = formatters.pad,
+    formatter = formatters.pad_before,
     color = {
       foreground = theme.foreground,
       background = theme.background,

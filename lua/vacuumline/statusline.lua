@@ -22,8 +22,8 @@ local sections = {
       section_factory.scroll()
     },
     inactive = {
-      --[[ section_factory.lines(),
-      section_factory.scroll() ]]
+      section_factory.lines(),
+      section_factory.scroll()
     }
   }
 }

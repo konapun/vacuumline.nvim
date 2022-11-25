@@ -12,7 +12,7 @@ local function make_padding(spaces_before, spaces_after)
   end
 end
 
-local function pad(fn)
+local function pad_before(fn)
   return function()
     local padder = make_padding(1)
     local value = fn()
@@ -30,7 +30,17 @@ local function pad_after(fn)
   end
 end
 
+local function pad(fn)
+  return function()
+    local padder = make_padding(1, 1)
+    local value = fn()
+
+    return padder(value)
+  end
+end
+
 return {
-  pad = pad,
-  pad_after = pad_after
+  pad_before = pad_before,
+  pad_after = pad_after,
+  pad = pad
 }

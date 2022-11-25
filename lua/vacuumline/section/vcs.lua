@@ -8,7 +8,7 @@ return function(config)
   local vcs_icon = segment({
     id = 'vcs_icon',
     provider = providers.vcs.icon,
-    formatter = formatters.pad,
+    formatter = formatters.pad_before,
     color = {
       foreground = config.foreground,
       background = config.background,

@@ -64,6 +64,39 @@ local function get_default_options(theme)
   }
 end
 
+local function get_inactive_config(active_config)
+  local active_colors = active_config.colors
+  local colors = {
+    background = {
+      even = active_colors.background.line,
+      odd = active_colors.background.line,
+      line = active_colors.background.line
+    },
+    foreground = {
+      even = active_colors.background.even,
+      odd = active_colors.background.even,
+      line = active_colors.foreground.line
+    }
+  }
+
+  local separator = {
+    section = {
+      left = '',
+      right = ''
+    },
+    segment = {
+      left = '',
+      right = ''
+    }
+  }
+
+  return {
+    colors = colors,
+    separator = separator,
+    segments = active_config.segments
+  }
+end
+
 local function index_segments(segments)
   local indexed_segments = {}
   for _, segment in ipairs(segments) do
@@ -139,18 +172,17 @@ local function format_options(options)
     lsp = util.merge(default_options.segment.lsp, segment_opts.lsp)
   }
 
+  local active_config = {
+      colors = color_config,
+      separator = separator_config,
+      segments = segment_config
+  }
+  local inactive_config = get_inactive_config(active_config)
+
   return {
     backend = opts.backend or require('vacuumline.backend.galaxyline'),
-    active = {
-      colors = color_config,
-      separator = separator_config,
-      segments = segment_config
-    },
-    inactive = {
-      colors = color_config,
-      separator = separator_config,
-      segments = segment_config
-    },
+    active = active_config,
+    inactive = inactive_config,
     colors = color_config,
     separator = separator_config,
     segments = segment_config

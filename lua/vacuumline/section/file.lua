@@ -9,8 +9,7 @@ return function(config)
   local file_icon = segment({
     id = 'file_icon',
     provider = providers.file.icon,
-    formatter = formatters.pad,
-    -- condition = conditions.standard_not_empty,
+    formatter = formatters.pad_before,
     color = {
       foreground = config.foreground,
       background = config.background,
