@@ -1,3 +1,5 @@
+-- TODO: might as well just use the provider functions directly rather than mapping them from strings since all supported statuslines use provider fns
+
 -- These are to be used internally by segments and will be transformed by the specific backend
 return {
   diagnostics = {
