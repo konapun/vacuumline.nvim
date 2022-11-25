@@ -3,7 +3,7 @@ local vim = vim
 -- Perform a full merge over variadic tables
 local function merge(...)
   local result = {}
-  for _, table in ipairs({...}) do
+  for _, table in ipairs({ ... }) do
     for key, value in pairs(table) do
       if type(value) == 'table' then
         if type(result[key] or false) == 'table' then
@@ -19,6 +19,7 @@ local function merge(...)
   return result
 end
 
+-- Map a function over a table
 local function map(tbl, fn)
   local result = {}
   for key, value in pairs(tbl) do

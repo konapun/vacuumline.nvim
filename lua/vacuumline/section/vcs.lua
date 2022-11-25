@@ -2,11 +2,13 @@ local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 local conditions = require('vacuumline.condition')
+local formatters = require('vacuumline.formatter')
 
 return function(config)
   local vcs_icon = segment({
     id = 'vcs_icon',
     provider = providers.vcs.icon,
+    formatter = formatters.pad,
     color = {
       foreground = config.foreground,
       background = config.background,
@@ -17,6 +19,7 @@ return function(config)
   local vcs_branch = segment({
     id = 'vcs_branch',
     provider = providers.vcs.branch,
+    formatter = formatters.pad_after,
     color = {
       foreground = config.foreground,
       background = config.background,

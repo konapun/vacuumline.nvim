@@ -1,12 +1,14 @@
 local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
+local formatters = require('vacuumline.formatter')
 
 return function(theme)
   -- file format
   local file_format = segment({
     id = 'file_format',
     provider = providers.file.format,
+    formatter = formatters.pad,
     color = {
       foreground = theme.foreground,
       background = theme.background,
@@ -22,6 +24,7 @@ return function(theme)
   local line_column = segment({
     id = 'line_column',
     provider = providers.file.position,
+    formatter = formatters.pad_after,
     color = {
       foreground = theme.foreground,
       background = theme.background,

@@ -2,12 +2,14 @@ local segment = require('vacuumline.segment')
 local section = require('vacuumline.section')
 local providers = require('vacuumline.provider')
 local conditions = require('vacuumline.condition')
+local formatters = require('vacuumline.formatter')
 
 return function(config)
   -- file icon
   local file_icon = segment({
     id = 'file_icon',
     provider = providers.file.icon,
+    formatter = formatters.pad,
     -- condition = conditions.standard_not_empty,
     color = {
       foreground = config.foreground,

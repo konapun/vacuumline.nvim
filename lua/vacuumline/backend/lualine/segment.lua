@@ -10,7 +10,7 @@ return function(config)
     local provider = providers[segment.provider]
 
     return {
-      provider,
+      segment.formatter(provider),
       condition = segment.condition,
       icon = segment.icon, -- FIXME: Is this needed?
       color = function()

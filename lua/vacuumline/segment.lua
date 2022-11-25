@@ -10,6 +10,10 @@ local function combine_conditions(conditions)
   end
 end
 
+local function identity(value)
+  return value
+end
+
 -- The segment observer surfaces resize events to the segment
 local segment_observer = function(segment)
   return {
@@ -38,6 +42,7 @@ return function(definition)
   local segment = {
     id = definition.id,
     provider = definition.provider,
+    formatter = definition.formatter or identity,
     condition = definition.condition or nil, -- FIXME
     icon = definition.icon or nil, -- FIXME: is this needed? Is there a lualine equivalent?
     color = {
