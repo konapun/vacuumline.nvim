@@ -12,6 +12,26 @@ local function make_padding(spaces_before, spaces_after)
   end
 end
 
+local function combine(...)
+  local formatters = {...}
+
+  return function(value)
+    for _, formatter in ipairs(formatters) do
+      value = formatter(value)
+    end
+
+    return value
+  end
+end
+
+local function truncate(fn)
+  return function()
+    local value = fn()
+
+    return value:sub(1, 8) -- FIXME
+  end
+end
+
 local function pad_before(fn)
   return function()
     local padder = make_padding(1)
@@ -40,6 +60,8 @@ local function pad(fn)
 end
 
 return {
+  combine = combine,
+  truncate = truncate,
   pad_before = pad_before,
   pad_after = pad_after,
   pad = pad
