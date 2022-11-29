@@ -375,6 +375,7 @@ Sections are styled separately for **active** and **inactive** buffers.
 - [X] Unify options passing to segments so the backend doesn't have to
 - [X] Modify backend api
 - [ ] Shrink/Grow behavior (using layout and formatters)
+- [ ] Performance testing
 - [ ] Recompute options on buffer change to rerender sections reactively (with respect to .next) OR make `next` a function that checks for hidden sections
 - [ ] Use providers directly?
 - [ ] Adopt lualine's section/component terminology

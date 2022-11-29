@@ -27,7 +27,9 @@ end
 -- test window width against a priority
 local function shrink_with_priority(priority)
   return function()
-    return vim.fn.winwidth(0) / 2 > priority
+    -- return vim.fn.winwidth(0) / 2 > priority
+    print('Winwidth:', vim.fn.winwidth(0))
+    return true
   end
 end
 

@@ -21,6 +21,7 @@ return function(config)
   local file_name = segment({
     id = 'file_name',
     provider = providers.file.name,
+    condition = conditions.shrink_with_priority(1),
     color = {
       foreground = config.foreground,
       background = config.background,
