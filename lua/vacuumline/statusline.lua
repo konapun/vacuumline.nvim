@@ -1,4 +1,5 @@
 local section_factory = require('vacuumline.section_factory')
+local make_layout = require('vacuumline.layout')
 local options = require('vacuumline.options')
 local util = require('vacuumline.util')
 
@@ -42,6 +43,8 @@ end
 
 -- Return an internal representation of the statusline
 return function(config)
+  local layout = make_layout()
+
   local left_active_config = options.format_sections(sections.left.active, 'left', config.active)
   local left_inactive_config = options.format_sections(sections.left.inactive, 'left', config.inactive)
   local right_active_config = options.format_sections(sections.right.active, 'right', config.active)

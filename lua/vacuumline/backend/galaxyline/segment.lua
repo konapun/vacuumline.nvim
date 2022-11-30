@@ -15,7 +15,7 @@ return function(config)
 
     return {
       [segment_key] = {
-        provider = segment.formatter(provider),
+        provider = segment.formatter(provider), -- FIXME: Do this in vacuumline/segment
         condition = segment.condition,
         icon = segment.icon, -- FIXME: This probably isn't needed since it can be part of the provider
         highlight = { color.foreground, color.background },

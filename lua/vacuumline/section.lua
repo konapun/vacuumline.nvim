@@ -9,7 +9,16 @@ return function(segments, settings)
     end
   end
 
+  local function get_size()
+    local size = 0
+    for _, segment in ipairs(segments) do
+      size = size + segment.get_size()
+    end
+    return size
+  end
+
   return {
     segments = segments,
+    get_size = get_size
   }
 end
