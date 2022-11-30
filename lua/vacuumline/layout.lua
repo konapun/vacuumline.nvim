@@ -10,6 +10,10 @@ layout.allocate(mode, {
 return function()
   local registry = {} -- track sections under layout management
 
+  local function measure(section)
+    return section.get_size() -- TODO
+  end
+
   local function allocate(section, config)
     registry[section.id] = {
       priority = config.priority or 10,

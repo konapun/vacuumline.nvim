@@ -19,12 +19,34 @@ end
 return function(definition)
   local color = definition.color or {}
   local separator = definition.separator or {}
+  local cache = {
+    size = 0
+  }
+
+  -- cache the length of the rendered segment for size calculation
+  local function enhance_formatter(formatter)
+    return function(provider)
+      local format = formatter(provider)
+      return function(...)
+        local value = format(...)
+        if value then
+          cache.size = #value
+        end
+
+        return value
+      end
+    end
+  end
+
+  local function get_size()
+    return cache.size
+  end
 
   -- FIXME: better defaults
   local segment = {
     id = definition.id,
     provider = definition.provider,
-    formatter = definition.formatter or identity,
+    formatter = enhance_formatter(definition.formatter or identity),
     condition = definition.condition or nil,
     icon = definition.icon or nil, -- FIXME: is this needed? Is there a lualine equivalent?
     color = {
@@ -41,16 +63,9 @@ return function(definition)
 
   return {
     definition = segment,
+    get_size = get_size,
     add_condition = function(condition)
       segment.condition = condition --combine_conditions({ segment.condition, condition }) FIXME: add this back
-    end,
-    add_behavior = function(behavior, fn)
-      -- TODO
-      if behavior == 'shrink' then
-        behaviors.shrink = fn
-      elseif behavior == 'grow' then
-      end
-      behaviors.grow = fn
     end,
   }
 end
