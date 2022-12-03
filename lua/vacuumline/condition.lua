@@ -1,5 +1,6 @@
 local vim = vim
 
+-- Generate a new condition which is the AND of all passed conditions
 local function combine(...)
   local conditions = {...}
 

@@ -22,6 +22,6 @@ return function(config)
   })
 
   return section({ client }, {
-    conditions = { conditions.standard_not_empty }
+    conditions = { conditions.buffer_not_empty }
   })
 end

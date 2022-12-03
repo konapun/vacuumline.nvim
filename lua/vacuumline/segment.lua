@@ -1,14 +1,4 @@
--- Given a list of condition functions, return a single function that executes all conditions
-local function combine_conditions(conditions)
-  return function()
-    for _, condition in ipairs(conditions) do
-      if not condition() then
-        return false
-      end
-    end
-    return true
-  end
-end
+local conditions = require('vacuumline.condition')
 
 local function identity(value)
   return value
@@ -39,18 +29,12 @@ return function(definition)
     },
   }
 
+  local function add_condition(condition)
+    segment.condition = conditions.combine(segment.condition, condition)
+  end
+
   return {
     definition = segment,
-    add_condition = function(condition)
-      segment.condition = condition --combine_conditions({ segment.condition, condition }) FIXME: add this back
-    end,
-    add_behavior = function(behavior, fn)
-      -- TODO
-      if behavior == 'shrink' then
-        behaviors.shrink = fn
-      elseif behavior == 'grow' then
-      end
-      behaviors.grow = fn
-    end,
+    add_condition = add_condition,
   }
 end

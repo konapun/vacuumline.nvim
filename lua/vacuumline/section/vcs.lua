@@ -65,6 +65,6 @@ return function(config)
   -- TODO: Add separator separately so that individual segments can be hidden
 
   return section({ vcs_icon, vcs_branch, diff_add, diff_modified, diff_remove }, {
-    conditions = { conditions.standard_not_empty, conditions.check_vcs }
+    conditions = { conditions.buffer_not_empty, conditions.check_vcs }
   })
 end

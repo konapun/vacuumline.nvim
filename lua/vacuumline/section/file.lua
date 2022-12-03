@@ -10,7 +10,7 @@ return function(config)
     id = 'file_icon',
     provider = providers.file.icon,
     formatter = formatters.pad_before,
-    condition = conditions.combine(conditions.standard_not_empty, conditions.has_focus),
+    condition = conditions.combine(conditions.buffer_not_empty, conditions.has_focus),
     color = {
       foreground = config.foreground,
       background = config.background,
