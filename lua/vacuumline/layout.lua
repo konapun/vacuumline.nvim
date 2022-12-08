@@ -1,6 +1,11 @@
 local vim = vim
 
 --[[
+The layout engine is responsible for calculating sizing for grow/shrink behavior of sections based on
+their priority and available space.
+--]]
+
+--[[
 local layout = make_layout()
 layout.allocate(mode, {
   priority = layout_priority.MAX,
