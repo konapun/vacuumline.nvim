@@ -2,6 +2,7 @@
 
 -- These are to be used internally by segments and will be transformed by the specific backend
 return {
+  noop = 'noop',
   diagnostics = {
     hint = 'diagnostic_hint',
     warn = 'diagnostic_warn',

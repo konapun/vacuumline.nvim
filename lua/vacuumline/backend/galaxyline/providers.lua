@@ -1,5 +1,6 @@
 local vim = vim
 local internal_provider = require('vacuumline.provider')
+local noop = require('vacuumline.provider.noop')
 local diagnostics = require('vacuumline.provider.diagnostics')
 local file = require('vacuumline.provider.file')
 local lsp = require('vacuumline.provider.lsp')
@@ -100,6 +101,9 @@ return function(config)
 
   -- return a mapping from internal provider names to galaxyline provider functions
   return {
+    -- noop
+    [internal_provider.noop] = noop,
+
     -- diagnostics
     [internal_provider.diagnostics.hint] = diagnostic_hint,
     [internal_provider.diagnostics.warn] = diagnostic_warn,

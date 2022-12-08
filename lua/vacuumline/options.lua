@@ -59,6 +59,10 @@ local function get_default_options(theme)
       lsp = {
         foreground = theme.line.foreground,
         background = theme.line.background
+      },
+      reset = {
+        foreground = theme.line.foreground,
+        background = theme.line.background
       }
     }
   }
@@ -117,7 +121,8 @@ local function get_inactive_config(active_config)
     mode = active_segments.mode,
     scroll = active_segments.scroll,
     search = active_segments.search,
-    vcs = active_segments.vcs
+    vcs = active_segments.vcs,
+    reset = active_segments.reset
   }
 
   return {
@@ -199,7 +204,8 @@ local function format_options(options)
     lines = util.merge(default_options.segment.lines, segment_opts.lines),
     diagnostics = util.merge(default_options.segment.diagnostics, segment_opts.diagnostics),
     search = util.merge(default_options.segment.search, segment_opts.search),
-    lsp = util.merge(default_options.segment.lsp, segment_opts.lsp)
+    lsp = util.merge(default_options.segment.lsp, segment_opts.lsp),
+    reset = default_options.segment.reset
   }
 
   local active_config = {

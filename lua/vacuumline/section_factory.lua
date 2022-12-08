@@ -31,4 +31,8 @@ return {
     local scroll = require('vacuumline.section.scroll')
     return {'scroll', function(config) return scroll(config.scroll) end}
   end,
+  reset = function()
+    local reset = require('vacuumline.section.reset')
+    return {'reset', function(config) return reset(config.reset) end}
+  end
 }

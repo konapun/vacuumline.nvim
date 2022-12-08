@@ -7,10 +7,14 @@ local sections = {
     active = {
       section_factory.mode(),
       section_factory.file(),
-      section_factory.vcs()
+      section_factory.vcs(),
+
+      section_factory.reset()
     },
     inactive = {
-      section_factory.file()
+      section_factory.file(),
+
+      section_factory.reset()
     }
   },
   right = {
@@ -19,12 +23,12 @@ local sections = {
       section_factory.search(),
       section_factory.lines(),
       section_factory.diagnostics(),
-      section_factory.scroll()
+      section_factory.scroll(),
     },
     inactive = {
       section_factory.lines(),
       section_factory.diagnostics(),
-      section_factory.scroll()
+      section_factory.scroll(),
     }
   }
 }
